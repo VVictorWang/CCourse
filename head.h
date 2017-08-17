@@ -161,6 +161,17 @@ void on_classInfo_delete_clicked(GtkWidget *);
 
 void reload_classInfo_list(void);
 
+void studentInfo_method(void);
+
+void on_studentInfo_add_clicked(GtkWidget *, gpointer);
+
+void on_studentInfo_modify_clicked(GtkWidget *, gpointer);
+
+void on_studentInfo_delete_clicked(GtkWidget *);
+
+void reload_studentInfo_list(void);
+
+void on_province_combo_changed(GtkWidget *, gpointer);
 
 
 //界面辅助类函数

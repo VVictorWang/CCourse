@@ -603,7 +603,7 @@ void on_confirm_clicked(GtkWidget * widget)
             classInfo_method();
             break;
         case 3:
-//            media_method();
+            studentInfo_method();
             break;
     }
 }
