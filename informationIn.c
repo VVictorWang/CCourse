@@ -1,0 +1,126 @@
+//
+// Created by victor on 8/17/17.
+//
+#include "head.h"
+
+void gradeInfoIn(GradeInfo *head, const char **str) {
+    strcpy((*head)->CSNo, str[0]);
+    strcpy((*head)->Year, str[1]);
+    (*head)->InNo = atoi(str[2]);
+    (*head)->GraduateNo = atoi(str[3]);
+    strcpy((*head)->MentorName, str[4]);
+    strcpy((*head)->MentorNo, str[5]);
+    strcpy((*head)->ChairmanName, str[6]);
+    strcpy((*head)->ChairmanNo, str[7]);
+}
+
+void classInfoIn(ClassInfo *head, const char **str) {
+    strcpy((*head)->GradeNo, str[0]);
+    strcpy((*head)->CNo, str[1]);
+    strcpy((*head)->FullName, str[2]);
+    (*head)->InNo = atoi(str[3]);
+    (*head)->AverageAge = (float) atof(str[4]);
+    (*head)->GraduateNo = atoi(str[5]);
+    strcpy((*head)->MonitorName, str[6]);
+    strcpy((*head)->MonitorNo, str[7]);
+    strcpy((*head)->MentorName, str[8]);
+    strcpy((*head)->MentorNo, str[9]);
+
+}
+void studentInfoIn(StudentInfo *head, const char **str){
+    strcpy((*head)->ClassNo, str[0]);
+    strcpy((*head)->CNo, str[1]);
+    strcpy((*head)->Name, str[2]);
+    (*head)->sex = *str[3];
+    strcpy((*head)->Birthplace, str[4]);
+    strcpy((*head)->Birthday, str[5]);
+    strcpy((*head)->Number, str[6]);
+    (*head)->InScore = (float) atof(str[7]);
+    (*head)->HasGraduated = *str[8];
+    strcpy((*head)->GraduateTo, str[9]);
+}
+
+
+/**
+ * @name inputGradeInfo
+ * @function 录入年级信息
+ * @param head 主链表头结点指针
+ * @param str 指向存储用户输入的信息
+ * @return none
+ */
+void inputGradeInfo(GradeInfo head, const char **str) {
+    GradeInfo tail = head;
+    while (tail->next != NULL)
+        tail = tail->next;
+    tail->next = (GradeInfo) malloc(sizeof(GRADEInfo));
+    tail = tail->next;
+    gradeInfoIn(&tail, str);
+//    strcpy(tail->CSNo, str[0]);
+//    strcpy(tail->ProvLeader,str[1]);
+//    strcpy(tail->ProvTel,str[2]);
+    tail->Classes = (ClassInfo) malloc(sizeof(CLASSInfo));
+    tail->Classes->next = NULL;
+    tail->next = NULL;
+}
+
+/**
+ * @name inputClassInfo
+ * @function 录入班级信息
+ * @param head  主链表头结点指针
+ * @param str 指向存储用户输入的信息
+ * @return none
+ */
+void inputClassInfo(GradeInfo head, const char **str) {
+    GradeInfo tail = head;
+    while (tail->next != NULL) {
+        tail = tail->next;
+        if (!strcmp(str[0], tail->CSNo)) {
+            ClassInfo tail1 = tail->Classes;
+            while (tail1->next != NULL)
+                tail1 = tail1->next;
+            tail1->next = (ClassInfo) malloc(sizeof(CLASSInfo));
+            tail1 = tail1->next;
+            classInfoIn(&tail1, str);
+            tail1->Students = (StudentInfo) malloc(sizeof(STUDENTInfo));
+            tail1->Students->next = NULL;
+            tail1->next = NULL;
+            break;
+        }
+    }
+}
+
+/**
+ * @name inputStudentInfo
+ * @function 录入学生信息.
+ * @param head 主链表头结点指针
+ * @param str 指向存储用户输入的信息
+ * @return: none
+ *
+ */
+void inputStudentInfo(GradeInfo head, const char **str) {
+    GradeInfo tail = head;
+    int flag = 0;
+    while (tail->next != NULL) {
+        tail = tail->next;
+        ClassInfo tail1 = tail->Classes;
+        while (tail1->next != NULL) {
+            tail1 = tail1->next;
+            if (!strcmp(tail1->CNo, str[0])) {
+                flag = 1;
+                StudentInfo tail2 = tail1->Students;
+                while (tail2->next != NULL)
+                    tail2 = tail2->next;
+                tail2->next = (StudentInfo) malloc(sizeof(STUDENTInfo));
+                tail2 = tail2->next;
+                studentInfoIn(&tail2, str);
+                tail2->next = NULL;
+                tail = head;
+                break;
+            }
+        }
+        if (flag)
+            break;
+    }
+}
+
+
