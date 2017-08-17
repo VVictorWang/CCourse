@@ -6,11 +6,11 @@
 
 /**
  * @name deleteGradeInfo
- * @function 删除年级信息.
- * @param head 链表头结点指针
- * @param str 用户输入的年级编号
+ * @function delete the gradeInfo
+ * @param head: the head of the list
+ * @param str: the No of the grade
  * @return none
- * 调用说明: 原年级下的班级及学生信息将丢失
+ * @details: the students' information and the classes' information of the grade will be lost
  */
 void deleteGradeInfo(GradeInfo head, char *str) {
     GradeInfo tail = head;
@@ -28,11 +28,11 @@ void deleteGradeInfo(GradeInfo head, char *str) {
 
 /**
  * @name deleteClassInfo
- * @function 删除班级信息.
- * @param head 链表头结点指针
- * @param str 用户输入的班级编号
+ * @function delete the classInfo
+ * @param head: the head of the list
+ * @param str: the No of the class
  * @return none
- * 调用说明: 原省份下的学生信息将丢失
+ * @details: the students' information of the class will be lost
  */
 void deleteClassInfo(GradeInfo head, char *str) {
     GradeInfo tail = head;
@@ -54,9 +54,9 @@ void deleteClassInfo(GradeInfo head, char *str) {
 
 /**
  * @name deleteStudentInfo
- * @function 删除学生信息.
- * @param head 链表头结点指针
- * @param str 用户输入的报道编号
+ * @function delete the studentInfo
+ * @param head: the head of the list
+ * @param str: the No of the student
  * @return none
  */
 void deleteStudentInfo(GradeInfo head, char *str) {

@@ -3,6 +3,13 @@
 //
 #include "head.h"
 
+/**
+ * @name gradeInfoIn
+ * @function save the gradeInfo into a node
+ * @param head the node to be inserted
+ * @param str the information that user inputs
+ * @return none
+ */
 void gradeInfoIn(GradeInfo *head, const char **str) {
     strcpy((*head)->CSNo, str[0]);
     strcpy((*head)->Year, str[1]);
@@ -14,6 +21,13 @@ void gradeInfoIn(GradeInfo *head, const char **str) {
     strcpy((*head)->ChairmanNo, str[7]);
 }
 
+/**
+ * @name classInfoIn
+ * @function save the classInfo into a node
+ * @param head the node to be inserted
+ * @param str the information that user inputs
+ * @return none
+ */
 void classInfoIn(ClassInfo *head, const char **str) {
     strcpy((*head)->GradeNo, str[0]);
     strcpy((*head)->CNo, str[1]);
@@ -27,6 +41,14 @@ void classInfoIn(ClassInfo *head, const char **str) {
     strcpy((*head)->MentorNo, str[9]);
 
 }
+
+/**
+ * @name: studentInfoIn
+ * @function: save the studentInfo into a node
+ * @param head the node to be inserted
+ * @param str the information that user inputs
+ * @return none
+ */
 void studentInfoIn(StudentInfo *head, const char **str){
     strcpy((*head)->ClassNo, str[0]);
     strcpy((*head)->CNo, str[1]);
@@ -43,9 +65,9 @@ void studentInfoIn(StudentInfo *head, const char **str){
 
 /**
  * @name inputGradeInfo
- * @function 录入年级信息
- * @param head 主链表头结点指针
- * @param str 指向存储用户输入的信息
+ * @function save the gradeInfo
+ * @param head the head of the list
+ * @param str the information that user inputs
  * @return none
  */
 void inputGradeInfo(GradeInfo head, const char **str) {
@@ -65,9 +87,9 @@ void inputGradeInfo(GradeInfo head, const char **str) {
 
 /**
  * @name inputClassInfo
- * @function 录入班级信息
- * @param head  主链表头结点指针
- * @param str 指向存储用户输入的信息
+ * @function save the classInfo
+ * @param head the head of the list
+ * @param str the information that user inputs
  * @return none
  */
 void inputClassInfo(GradeInfo head, const char **str) {
@@ -91,9 +113,9 @@ void inputClassInfo(GradeInfo head, const char **str) {
 
 /**
  * @name inputStudentInfo
- * @function 录入学生信息.
- * @param head 主链表头结点指针
- * @param str 指向存储用户输入的信息
+ * @function save the studentInfo
+ * @param head the head of the list
+ * @param str the information that user inputs
  * @return: none
  *
  */

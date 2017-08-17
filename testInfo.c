@@ -4,16 +4,13 @@
 #include "head.h"
 
 /**
- * 函数名称: TestProv
- * 函数功能: 测试省份信息是否存在.
- * 输入参数: str 要测试的省份名称
- * 输出参数: 无
- * 返 回 值: flag 1表示修改了省份名 0没有
- *
- * 调用说明:
+ * @name: testGradeInfo
+ * @function: test whether the grade information to be inserted already existed
+ * @param str:  the No of the grade to be tested
+ * @return flag: 1 indicates the grade has already existed, 0 indicates the opposite
  */
 
-int testGradeInfo(char *str)//测试年级信息是否存在
+int testGradeInfo(char *str)
 {
     GradeInfo tail = head;
     int flag = 0;

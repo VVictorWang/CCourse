@@ -5,9 +5,9 @@
 
 /**
  * @name initInfo
- * @function 初始化链表信息.
+ * @function init the infomation from existing files
  * @param none
- * @return phead 新建的链表头结点指针
+ * @return the status of the process
  */
 int initInfo(GradeInfo * phead) {
     char space;  //读取文件信息时用于匹配空格

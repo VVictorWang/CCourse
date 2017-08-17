@@ -12,8 +12,8 @@ static int data_type = 1;
 
 
 /*************************************************
- @Function: show_window
- @Description: configure the main window
+ @name: show_window
+ @function: configure the main window
  @param pwindow: pointer to the window widget
  @return None
 *************************************************/
@@ -50,8 +50,8 @@ void show_window(GtkWidget ** pwindow)
 }
 
 /*************************************************
- @Function: show_menubar
- @Description: configure the menu bar
+ @name: show_menubar
+ @function: configure the menu bar
  @param window:  main window
  @return None
 *************************************************/
@@ -111,8 +111,8 @@ void show_menubar(GtkWidget * window)
 }
 
 /*************************************************
- @Function: show_sidebar
- @Description: configure the side bar
+ @name: show_sidebar
+ @function: configure the side bar
  @param None
  @return None
 *************************************************/
@@ -173,8 +173,8 @@ void show_notebook(void)
 }
 
 /*************************************************
- @Function: show_dataview
- @Description: configure the data view
+ @name: show_dataview
+ @function: configure the data view
  @param None
  @return None
 *************************************************/
@@ -230,8 +230,8 @@ void show_dataview(void)
 }
 
 /*************************************************
- @Function: show_queryview
- @Description: configure the query view
+ @name: show_queryview
+ @function: configure the query view
  @param None
  @return None
 *************************************************/
@@ -380,8 +380,8 @@ void show_queryview(void)
 }
 
 /*************************************************
- @Function: show_stasticalview
- @Description: configure the stastical view
+ @name: show_stasticalview
+ @function: configure the stastical view
  @param None
  @return None
 *************************************************/
@@ -459,8 +459,8 @@ void show_stasticalview(void)
 }
 
 /*************************************************
- @Function: on_data_clicked
- @Description: called back when data button on the side bar clicked.
+ @name: on_data_clicked
+ @function: called back when data button on the side bar clicked.
  @param widget: the widget that activates the signal
  @return None
 *************************************************/
@@ -485,8 +485,8 @@ void on_data_clicked(GtkWidget * widget)
 }
 
 /*************************************************
- @Function: on_query_clicked
- @Description: called back when query button on the side bar clicked.
+ @name: on_query_clicked
+ @function: called back when query button on the side bar clicked.
  @param widget: the widget that activates the signal
  @return None
 *************************************************/
@@ -510,8 +510,8 @@ void on_query_clicked(GtkWidget * widget)
 }
 
 /*************************************************
- @Function: on_stastical_clicked
- @Description: called back when stastical button on the side bar clicked.
+ @name: on_stastical_clicked
+ @function: called back when stastical button on the side bar clicked.
  @param widget: the widget that activates the signal
  @return None
 *************************************************/
@@ -536,8 +536,8 @@ void on_stastical_clicked(GtkWidget * widget)
 }
 
 /*************************************************
- @Function: on_province_clicked
- @Description: called back when province button on the data view clicked.
+ @name: on_grade_clicked
+ @function: called back when province button on the data view clicked.
  @param widget: the widget that activates the signal
  @return None
 *************************************************/
@@ -553,8 +553,8 @@ void on_grade_clicked(GtkWidget *widget)
 }
 
 /*************************************************
- @Function: on_case_clicked
- @Description: called back when case button on the data view clicked.
+ @name: on_class_clicked
+ @function: called back when case button on the data view clicked.
  @param widget: the widget that activates the signal
  @return None
 *************************************************/
@@ -570,8 +570,8 @@ void on_class_clicked(GtkWidget *widget)
 }
 
 /*************************************************
- @Function: on_media_clicked
- @Description: called back when media button on the data view clicked.
+ @name: on_student_clicked
+ @function: called back when media button on the data view clicked.
  @param widget: the widget that activates the signal
  @return None
 *************************************************/
@@ -587,8 +587,8 @@ void on_student_clicked(GtkWidget *widget)
 }
 
 /*************************************************
- @Function: on_confirm_clicked
- @Description: called back when confirm button on the data view clicked.
+ @name: on_confirm_clicked
+ @function: called back when confirm button on the data view clicked.
  @param widget: the widget that activates the signal
  @return None
 *************************************************/
@@ -609,8 +609,8 @@ void on_confirm_clicked(GtkWidget * widget)
 }
 
 /*************************************************
- @Function: on_backup_clicked
- @Description: called back when backup Mi on the menu bar activated.
+ @name: on_backup_clicked
+ @function: called back when backup Mi on the menu bar activated.
  @param widget: the widget that activates the signal
  @param data: the window that passes in
  @return None
@@ -646,8 +646,8 @@ void on_backup_clicked(GtkWidget * widget, gpointer data)
 }
 
 /*************************************************
- @Function: on_restore_clicked
- @Description: called back when restore Mi on the menu bar activated.
+ @name: on_restore_clicked
+ @function: called back when restore Mi on the menu bar activated.
  @param widget: the widget that activates the signal
  @param data: the window that passes in
  @return None
@@ -695,8 +695,8 @@ void on_restore_clicked(GtkWidget * widget, gpointer data)
 }
 
 /*************************************************
- @Function: on_aboutsystem_clicked
- @Description: called back when about-system Mi on the menu bar activated.
+ @name: on_aboutsystem_clicked
+ @function: called back when about-system Mi on the menu bar activated.
  @param widget: the widget that activates the signal
  @return None
 *************************************************/
@@ -720,8 +720,8 @@ void on_aboutsystem_clicked(GtkWidget * widget)
 }
 
 /*************************************************
- @Function: on_aboutme_clicked
- @Description: called back when about-me Mi on the menu bar activated.
+ @name: on_aboutme_clicked
+ @funciton: called back when about-me Mi on the menu bar activated.
  @param widget: the widget that activates the signal
  @return None
 *************************************************/
@@ -743,8 +743,8 @@ void on_aboutme_clicked(GtkWidget * widget)
 
 
 /*************************************************
- @Function: on_cancel_clicked
- @Description: called back when cancel button clicked
+ @name: on_cancel_clicked
+ @function: called back when cancel button clicked
  @param widget: the widget that activates the signal
  @param data: the widget that passes in
  @return None

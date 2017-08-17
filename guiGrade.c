@@ -21,12 +21,10 @@ enum {
 
 
 /*************************************************
-Function: province_method
-Description: configure a window to display information(listview) about province.
-Input: None
-Output: None
-Return: None
-Others: None
+ @name: gradeInfo_method
+ @function: configure a window to display information(listview) about province.
+ @param none
+ @return none
 *************************************************/
 void gradeInfo_method(void) {
     GdkPixbuf *pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/icon.png");
@@ -138,13 +136,11 @@ void gradeInfo_method(void) {
 }
 
 /*************************************************
-Function: on_province_add_clicked
-Description: called back when add button clicked.Run a dialog for information adding.
-Input: GtkWidget * indicating the widget that activates the signal
-       gpointer data indicating the window that passes
-Output: None
-Return: None
-Others: None
+ @name: on_gradeInfo_add_clicked
+ @function: called back when add button clicked.Run a dialog for information adding.
+ @param widget: the widget that activates the signal
+ @param data: the window that passes
+ @return none
 *************************************************/
 void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GdkPixbuf *pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/icon.png");
@@ -248,13 +244,11 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
 }
 
 /*************************************************
-Function: on_province_modify_clicked
-Description: called back when modify button clicked. Run a dialog for information modifying.
-Input: GtkWidget * indicating the widget that activates the signal
-       gpointer data indicating the window that passes
-Output: None
-Return: None
-Others: None
+ @name: on_gradeInfo_modify_clicked
+ @function called back when modify button clicked. Run a dialog for information modifying.
+ @param widget: the widget that activates the signal
+ @param data: the window that passes
+ @return none
 *************************************************/
 void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     GtkTreeIter iter;
@@ -381,12 +375,10 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
 }
 
 /*************************************************
-Function: on_province_delete_clicked
-Description: called back when delete button clicked. Delete certain media node.
-Input: GtkWidget * indicating the widget that activates the signal
-Output: None
-Return: None
-Others: None
+ @name: on_gradeInfo_delete_clicked
+ @function: called back when delete button clicked. Delete certain media node.
+ @param widget: indicating the widget that activates the signal
+ @return none
 *************************************************/
 void on_gradeInfo_delete_clicked(GtkWidget *widget) {
     GtkTreeIter iter;
@@ -405,12 +397,10 @@ void on_gradeInfo_delete_clicked(GtkWidget *widget) {
 }
 
 /*************************************************
-Function: reload_province_list
-Description: reload all data, this usually because of the change of data such as adding, modifying and deleting data.
-Input: None
-Output: None
-Return: None
-Others: None
+ @name: reload_province_list
+ @function: reload all data, this usually because of the change of data such as adding, modifying and deleting data.
+ @param none
+ @return none
 *************************************************/
 void reload_gradeInfo_list(void) {
     GtkListStore * store;

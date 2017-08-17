@@ -5,8 +5,8 @@
 
 
 /*************************************************
- @Function: create_pixbuf
- @Description: return a pixbuf with the given filename.
+ @name: create_pixbuf
+ @function: return a pixbuf with the given filename.
  @param filename: the name of file
  @return: the pixbuf that creates.
 *************************************************/
@@ -24,17 +24,15 @@ GdkPixbuf * create_pixbuf(const gchar * filename)
 }
 
 /*************************************************
-Function: warning_message_dialog
-Description: run a dialog showing warning messages.
-Input: gchar * indicating the title of the dialog
-       gchat * indicating the content of the dialog
-Output: None
-Return: None
-Others: None
+ @name: warning_message_dialog
+ @function: run a dialog showing warning messages.
+ @param title: the title of the dialog
+ @param message: the content of the dialog
+ @return none
 *************************************************/
 void warning_message_dialog(gchar * title, gchar * message)
 {
-    GdkPixbuf * pixbuf = create_pixbuf("/home/victor/CLionProjects/course/ img/icon.png");
+    GdkPixbuf * pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/icon.png");
     GtkWidget * dialog = gtk_message_dialog_new(GTK_WINDOW(main_window), GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_OK, message);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     gtk_window_set_title(GTK_WINDOW(dialog), title);
@@ -45,13 +43,11 @@ void warning_message_dialog(gchar * title, gchar * message)
 }
 
 /*************************************************
-Function: error_message_dialog
-Description: run a dialog showing error messages.
-Input: gchar * indicating the title of the dialog
-       gchat * indicating the content of the dialog
-Output: None
-Return: None
-Others: None
+ @name: error_message_dialog
+ @function: run a dialog showing error messages.
+ @param title: the title of the dialog
+ @param message: the content of the dialog
+ @return none
 *************************************************/
 void error_message_dialog(gchar * title, gchar * message)
 {

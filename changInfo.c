@@ -5,12 +5,12 @@
 
 /**
  * @name changeGradeInfo
- * @function 修改年级信息，将用户输入的修改后的信息加载到链表中.
- * @param head 链表头结点指针
- * @param match 来自用户的年级编号
- * @param str 来自用户的修改后的信息
- * @return flag 返回值为1表明对省份编号进行了修改，0表示没有
- * 调用说明: 若修改了省份编号，结点下的班级及学生信息将丢失
+ * @function change the gradeInfo into the list.
+ * @param head the head of the list
+ * @param match the No of the grade to be modified
+ * @param str the new information
+ * @return flag 1 indicates that user has modified the No of the Grade,while 0 indicates the opposite
+ * @details: if modified the grade No, the students' information and the classes' information of the grade will be lost
  */
 int changeGradeInfo(GradeInfo head, char *match, const char **str) {
     GradeInfo tail = head;
@@ -32,12 +32,12 @@ int changeGradeInfo(GradeInfo head, char *match, const char **str) {
 
 /**
  * @name changeClassInfo
- * @function 修改班级信息，将用户输入的修改后的信息加载到链表中.
- * @param head 链表头结点指针
- * @param match 来自用户的班级编号
- * @param str来自用户的修改后的信息
- * @return flag 返回值为1表明对班级编号进行了修改，0表示没有
- * 调用说明: 若修改了案件编号，节点下的媒体信息将丢失
+* @function change the classInfo into the list.
+ * @param head: the head of the list
+ * @param match: the No of the class to be modified
+ * @param str: the new information
+ * @return flag 1 indicates that user has modified the No of the Class,while 0 indicates the opposite
+ * @details: if modified the class No, the students' information of the class will be lost
  */
 int changeClassInfo(GradeInfo head, char *match, const char **str) {
     GradeInfo tail = head;
@@ -81,10 +81,11 @@ int changeClassInfo(GradeInfo head, char *match, const char **str) {
 
 /**
  * @name changeStudentInfo
- * @function 修改学生信息，将用户输入的修改后的信息加载到链表中.
- * @param head 链表头结点指针
- * @param match 来自用户的学号
- * @param str来自用户的修改后的信息
+ * @function change the studentInfo into the list.
+ * @param head the head of the list
+ * @param match the No of the student to be modified
+ * @param str the new information
+ * @return flag 1 indicates that user has modified the No of the Student,while 0 indicates the opposite
  */
 void changeStudentInfo(GradeInfo head, char *match, const char **str) {
     GradeInfo tail = head;

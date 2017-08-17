@@ -10,12 +10,9 @@ enum {
 
 
 /*************************************************
-Function: case_method
-Description: configure a window to display information(listview) about case.
-Input: None
-Output: None
-Return: None
-Others: None
+ @name: classInfo_method
+ @function: configure a window to display information(listview) about case.
+ @return None
 *************************************************/
 void classInfo_method() {
     GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
@@ -141,13 +138,11 @@ void classInfo_method() {
 }
 
 /*************************************************
-Function: on_case_add_clicked
-Description: called back when add button clicked.Run a dialog for information adding.
-Input: GtkWidget * indicating the widget that activates the signal
-       gpointer data indicating the window that passes
-Output: None
-Return: None
-Others: None
+ @name: on_classInfo_add_clicked
+ @function called back when add button clicked.Run a dialog for information adding.
+ @param widget: the widget that activates the signal
+ @param data: the window that passes
+ @return None
 *************************************************/
 void on_classInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
@@ -279,13 +274,11 @@ void on_classInfo_add_clicked(GtkWidget *widget, gpointer data) {
 }
 
 /*************************************************
-Function: on_case_modify_clicked
-Description: called back when modify button clicked.Run a dialog for information modifying.
-Input: GtkWidget * indicating the widget that activates the signal
-       gpointer data indicating the window that passes
-Output: None
-Return: None
-Others: None
+ @name: on_classInfo_modify_clicked
+ @function: called back when modify button clicked.Run a dialog for information modifying.
+ @param widget: the widget that activates the signal
+ @param data: indicating the window that passes
+ @return None
 *************************************************/
 void on_classInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     GtkTreeIter iter;
@@ -458,12 +451,10 @@ void on_classInfo_modify_clicked(GtkWidget *widget, gpointer data) {
 }
 
 /*************************************************
-Function: on_case_delete_clicked
-Description: called back when delete button clicked. Delete certain case node.
-Input: GtkWidget * indicating the widget that activates the signal
-Output: None
-Return: None
-Others: None
+ @name: on_classInfo_delete_clicked
+ @function: called back when delete button clicked. Delete certain case node.
+ @param widget: the widget that activates the signal
+ @return None
 *************************************************/
 void on_classInfo_delete_clicked(GtkWidget *widget) {
     GtkTreeIter iter;
@@ -483,12 +474,10 @@ void on_classInfo_delete_clicked(GtkWidget *widget) {
 }
 
 /*************************************************
-Function: reload_case_list
-Description: reload all data, this usually because of the change of data such as adding, modifying and deleting data.
-Input: None
-Output: None
-Return: None
-Others: None
+ @name: reload_classInfo_list
+ @function reload all data, this usually because of the change of data such as adding, modifying and deleting data.
+ @param none
+ @return None
 *************************************************/
 void reload_classInfo_list(void) {
     GtkListStore *store;
