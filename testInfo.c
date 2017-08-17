@@ -10,8 +10,7 @@
  * @return flag: 1 indicates the grade has already existed, 0 indicates the opposite
  */
 
-int testGradeInfo(char *str)
-{
+int testGradeInfo(char *str) {
     GradeInfo tail = head;
     int flag = 0;
     while (tail->next != NULL) {

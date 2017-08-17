@@ -9,7 +9,7 @@
  * @param none
  * @return the status of the process
  */
-int initInfo(GradeInfo * phead) {
+int initInfo(GradeInfo *phead) {
     char space;  //读取文件信息时用于匹配空格
     FILE *sp = fopen("GradeInfo.txt", "r");
     if (!sp) {

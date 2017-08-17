@@ -49,7 +49,7 @@ void classInfoIn(ClassInfo *head, const char **str) {
  * @param str the information that user inputs
  * @return none
  */
-void studentInfoIn(StudentInfo *head, const char **str){
+void studentInfoIn(StudentInfo *head, const char **str) {
     strcpy((*head)->ClassNo, str[0]);
     strcpy((*head)->CNo, str[1]);
     strcpy((*head)->Name, str[2]);

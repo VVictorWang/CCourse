@@ -221,13 +221,13 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
                 }
                 else {
                     const char *str[] = {gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradeTimeEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradeGradEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradeMentorNameEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradeMentorNoEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradeChairmanNameEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradeChairmanNoEntry))
+                                         gtk_entry_get_text(GTK_ENTRY(gradeTimeEntry)),
+                                         gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)),
+                                         gtk_entry_get_text(GTK_ENTRY(gradeGradEntry)),
+                                         gtk_entry_get_text(GTK_ENTRY(gradeMentorNameEntry)),
+                                         gtk_entry_get_text(GTK_ENTRY(gradeMentorNoEntry)),
+                                         gtk_entry_get_text(GTK_ENTRY(gradeChairmanNameEntry)),
+                                         gtk_entry_get_text(GTK_ENTRY(gradeChairmanNoEntry))
                     };
                     inputGradeInfo(head, str);
                     reload_gradeInfo_list();
