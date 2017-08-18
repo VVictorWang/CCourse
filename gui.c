@@ -11,7 +11,7 @@ static GtkWidget *notebook;
 static GtkWidget *data, *query, *stastical;
 static int state = 1;
 static GtkWidget *dataview, *queryview, *stasticalview;
-static GtkWidget *province, *cases, *media;
+static GtkWidget *gradeInfo, *classInfo, *studentInfo;
 static int data_type = 1;
 
 
@@ -67,6 +67,7 @@ void show_menubar(GtkWidget *window) {
     GtkWidget *aboutmenu;
 
     GtkWidget *fileMi;
+    GtkWidget *saveMi;
     GtkWidget *backupMi;
     GtkWidget *restoreMi;
     GtkWidget *quitMi;
@@ -83,7 +84,8 @@ void show_menubar(GtkWidget *window) {
     aboutmenu = gtk_menu_new();
 
     fileMi = gtk_menu_item_new_with_label("文件");
-    backupMi = gtk_menu_item_new_with_label("数据保存");
+    backupMi = gtk_menu_item_new_with_label("数据另存为");
+    saveMi = gtk_menu_item_new_with_label("数据保存");
     restoreMi = gtk_menu_item_new_with_label("数据还原");
     quitMi = gtk_menu_item_new_with_label("退出");
     aboutMi = gtk_menu_item_new_with_label("关于");
@@ -94,6 +96,7 @@ void show_menubar(GtkWidget *window) {
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(aboutMi), aboutmenu);
 
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), backupMi);
+    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), saveMi);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), restoreMi);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), gtk_separator_menu_item_new());
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), quitMi);
@@ -106,6 +109,7 @@ void show_menubar(GtkWidget *window) {
     gtk_box_pack_start(GTK_BOX(menubar_vbox), menubar, FALSE, FALSE, 0);
 
     g_signal_connect(G_OBJECT(backupMi), "activate", G_CALLBACK(on_backup_clicked), main_window);
+    g_signal_connect(G_OBJECT(saveMi), "activate", G_CALLBACK(on_save_clicked), main_window);
     g_signal_connect(G_OBJECT(restoreMi), "activate", G_CALLBACK(on_restore_clicked), main_window);
     g_signal_connect(G_OBJECT(quitMi), "activate", G_CALLBACK(gtk_main_quit), NULL);
     g_signal_connect(G_OBJECT(systemMi), "activate", G_CALLBACK(on_aboutsystem_clicked), NULL);
@@ -187,33 +191,33 @@ void show_dataview(void) {
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 19.5'>选择数据类型</span>");
     gtk_fixed_put(GTK_FIXED(dataview), typelabel, 505, 170);
 
-    province = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/highlighted_province.png");
+    gradeInfo = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/highlighted_province.png");
     GtkWidget *provincelabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(provincelabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>年级信息</span>");
     gtk_fixed_put(GTK_FIXED(dataview), provincelabel, 328, 335);
     GtkWidget *provincebox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(provincebox), FALSE);
-    gtk_container_add(GTK_CONTAINER(provincebox), province);
+    gtk_container_add(GTK_CONTAINER(provincebox), gradeInfo);
     gtk_fixed_put(GTK_FIXED(dataview), provincebox, 309, 221);
 
-    cases = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/case.png");
+    classInfo = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/case.png");
     GtkWidget *caselabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(caselabel), "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>班级信息</span>");
     gtk_fixed_put(GTK_FIXED(dataview), caselabel, 544, 335);
     GtkWidget *casebox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(casebox), FALSE);
-    gtk_container_add(GTK_CONTAINER(casebox), cases);
+    gtk_container_add(GTK_CONTAINER(casebox), classInfo);
     gtk_fixed_put(GTK_FIXED(dataview), casebox, 525, 221);
 
-    media = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/media.png");
+    studentInfo = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/studentInfo.png");
     GtkWidget *medialabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(medialabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>学生信息</span>");
     gtk_fixed_put(GTK_FIXED(dataview), medialabel, 760, 335);
     GtkWidget *mediabox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(mediabox), FALSE);
-    gtk_container_add(GTK_CONTAINER(mediabox), media);
+    gtk_container_add(GTK_CONTAINER(mediabox), studentInfo);
     gtk_fixed_put(GTK_FIXED(dataview), mediabox, 741, 221);
 
     GtkWidget *confirm = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button1.png");
@@ -273,7 +277,6 @@ void show_queryview(void) {
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(gradeInNoBox), FALSE);
     gtk_container_add(GTK_CONTAINER(gradeInNoBox), gradeInNo);
     gtk_fixed_put(GTK_FIXED(queryview), gradeInNoBox, 251, 165);
-
     GtkWidget *gradeInNoLabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(gradeInNoLabel),
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按入学人数查找</span>");
@@ -389,8 +392,10 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按学生毕业去向查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), studentGradToLabel, 638, 628);
 
-//    g_signal_connect(G_OBJECT(gradeNoBox), "button_press_event", G_CALLBACK(on_province_name_query_clicked), NULL);
-//    g_signal_connect(G_OBJECT(gradeInTimeBox), "button_press_event", G_CALLBACK(on_province_head_query_clicked), NULL);
+    g_signal_connect(G_OBJECT(gradeNoBox), "button_press_event", G_CALLBACK(on_gradeInfo_no_search_clicked), NULL);
+    g_signal_connect(G_OBJECT(gradeInTimeBox), "button_press_event", G_CALLBACK(on_gradeInfo_time_search_clicked),
+                     NULL);
+    g_signal_connect(G_OBJECT(gradeInNoBox), "button_press_event", G_CALLBACK(on_gradeInfo_inno_search_clicked), NULL);
 //    g_signal_connect(G_OBJECT(classNoBox), "button_press_event", G_CALLBACK(on_case_number_query_clicked), NULL);
 //    g_signal_connect(G_OBJECT(classsMajorBox), "button_press_event", G_CALLBACK(on_case_name_and_level_query_clicked), NULL);
 //    g_signal_connect(G_OBJECT(studentNameBox), "button_press_event", G_CALLBACK(on_media_number_and_name_query_clicked), NULL);
@@ -556,9 +561,9 @@ void on_stastical_clicked(GtkWidget *widget) {
 *************************************************/
 void on_grade_clicked(GtkWidget *widget) {
     if (data_type != 1) {
-        gtk_image_set_from_file(GTK_IMAGE(province), "/home/victor/CLionProjects/course/img/highlighted_province.png");
-        gtk_image_set_from_file(GTK_IMAGE(cases), "/home/victor/CLionProjects/course/img/case.png");
-        gtk_image_set_from_file(GTK_IMAGE(media), "/home/victor/CLionProjects/course/img/media.png");
+        gtk_image_set_from_file(GTK_IMAGE(gradeInfo), "/home/victor/CLionProjects/course/img/highlighted_province.png");
+        gtk_image_set_from_file(GTK_IMAGE(classInfo), "/home/victor/CLionProjects/course/img/case.png");
+        gtk_image_set_from_file(GTK_IMAGE(studentInfo), "/home/victor/CLionProjects/course/img/studentInfo.png");
         data_type = 1;
     }
 }
@@ -571,9 +576,9 @@ void on_grade_clicked(GtkWidget *widget) {
 *************************************************/
 void on_class_clicked(GtkWidget *widget) {
     if (data_type != 2) {
-        gtk_image_set_from_file(GTK_IMAGE(province), "/home/victor/CLionProjects/course/img/province.png");
-        gtk_image_set_from_file(GTK_IMAGE(cases), "/home/victor/CLionProjects/course/img/highlighted_case.png");
-        gtk_image_set_from_file(GTK_IMAGE(media), "/home/victor/CLionProjects/course/img/media.png");
+        gtk_image_set_from_file(GTK_IMAGE(gradeInfo), "/home/victor/CLionProjects/course/img/gradeInfo.png");
+        gtk_image_set_from_file(GTK_IMAGE(classInfo), "/home/victor/CLionProjects/course/img/highlighted_case.png");
+        gtk_image_set_from_file(GTK_IMAGE(studentInfo), "/home/victor/CLionProjects/course/img/studentInfo.png");
         data_type = 2;
     }
 }
@@ -586,9 +591,9 @@ void on_class_clicked(GtkWidget *widget) {
 *************************************************/
 void on_student_clicked(GtkWidget *widget) {
     if (data_type != 3) {
-        gtk_image_set_from_file(GTK_IMAGE(province), "/home/victor/CLionProjects/course/img/province.png");
-        gtk_image_set_from_file(GTK_IMAGE(cases), "/home/victor/CLionProjects/course/img/case.png");
-        gtk_image_set_from_file(GTK_IMAGE(media), "/home/victor/CLionProjects/course/img/highlighted_media.png");
+        gtk_image_set_from_file(GTK_IMAGE(gradeInfo), "/home/victor/CLionProjects/course/img/gradeInfo.png");
+        gtk_image_set_from_file(GTK_IMAGE(classInfo), "/home/victor/CLionProjects/course/img/case.png");
+        gtk_image_set_from_file(GTK_IMAGE(studentInfo), "/home/victor/CLionProjects/course/img/highlighted_media.png");
         data_type = 3;
     }
 }
@@ -633,7 +638,7 @@ void on_backup_clicked(GtkWidget *widget, gpointer data) {
     time_t result = time(NULL);
     strcpy(timestr, asctime(localtime(&result)));
     timestr[10] = '\0';
-    strncat(timestr, ".bak", 4);
+    strncat(timestr, ".txt", 4);
 
     gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER (dialog), TRUE);
     gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER (dialog), timestr);
@@ -641,11 +646,23 @@ void on_backup_clicked(GtkWidget *widget, gpointer data) {
         char *filename;
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (dialog));
         backup_data(head, filename);
-//        information_message_dialog("备份完成", "备份已完成。");
+        information_message_dialog("备份完成", "备份已完成。");
         g_free(filename);
     }
 
     gtk_widget_destroy(dialog);
+}
+
+/*************************************************
+ @name: on_backup_clicked
+ @function: called back when backup Mi on the menu bar activated.
+ @param widget: the widget that activates the signal
+ @param data: the window that passes in
+ @return None
+*************************************************/
+void on_save_clicked(GtkWidget *widget, gpointer data) {
+    saveInfo(head);
+    information_message_dialog("备份完成", "备份已完成。");
 }
 
 /*************************************************
@@ -683,7 +700,14 @@ void on_restore_clicked(GtkWidget *widget, gpointer data) {
             if (gtk_dialog_run(GTK_DIALOG (choosedialog)) == GTK_RESPONSE_ACCEPT) {
                 char *filename;
                 filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (choosedialog));
-//                restore_data(&head, filename);
+                int n = restore_data(&head, filename);
+                if (n == -1) {
+                    error_message_dialog("恢复失败", "打开文件失败");
+                } else if (n == -2) {
+                    error_message_dialog("恢复失败", "备份文件有误");
+                } else if (n == 1) {
+                    information_message_dialog("恢复成功", "成功恢复数据");
+                }
                 g_free(filename);
             }
 

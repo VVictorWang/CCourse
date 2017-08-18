@@ -13,7 +13,7 @@
  */
 int initInfo(GradeInfo *phead) {
     char space;  //读取文件信息时用于匹配空格
-    FILE *sp = fopen("GradeInfo.txt", "r");
+    FILE *sp = fopen("/home/victor/CLionProjects/course/data/GradeInfo.txt", "r");
     if (!sp) {
         *phead = (GradeInfo) malloc(sizeof(GRADEInfo));
         (*phead)->next = NULL;
@@ -34,7 +34,7 @@ int initInfo(GradeInfo *phead) {
     tail->next = NULL;
     fclose(sp);
 
-    sp = fopen("ClassInfo.txt", "r");
+    sp = fopen("/home/victor/CLionProjects/course/data/ClassInfo.txt", "r");
     if (!sp) {
         fclose(sp);
         return -2;
@@ -71,7 +71,7 @@ int initInfo(GradeInfo *phead) {
         }
     }
     fclose(sp);
-    sp = fopen("StudentInfo.txt", "r");
+    sp = fopen("/home/victor/CLionProjects/course/data/StudentInfo.txt", "r");
     if (!sp) {
         fclose(sp);
         return -4; //学生信息文件打开失败
@@ -114,4 +114,105 @@ int initInfo(GradeInfo *phead) {
     }
     fclose(sp);
     return 1;
+}
+
+/*************************************************
+ @name: restore_data
+ @function: restore data from certain file
+ @param phead: the head of the province(first class) list
+ @param filename: the file location and name
+ @return: none
+ @details: The data file is picked up by file chooser using absolute location
+*************************************************/
+int restore_data(GradeInfo *phead, char *filename) {
+    int flag = 0;
+    FILE *pf = fopen(filename, "r");
+    if (!pf) {
+        *phead = (GradeInfo) malloc(sizeof(GRADEInfo));
+        return -1; //文件打开失败
+    }
+    GradeInfo head = (GradeInfo) malloc(sizeof(GRADEInfo));
+    GradeInfo tail = head;
+    tail->next = NULL;
+    int num;
+    char temp[50];
+    while (fscanf(pf, "%d", &num) != EOF) {
+        if (num == 1) {
+            tail = head;
+            while (tail->next != NULL)
+                tail = tail->next;
+            tail->next = (GradeInfo) malloc(sizeof(GRADEInfo));
+            tail = tail->next;
+            fscanf(pf, "%s%s%d%d%s%s%s%s", tail->CSNo, tail->Year, &(tail->InNo), &(tail->GraduateNo),
+                   tail->MentorName, tail->MentorNo, tail->ChairmanName, tail->ChairmanNo);
+            tail->Classes = (ClassInfo) malloc(sizeof(CLASSInfo));
+            tail->Classes->next = NULL;
+            tail->next = NULL;
+        } else if (num == 2) {
+            flag = 0;
+            tail = head;
+            fscanf(pf, "%s", temp);
+            while (tail->next != NULL) {
+                tail = tail->next;
+                if (!strcmp(temp, tail->CSNo)) {
+                    flag = 1;
+                    ClassInfo tail1 = tail->Classes;
+                    while (tail1->next != NULL)
+                        tail1 = tail1->next;
+                    tail1->next = (ClassInfo) malloc(sizeof(CLASSInfo));
+                    tail1 = tail1->next;
+                    strcpy(tail1->GradeNo, temp);
+                    fscanf(pf, "%s%s%s%d%f%d%s%s%s%s", tail1->GradeNo, tail1->CNo, tail1->FullName,
+                           &(tail1->InNo), &(tail1->AverageAge), &(tail1->GraduateNo), tail1->MonitorName,
+                           tail1->MonitorNo,
+                           tail1->MonitorName, tail1->MonitorNo);
+                    tail1->Students = (StudentInfo) malloc(sizeof(STUDENTInfo));
+                    tail1->Students->next = NULL;
+                    tail1->next = NULL;
+                    break;
+                }
+            }
+            if (!flag) {
+                *phead = (GradeInfo) malloc(sizeof(GRADEInfo));
+                return -2; //备份文件有误！
+            }
+        } else if (num == 3) {
+            flag = 0;
+            tail = head;
+            ClassInfo tail1 = NULL;
+            fscanf(pf, "%s", temp);
+            while (tail->next != NULL) {
+                tail = tail->next;
+                tail1 = tail->Classes;
+                while (tail1->next != NULL) {
+                    tail1 = tail1->next;
+                    if (!strcmp(tail1->CNo, temp)) {
+                        flag = 1;
+                        StudentInfo tail2 = tail1->Students;
+                        while (tail2->next != NULL)
+                            tail2 = tail2->next;
+                        tail2->next = (StudentInfo) malloc(sizeof(STUDENTInfo));
+                        tail2 = tail2->next;
+                        strcpy(tail2->ClassNo, temp);
+                        fscanf(pf, "%s%s%s%c%s%s%s%f%c%s", tail2->ClassNo, tail2->CNo, tail2->Name,
+                               &(tail2->sex), tail2->Birthplace, tail2->Birthday, tail2->Number, &(tail2->InScore),
+                               &(tail2->HasGraduated), tail2->GraduateTo);
+                        tail2->next = NULL;
+                        tail = head;
+                        break;
+                    }
+                }
+                if (flag)
+                    break;
+            }
+            if (!flag) {
+                *phead = (GradeInfo) malloc(sizeof(GRADEInfo));
+                return -2; //备份文件有误
+            }
+        }
+    }
+    fclose(pf);
+    *phead = head;
+    saveInfo(head);
+    return 1; //恢复成功
 }
