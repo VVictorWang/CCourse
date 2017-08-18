@@ -1,4 +1,8 @@
-
+//
+// Created by victor on 8/17/17.
+// email: chengyiwang@hustunique.com
+// blog:  www.victorwang.science
+//
 
 #include "head.h"
 
@@ -636,7 +640,7 @@ void on_backup_clicked(GtkWidget *widget, gpointer data) {
     if (gtk_dialog_run(GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
         char *filename;
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (dialog));
-//        backup_data(head, filename);
+        backup_data(head, filename);
 //        information_message_dialog("备份完成", "备份已完成。");
         g_free(filename);
     }
