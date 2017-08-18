@@ -5,65 +5,21 @@
 //
 
 #include "head.h"
-#include <time.h>
 
-int getGradeNumber(GradeInfo head) {
-    GradeInfo node = head;
-    int count = 0;
-    while ((node = node->next) != NULL)
-        count++;
-    return count;
-}
-
+/**
+* @name getClassNumber
+* @function get the classCount of the grade
+* @param head: the gradeInfo node
+* @return the class Count
+*/
 int getClassNumber(GradeInfo head) {
-    GradeInfo gradeNode = head;
     int count = 0;
-    while ((gradeNode = gradeNode->next) != NULL) {
-        ClassInfo classNode = gradeNode->Classes;
-        while ((classNode = classNode->next) != NULL) {
-            count++;
-        }
+    ClassInfo classNode = head->Classes;
+    while ((classNode = classNode->next) != NULL) {
+        count++;
     }
     return count;
 }
-
-int getStudentNumber(GradeInfo head) {
-    GradeInfo gradeNode = head;
-    int count = 0;
-    while ((gradeNode = gradeNode->next) != NULL) {
-        ClassInfo classNode = gradeNode->Classes;
-        while ((classNode = classNode->next) != NULL) {
-            StudentInfo studentNode = classNode->Students;
-            while ((studentNode = studentNode->next) != NULL) {
-                count++;
-            }
-        }
-    }
-    return count;
-}
-
-void free_all(GradeInfo head) {
-    GradeInfo gradeNode = head;
-    ClassInfo classNode;
-    while (gradeNode != NULL) {
-        classNode = gradeNode->Classes;
-        while (classNode != NULL) {
-            StudentInfo studentNode = classNode->Students;
-            while (studentNode != NULL) {
-                StudentInfo temp = studentNode->next;
-                free(studentNode);
-                studentNode = temp;
-            }
-            ClassInfo temp = classNode->next;
-            free(classNode);
-            classNode = temp;
-        }
-        GradeInfo temp = gradeNode->next;
-        free(gradeNode);
-        gradeNode = temp;
-    }
-}
-
 
 /**
  * @name getAgeByBirthDay

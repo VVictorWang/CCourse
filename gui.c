@@ -411,6 +411,11 @@ void show_queryview(void) {
                      NULL);
     g_signal_connect(G_OBJECT(studentAgeBox), "button_press_event", G_CALLBACK(on_studentInfo_age_search_clicked),
                      NULL);
+    g_signal_connect(G_OBJECT(studentIsGradBox), "button_press_event", G_CALLBACK(on_studentInfo_isGrad_search_clicked),
+                     NULL);
+    g_signal_connect(G_OBJECT(studentGradToBox), "button_press_event",
+                     G_CALLBACK(on_studentInfo_graduaTo_search_clicked),
+                     NULL);
 
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), queryview, NULL);
 }
@@ -480,23 +485,11 @@ void show_stasticalview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按年度统计学生信息</span>");
     gtk_fixed_put(GTK_FIXED(stasticalview), studentBirthTitle, 670, 466);
 
-//    GtkWidget * amountlabel = gtk_label_new("");
-//    gtk_label_set_markup(GTK_LABEL(amountlabel), "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>统计涉案金额数最大的10个贪腐案件，输出案件编号、被告姓名、被告行政\n级别、主要罪名、涉案金额和刑事处罚，并降序输出。</span>");
-//    gtk_fixed_put(GTK_FIXED(stasticalview), amountlabel, 245, 510);
-//    GtkWidget * amountbtn = gtk_image_new_from_file("img/button3.png");
-//    GtkWidget * amountbox = gtk_event_box_new();
-//    gtk_event_box_set_visible_window(GTK_EVENT_BOX(amountbox), FALSE);
-//    gtk_container_add(GTK_CONTAINER(amountbox), amountbtn);
-//    gtk_fixed_put(GTK_FIXED(stasticalview), amountbox, 623, 567);
-//    GtkWidget * amounttitle = gtk_label_new("");
-//    gtk_label_set_markup(GTK_LABEL(amounttitle), "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按涉案金额统计</span>");
-//    gtk_fixed_put(GTK_FIXED(stasticalview), amounttitle, 702, 576);
 
-//    g_signal_connect(G_OBJECT(gradeTimeBox), "button_press_event", G_CALLBACK(on_charge_stastical_clicked), NULL);
-//    g_signal_connect(G_OBJECT(classTimeBox), "button_press_event", G_CALLBACK(on_punishment_stastical_clicked), NULL);
-//    g_signal_connect(G_OBJECT(studentTimeBox), "button_press_event", G_CALLBACK(on_place_stastical_clicked), NULL);
-//    g_signal_connect(G_OBJECT(studentBirthBox), "button_press_event", G_CALLBACK(on_report_stastical_clicked), NULL);
-//    g_signal_connect(G_OBJECT(amountbox), "button_press_event", G_CALLBACK(on_amount_stastical_clicked), NULL);
+    g_signal_connect(G_OBJECT(gradeTimeBox), "button_press_event", G_CALLBACK(on_gradeInfo_stastical_clicked), NULL);
+    g_signal_connect(G_OBJECT(classTimeBox), "button_press_event", G_CALLBACK(on_classInfo_stastical_clicked), NULL);
+    g_signal_connect(G_OBJECT(studentTimeBox), "button_press_event", G_CALLBACK(on_studentInfo_stastical_clicked), NULL);
+    g_signal_connect(G_OBJECT(studentBirthBox), "button_press_event", G_CALLBACK(on_student_stastical_by_year_clicked), NULL);
 
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), stasticalview, NULL);
 }

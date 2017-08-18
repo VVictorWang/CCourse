@@ -256,7 +256,6 @@ StudentInfo searchStudentInfoByMajor(char *major) {
 /**
  * @name: searchStudentInfoByInTime
  * @function: search the studentInfo by student join school's time
- * @param head: the head of the list
  * @param start: the start time to be searched
  * @param end: the end time to be searched
  * @return the studentInfo node of the searching result
@@ -310,6 +309,65 @@ StudentInfo searchStudentInfoByAge(char *min, char *max) {
             while ((studentHead = studentHead->next) != NULL) {
                 int age = getAgeByBirthDay(studentHead->Birthday);
                 if (age >= minAge && age <= maxAge) {
+                    p->next = studentHead;
+                    p = p->next;
+                    p->next = NULL;
+                }
+            }
+
+        }
+    }
+    return result;
+}
+
+/**
+ * @name: searchStudentInfoGraduate
+ * @function: search the graduated students
+ * @param head: the head of the list
+ * @param  isGraduarted: '1' presents the student has graduateds, while '0' presents not
+ * @return the head of the studentInfo node of the searching result
+ */
+StudentInfo searchStudentInfoGraduate(char isGraduarted) {
+    GradeInfo tail = head;
+    StudentInfo p = (StudentInfo) malloc(sizeof(STUDENTInfo));
+    p->next = NULL;
+    StudentInfo result = p;
+    while (tail->next != NULL) {
+        tail = tail->next;
+        ClassInfo classHead = tail->Classes;
+        while ((classHead = classHead->next) != NULL) {
+            StudentInfo studentHead = classHead->Students;
+            while ((studentHead = studentHead->next) != NULL) {
+                if (studentHead->HasGraduated == isGraduarted) {
+                    p->next = studentHead;
+                    p = p->next;
+                    p->next = NULL;
+                }
+            }
+
+        }
+    }
+    return result;
+}
+
+/**
+ * @name: searchStudentInfoByGradTo
+ * @function: search the studentInfo by student's graduate willing
+ * @param gradTo: the  information to be searched
+ * @return the studentInfo node of the searching result
+ */
+StudentInfo searchStudentInfoByGradTo(char *gradTo) {
+    GradeInfo tail = head;
+    StudentInfo p = (StudentInfo) malloc(sizeof(STUDENTInfo));
+    p->next = NULL;
+    StudentInfo result = p;
+    while (tail->next != NULL) {
+        tail = tail->next;
+        ClassInfo classHead = tail->Classes;
+        while ((classHead = classHead->next) != NULL) {
+            StudentInfo studentHead = classHead->Students;
+            while ((studentHead = studentHead->next) != NULL) {
+                if (!strcmp(studentHead->GraduateTo, gradTo)) {
                     p->next = studentHead;
                     p = p->next;
                     p->next = NULL;

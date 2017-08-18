@@ -46,7 +46,7 @@ typedef struct CLASSINFO {
 
 //年级基本信息
 typedef struct GRADEINFO {
-    char CSNo[5];  //年级编号
+    char CSNo[6];  //年级编号
     char Year[10];  //入学时间
     int InNo;   //入学人数
     int GraduateNo;  //毕业人数
@@ -57,6 +57,39 @@ typedef struct GRADEINFO {
     ClassInfo Classes; //年级中的班级
     struct GRADEINFO *next;
 } *GradeInfo, GRADEInfo;
+
+//按指定期限统计年级信息的数据
+typedef struct GRADEINFOBYTIME {
+    char Year[10]; //入学时间
+    char CSNo[6]; //年级编号
+    int ClassCount; //班级数目
+    int InNo; //入学人数
+    int GraduatedCount; //毕业人数
+    int UnGraduatedCount; //未毕业人数
+    struct GRADEINFOBYTIME *next;
+} *GradeInfoByTime, GRADEInfobyTime;
+
+//按指定期限统计班级信息的数据
+typedef struct CLASSINFOBYTIME {
+    char Year[10]; //入学时间
+    char CNo[8]; //班级编号
+    int UnGraduateCount; //未毕业人数
+    struct CLASSINFOBYTIME *next;
+} *ClassInfoByTime, CLASSInfobyTime;
+
+//按指定期限统计学生信息的数据
+typedef struct STUDENTINFOBYTIME {
+    char GraduateTo[10]; //时间
+    int Count; //数量
+} *StudentInfoByTime, STUDENTinfobyTime;
+
+//按年度统计学生信息的数据
+typedef struct STUDENTINFOBYYEAR {
+    char Year[6]; //年度
+    int Count; //出生学生人数
+    struct STUDENTINFOBYYEAR *next;
+} *StudentInfoByYear, STUDENTinfobyYear;
+
 
 GradeInfo head;
 GtkWidget *main_window;
@@ -89,119 +122,84 @@ void deleteStudentInfo(GradeInfo, char *);//学生信息删除函数
 
 //信息查询函数
 GradeInfo searchGradeInfoByNo(GradeInfo, char *);//年级信息查询函数
-GradeInfo searchGradeInfoByTime(GradeInfo, char *, char *);
+GradeInfo searchGradeInfoByTime(GradeInfo, char *, char *);//
+GradeInfo searchGradeInfoByPeople(GradeInfo, char *, char *);//
+ClassInfo searchClassInfoByNo(char *);//
+ClassInfo searchClassInfoByMajor(char *);//
+ClassInfo searchClassInfoByPeople(char *, char *);//
+ClassInfo searchClassInfoByMentorName(char *);//
+StudentInfo searchStudentInfoByName(char *);//
+StudentInfo searchStudentInfoByMajor(char *);//
+StudentInfo searchStudentInfoByInTime(char *, char *);//
+StudentInfo searchStudentInfoByAge(char *, char *);//
+StudentInfo searchStudentInfoGraduate(char);//
+StudentInfo searchStudentInfoByGradTo(char *);//
 
-GradeInfo searchGradeInfoByPeople(GradeInfo, char *, char *);
-
-ClassInfo searchClassInfoByNo(char *);
-
-ClassInfo searchClassInfoByMajor(char *);
-
-ClassInfo searchClassInfoByPeople(char *, char *);
-
-ClassInfo searchClassInfoByMentorName(char *);
-
-StudentInfo searchStudentInfoByName(char *);
-
-StudentInfo searchStudentInfoByMajor(char *);
-
-StudentInfo searchStudentInfoByInTime(char *, char *);
-
-StudentInfo searchStudentInfoByAge(char *, char *);
-
-void searchClassInfo(GradeInfo, int, char *, char, char **);//班级信息查询函数
-void searchStudentInfo(GradeInfo, int, char *, char *, char **);//学生信息查询函数
 
 //信息统计函数
-void CountGradeByTime(GradeInfo, char **);//统计指定时间期限内各年级的班数、入学人数、毕业人数、未毕业人数
-void CountClassByTime(GradeInfo, char *,
-                      char **);//统计指定时间期限内各班级未毕业学生人数，按未毕业学生人数从大到小排序
-void CountStudentByTime(GradeInfo, char *, char *);//统计指定时间期限内毕业后到某企业工作的学生数量，按人数从大到小排序
-void CountStudentNoByTime(GradeInfo, char **);//按年度统计从某年到某年每年出生的学生人数
+GradeInfoByTime countGradeInfoByTime(char *, char *);//统计指定时间期限内各年级的班数、入学人数、毕业人数、未毕业人数
+ClassInfoByTime countClassInfoByTime(char *, char *);//统计指定时间期限内各班级未毕业学生人数，按未毕业学生人数从大到小排序
+StudentInfoByTime countStudentInfoByTime(char *, char *);//统计指定时间期限内毕业后到某企业工作的学生数量，按人数从大到小排序
+StudentInfoByYear countStudentInfoByYear(char *, char *);//按年度统计从某年到某年每年出生的学生人数
+int getClassNumber(GradeInfo); //统计该年级下的班级数量
 
 //测试类函数
 int testGradeInfo(char *);
 
 //界面类函数
-void show_window(GtkWidget **);
-
-void show_notebook(void);
-
-void show_menubar(GtkWidget *);
-
-void show_sidebar(void);
-
-void show_dataview(void);
-
-void show_queryview(void);
-
-void show_stasticalview(void);
-
-void run_gradeInfo_dialog(GradeInfo);
-
-void run_classInfo_dialog(ClassInfo);
-
-void run_studentInfo_dialog(StudentInfo);
+void show_window(GtkWidget **);//
+void show_notebook(void);//
+void show_menubar(GtkWidget *);//
+void show_sidebar(void);//
+void show_dataview(void);//
+void show_queryview(void);//
+void show_stasticalview(void);//
+void run_gradeInfo_dialog(GradeInfo);//
+void run_classInfo_dialog(ClassInfo);//
+void run_studentInfo_dialog(StudentInfo);//
 
 //事件类函数
-void on_data_clicked(GtkWidget *);
-
-void on_query_clicked(GtkWidget *);
-
-void on_stastical_clicked(GtkWidget *);
-
-void on_grade_clicked(GtkWidget *);
-
-void on_class_clicked(GtkWidget *);
-
-void on_student_clicked(GtkWidget *);
-
-void on_confirm_clicked(GtkWidget *);
-
-void on_backup_clicked(GtkWidget *, gpointer);
-
-void on_save_clicked(GtkWidget *, gpointer);
-
-void on_restore_clicked(GtkWidget *, gpointer);
-
-void on_aboutsystem_clicked(GtkWidget *);
-
-void on_aboutme_clicked(GtkWidget *);
+void on_data_clicked(GtkWidget *);//
+void on_query_clicked(GtkWidget *);//
+void on_stastical_clicked(GtkWidget *);//
+void on_grade_clicked(GtkWidget *);//
+void on_class_clicked(GtkWidget *);//
+void on_student_clicked(GtkWidget *);//
+void on_confirm_clicked(GtkWidget *);//
+void on_backup_clicked(GtkWidget *, gpointer);//
+void on_save_clicked(GtkWidget *, gpointer);//
+void on_restore_clicked(GtkWidget *, gpointer);//
+void on_aboutsystem_clicked(GtkWidget *);//
+void on_aboutme_clicked(GtkWidget *);//
 
 
 //数据查询事件函数
-void on_gradeInfo_no_search_clicked(GtkWidget *);
+void on_gradeInfo_no_search_clicked(GtkWidget *);//
+void on_gradeInfo_time_search_clicked(GtkWidget *);//
+void on_gradeInfo_inno_search_clicked(GtkWidget *);//
+void on_classInfo_no_search_clicked(GtkWidget *);//
+void on_classInfo_major_search_clicked(GtkWidget *);//
+void on_classInfo_peopleNo_search_clicked(GtkWidget *);//
+void on_classInfo_mentorName_search_clicked(GtkWidget *);//
+void on_studentInfo_name_search_clicked(GtkWidget *);//
+void on_studentInfo_major_search_clicked(GtkWidget *);//
+void on_studentInfo_Intime_search_clicked(GtkWidget *);//
+void on_studentInfo_age_search_clicked(GtkWidget *);//
+void on_studentInfo_isGrad_search_clicked(GtkWidget *);//
+void on_studentInfo_Graduate_clicked(GtkWidget *);//
+void on_studentInfo_not_Graduate_clicked(GtkWidget *);//
+void on_studentInfo_graduaTo_search_clicked(GtkWidget *);//
 
-void on_gradeInfo_time_search_clicked(GtkWidget *);
 
-void on_gradeInfo_inno_search_clicked(GtkWidget *);
+//数据统计事件函数
+void on_gradeInfo_stastical_clicked(GtkWidget *);
 
-void on_classInfo_no_search_clicked(GtkWidget *);
+void on_classInfo_stastical_clicked(GtkWidget *);
 
-void on_classInfo_major_search_clicked(GtkWidget *);
+void on_studentInfo_stastical_clicked(GtkWidget *);
 
-void on_classInfo_peopleNo_search_clicked(GtkWidget *);
+void on_student_stastical_by_year_clicked(GtkWidget *);
 
-void on_classInfo_mentorName_search_clicked(GtkWidget *);
-
-void on_studentInfo_name_search_clicked(GtkWidget *);
-
-void on_studentInfo_major_search_clicked(GtkWidget *);
-
-void on_studentInfo_Intime_search_clicked(GtkWidget *);
-
-void on_studentInfo_age_search_clicked(GtkWidget *);
-
-void on_media_number_and_name_query_clicked(GtkWidget *);
-
-void on_media_date_and_partname_query_clicked(GtkWidget *);
-
-//数据统计函数
-int getGradeNumber(GradeInfo);
-
-int getClassNumber(GradeInfo);
-
-int getStudentNumber(GradeInfo);
 
 //数据维护事件函数
 void gradeInfo_method(void);
@@ -236,10 +234,6 @@ void on_studentInfo_delete_clicked(GtkWidget *);
 
 void reload_studentInfo_list(void);
 
-void on_province_combo_changed(GtkWidget *, gpointer);
-
-
-void free_all(GradeInfo);
 
 //界面辅助类函数
 GdkPixbuf *create_pixbuf(const gchar *);

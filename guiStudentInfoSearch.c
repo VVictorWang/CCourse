@@ -186,6 +186,106 @@ void on_studentInfo_age_search_clicked(GtkWidget *widget) {
     }
 }
 
+
+/*************************************************
+ @name: on_studentInfo_isGrad_search_clicked
+ @function: called back when query-gradeInfo-by-isGraduate-button clicked. Run a dialog containing a list view to display the information.
+ @param widget: the widget that activates the signal
+ @return none
+*************************************************/
+void on_studentInfo_isGrad_search_clicked(GtkWidget *widget) {
+    GdkPixbuf *pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/icon.png");
+    GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_icon(GTK_WINDOW(window), pixbuf);
+    g_object_unref(pixbuf), pixbuf = NULL;
+    gtk_window_set_title(GTK_WINDOW(window), "按毕业与否查询");
+    gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
+    gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(main_window));
+    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+    gtk_widget_set_usize(window, 180, 120);
+    gtk_window_set_modal(GTK_WINDOW(window), TRUE);
+    GtkWidget *yesbtn = gtk_button_new_with_label("已经毕业");
+    GtkWidget *nobtn = gtk_button_new_with_label("未毕业");
+    gtk_widget_set_usize(yesbtn, 72, 24);
+    gtk_widget_set_usize(nobtn, 72, 24);
+
+    GtkWidget *vbox = gtk_vbox_new(FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(vbox), yesbtn, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(vbox), nobtn, FALSE, FALSE, 5);
+
+
+    gtk_container_set_border_width(GTK_CONTAINER(vbox), 5);
+    gtk_container_add(GTK_CONTAINER(window), vbox);
+
+
+
+    gtk_widget_show_all(window);
+    g_signal_connect(G_OBJECT(yesbtn), "clicked", G_CALLBACK(on_studentInfo_Graduate_clicked),NULL);
+    g_signal_connect(G_OBJECT(nobtn), "clicked", G_CALLBACK(on_studentInfo_not_Graduate_clicked),NULL);
+
+}
+
+
+/*************************************************
+ @name: on_studentInfo_graduaTo_search_clicked
+ @function: called back when query-studentInfo-by-student-graduaTo-button clicked. Run a dialog containing a list view to display the information.
+ @param widget: the widget that activates the signal
+ @return none
+*************************************************/
+void on_studentInfo_graduaTo_search_clicked(GtkWidget *widget) {
+    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生毕业去向查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
+                                                    GTK_STOCK_OK,
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+    gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
+    g_object_unref(pixbuf), pixbuf = NULL;
+
+    GtkWidget *studentGraduaToLabel = gtk_label_new("毕业去向：");
+    GtkWidget *studentGraduaToEntry = gtk_entry_new();
+
+    GtkWidget *hbox = gtk_hbox_new(FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(hbox), studentGraduaToLabel, FALSE, FALSE, 5);
+    gtk_box_pack_start(GTK_BOX(hbox), studentGraduaToEntry, FALSE, FALSE, 5);
+    gtk_container_set_border_width(GTK_CONTAINER(hbox), 5);
+    gtk_box_pack_start_defaults(GTK_BOX(GTK_DIALOG(dialog)->vbox), hbox);
+
+    gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
+
+    gtk_widget_show_all(dialog);
+    gint result = gtk_dialog_run(GTK_DIALOG(dialog));
+
+    char name[12];
+    strcpy(name, gtk_entry_get_text(GTK_ENTRY(studentGraduaToEntry)));
+
+    gtk_widget_destroy(dialog);
+
+    if (result == GTK_RESPONSE_OK) {
+        run_studentInfo_dialog(searchStudentInfoByGradTo(name));
+    }
+}
+
+
+/*************************************************
+ @name: on_studentInfo_Graduate_clicked
+ @function: called back when is_graduate button clicked.Run a dialog for information adding.
+ @param widget: the widget that activates the signal
+ @return none
+*************************************************/
+void on_studentInfo_Graduate_clicked(GtkWidget *widget){
+    run_studentInfo_dialog(searchStudentInfoGraduate('1'));
+}
+
+
+/*************************************************
+ @name: on_studentInfo_not_Graduate_clicked
+ @function: called back when not_graduate button clicked.Run a dialog for information adding.
+ @param widget: the widget that activates the signal
+ @return none
+*************************************************/
+void on_studentInfo_not_Graduate_clicked(GtkWidget *widget){
+    run_studentInfo_dialog(searchStudentInfoGraduate('0'));
+}
+
 /*************************************************
  @name: run_studentInfo_dialog
  @function:  Run a dialog containing a list view to display the information.
