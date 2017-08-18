@@ -55,7 +55,7 @@ int initInfo(GradeInfo *phead) {
                 mytail->next = (ClassInfo) malloc(sizeof(CLASSInfo));
                 mytail = mytail->next;
                 strcpy(mytail->GradeNo, temp);
-                fscanf(sp, "%s%s%d%f%d%s%s%s%s", mytail->CNo, mytail->FullName, &(mytail->InNo), &(mytail->AverageAge),
+                fscanf(sp, "%s%s%d%f%d%s%s%s%s", mytail->CNo, mytail->Major, &(mytail->InNo), &(mytail->AverageAge),
                        &(mytail->GraduateNo), mytail->MonitorName, mytail->MonitorNo, mytail->MentorName,
                        mytail->MentorNo);
                 mytail->Students = (StudentInfo) malloc(sizeof(STUDENTInfo));
@@ -87,7 +87,7 @@ int initInfo(GradeInfo *phead) {
                 classtail = classtail->next;
                 if (!strcmp(classtail->CNo, temp)) {
                     flag = 1;
-                    StudentInfo studenttail = (StudentInfo) malloc(sizeof(STUDENTInfo));
+                    StudentInfo studenttail = classtail->Students;
                     while (studenttail->next != NULL) {
                         studenttail = studenttail->next;
                     }
@@ -162,10 +162,10 @@ int restore_data(GradeInfo *phead, char *filename) {
                     tail1->next = (ClassInfo) malloc(sizeof(CLASSInfo));
                     tail1 = tail1->next;
                     strcpy(tail1->GradeNo, temp);
-                    fscanf(pf, "%s%s%s%d%f%d%s%s%s%s", tail1->GradeNo, tail1->CNo, tail1->FullName,
+                    fscanf(pf, "%s%s%s%d%f%d%s%s%s%s", tail1->GradeNo, tail1->CNo, tail1->Major,
                            &(tail1->InNo), &(tail1->AverageAge), &(tail1->GraduateNo), tail1->MonitorName,
                            tail1->MonitorNo,
-                           tail1->MonitorName, tail1->MonitorNo);
+                           tail1->MentorName, tail1->MentorNo);
                     tail1->Students = (StudentInfo) malloc(sizeof(STUDENTInfo));
                     tail1->Students->next = NULL;
                     tail1->next = NULL;

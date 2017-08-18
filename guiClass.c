@@ -103,7 +103,7 @@ void classInfo_method() {
     gtk_tree_view_append_column(GTK_TREE_VIEW(classInfo_list), monitorNoColumn);
 
     GtkTreeViewColumn *mentorNameColumn = gtk_tree_view_column_new_with_attributes("班主任姓名", renderer, "text",
-                                                                                   CLASS_MONITORNA_COLUMN, NULL);
+                                                                                   CLASS_MENTORNA_COLUMN, NULL);
     gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(mentorNameColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
     gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(mentorNameColumn), TRUE);
     gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(mentorNameColumn), TRUE);
@@ -360,7 +360,7 @@ void on_classInfo_modify_clicked(GtkWidget *widget, gpointer data) {
 
     gtk_combo_box_set_active(GTK_COMBO_BOX(classGradeNoCombo), index);
     gtk_entry_set_text(GTK_ENTRY(classNoEntry), classNode->CNo);
-    gtk_entry_set_text(GTK_ENTRY(classMajorEntry), classNode->FullName);
+    gtk_entry_set_text(GTK_ENTRY(classMajorEntry), classNode->Major);
     gtk_entry_set_text(GTK_ENTRY(classInNoEntry), inNo);
     gtk_entry_set_text(GTK_ENTRY(classInAgeEntry), age);
     gtk_entry_set_text(GTK_ENTRY(classGradEntry), graduateNo);
@@ -496,7 +496,7 @@ void reload_classInfo_list(void) {
         while (class_node != NULL) {
             gtk_list_store_append(store, &iter);
             gtk_list_store_set(store, &iter, CLASS_GRADENO_COLUMN, class_node->GradeNo, CLASSNO_COLUMN,
-                               class_node->CNo, CLASS_MAJOR_COLUMN, class_node->FullName, CLASS_INNO_COLUMN,
+                               class_node->CNo, CLASS_MAJOR_COLUMN, class_node->Major, CLASS_INNO_COLUMN,
                                class_node->InNo, CLASS_AGE_COLUMN, class_node->AverageAge, CLASS_GRAD_COLUMN,
                                class_node->GraduateNo, CLASS_MONITORNA_COLUMN, class_node->MonitorName,
                                CLASS_MONITORNO_COLUMN, class_node->MonitorNo, CLASS_MENTORNA_COLUMN,

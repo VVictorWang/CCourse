@@ -34,7 +34,7 @@ int changeGradeInfo(GradeInfo head, char *match, const char **str) {
 
 /**
  * @name changeClassInfo
-* @function change the classInfo into the list.
+ * @function change the classInfo into the list.
  * @param head: the head of the list
  * @param match: the No of the class to be modified
  * @param str: the new information
@@ -47,7 +47,7 @@ int changeClassInfo(GradeInfo head, char *match, const char **str) {
     while (tail->next != NULL) {
         tail = tail->next;
         ClassInfo tail1 = tail->Classes;
-        ClassInfo tail1old = tail->Classes;
+        ClassInfo tail1old;
         while (tail1->next != NULL) {
             tail1old = tail1;
             tail1 = tail1->next;
@@ -67,9 +67,9 @@ int changeClassInfo(GradeInfo head, char *match, const char **str) {
                     }
                 }
                 //若传入信息不为空，加载到链表中
-                if (strcmp(str[0], tail1->CNo)) {
+                if (strcmp(str[1], tail1->CNo)) {
                     flag = 1;
-                    strcpy(tail1->CNo, str[0]);
+                    strcpy(tail1->CNo, str[1]);
                     tail1->Students = (StudentInfo) malloc(sizeof(STUDENTInfo));
                     tail1->Students->next = NULL;
                 }

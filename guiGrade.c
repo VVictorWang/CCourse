@@ -105,7 +105,7 @@ void gradeInfo_method(void) {
     gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeChairmanNameColumn);
 
     GtkTreeViewColumn *gradeChairmanNoColumn = gtk_tree_view_column_new_with_attributes("年级学生会主席电话", renderer, "text",
-                                                                                          GRADE_CHAIRNO_COLUMN, NULL);
+                                                                                        GRADE_CHAIRNO_COLUMN, NULL);
     gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeChairmanNoColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
     gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeChairmanNoColumn), TRUE);
     gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeChairmanNoColumn), TRUE);
@@ -216,12 +216,9 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "年级学生会主席姓名不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(gradeChairmanNoEntry)) == '\0') {
                     error_message_dialog("错误", "年级学生会主席电话不能为空！");
-                }
-                else if (testGradeInfo(gtk_entry_get_text(GTK_ENTRY(gradeNoEntry))) == 1)
-                {
-                    error_message_dialog("错误","年级编号重复！");
-                }
-                else {
+                } else if (testGradeInfo(gtk_entry_get_text(GTK_ENTRY(gradeNoEntry))) == 1) {
+                    error_message_dialog("错误", "年级编号重复！");
+                } else {
                     const char *str[] = {gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)),
                                          gtk_entry_get_text(GTK_ENTRY(gradeTimeEntry)),
                                          gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)),
@@ -254,18 +251,19 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
 *************************************************/
 void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     GtkTreeIter iter;
-    GtkTreeModel * model;
+    GtkTreeModel *model;
     GradeInfo node = NULL;
-    if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(grade_list))), &model, &iter)){
+    if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(grade_list))),
+                                        &model, &iter)) {
         gtk_tree_model_get(model, &iter, GRADE_ADDRESS_COLUMN, &node, -1);
-    }
-    else{
+    } else {
         warning_message_dialog("未选中任何条目", "请先选中一个条目");
         return;
     }
 
-    GdkPixbuf * pixbuf = create_pixbuf("img/icon.png");
-    GtkWidget * dialog = gtk_dialog_new_with_buttons("省份监管信息维护", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK, GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("省份监管信息维护", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -287,7 +285,7 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *gradeChairmanNameEntry = gtk_entry_new();
     GtkWidget *gradeChairmanNoEntry = gtk_entry_new();
 
-    char inno[8],graduateNo[8];
+    char inno[8], graduateNo[8];
     snprintf(inno, 8, "%d", node->InNo);
     snprintf(graduateNo, 8, "%d", node->GraduateNo);
 
@@ -326,8 +324,7 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     gtk_widget_show_all(dialog);
 
     int error;
-    do
-    {
+    do {
         error = 1;
         gint result = gtk_dialog_run(GTK_DIALOG(dialog));
         switch (result) {
@@ -350,15 +347,15 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "年级学生会主席电话不能为空！");
                 } else {
                     const char *str[] = {gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradeTimeEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradeGradEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradeMentorNameEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradeMentorNoEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradeChairmanNameEntry)),
-                                   gtk_entry_get_text(GTK_ENTRY(gradeChairmanNoEntry))
+                                         gtk_entry_get_text(GTK_ENTRY(gradeTimeEntry)),
+                                         gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)),
+                                         gtk_entry_get_text(GTK_ENTRY(gradeGradEntry)),
+                                         gtk_entry_get_text(GTK_ENTRY(gradeMentorNameEntry)),
+                                         gtk_entry_get_text(GTK_ENTRY(gradeMentorNoEntry)),
+                                         gtk_entry_get_text(GTK_ENTRY(gradeChairmanNameEntry)),
+                                         gtk_entry_get_text(GTK_ENTRY(gradeChairmanNoEntry))
                     };
-                    if (changeGradeInfo(head, node->CSNo, str)==1) {
+                    if (changeGradeInfo(head, node->CSNo, str) == 1) {
                         warning_message_dialog("修改成功", "原年级下的班级和学生信息将丢失！");
                     }
 
@@ -384,13 +381,12 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
 *************************************************/
 void on_gradeInfo_delete_clicked(GtkWidget *widget) {
     GtkTreeIter iter;
-    GtkTreeModel * model;
+    GtkTreeModel *model;
     GradeInfo node = NULL;
-    if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(grade_list))), &model, &iter))
-    {
+    if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(grade_list))),
+                                        &model, &iter)) {
         gtk_tree_model_get(model, &iter, GRADE_ADDRESS_COLUMN, &node, -1);
-    } else
-    {
+    } else {
         warning_message_dialog("未选中任何条目", "请先选中一个条目");
         return;
     }
@@ -405,18 +401,17 @@ void on_gradeInfo_delete_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void reload_gradeInfo_list(void) {
-    GtkListStore * store;
+    GtkListStore *store;
     GtkTreeIter iter;
     store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(grade_list)));
     gtk_list_store_clear(store);
     GradeInfo node = head->next;
-    while (node != NULL)
-    {
+    while (node != NULL) {
         gtk_list_store_append(store, &iter);
         gtk_list_store_set(store, &iter, GRADENO_COLUMN, node->CSNo, GRADE_TIME_COLUMN, node->Year, GRADE_PEOPLE_COLUMN,
-                           node->InNo, GRADE_GRAD_COLUMN,node->GraduateNo,GRADE_MENTORNA_COLUMN,node->MentorName,
-                           GRADE_MENTORNO_COLUMN,node->MentorNo,GRADE_CHAIRNA_COLUMN,node->ChairmanName,
-                           GRADE_CHAIRNO_COLUMN,node->ChairmanNo,GRADE_ADDRESS_COLUMN, node, -1);
+                           node->InNo, GRADE_GRAD_COLUMN, node->GraduateNo, GRADE_MENTORNA_COLUMN, node->MentorName,
+                           GRADE_MENTORNO_COLUMN, node->MentorNo, GRADE_CHAIRNA_COLUMN, node->ChairmanName,
+                           GRADE_CHAIRNO_COLUMN, node->ChairmanNo, GRADE_ADDRESS_COLUMN, node, -1);
         node = node->next;
     }
 }

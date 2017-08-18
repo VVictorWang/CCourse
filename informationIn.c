@@ -33,7 +33,7 @@ void gradeInfoIn(GradeInfo *head, const char **str) {
 void classInfoIn(ClassInfo *head, const char **str) {
     strcpy((*head)->GradeNo, str[0]);
     strcpy((*head)->CNo, str[1]);
-    strcpy((*head)->FullName, str[2]);
+    strcpy((*head)->Major, str[2]);
     (*head)->InNo = atoi(str[3]);
     (*head)->AverageAge = (float) atof(str[4]);
     (*head)->GraduateNo = atoi(str[5]);

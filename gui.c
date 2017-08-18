@@ -201,7 +201,7 @@ void show_dataview(void) {
     gtk_container_add(GTK_CONTAINER(provincebox), gradeInfo);
     gtk_fixed_put(GTK_FIXED(dataview), provincebox, 309, 221);
 
-    classInfo = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/case.png");
+    classInfo = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/studentInfo.png");
     GtkWidget *caselabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(caselabel), "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>班级信息</span>");
     gtk_fixed_put(GTK_FIXED(dataview), caselabel, 544, 335);
@@ -396,10 +396,21 @@ void show_queryview(void) {
     g_signal_connect(G_OBJECT(gradeInTimeBox), "button_press_event", G_CALLBACK(on_gradeInfo_time_search_clicked),
                      NULL);
     g_signal_connect(G_OBJECT(gradeInNoBox), "button_press_event", G_CALLBACK(on_gradeInfo_inno_search_clicked), NULL);
-//    g_signal_connect(G_OBJECT(classNoBox), "button_press_event", G_CALLBACK(on_case_number_query_clicked), NULL);
-//    g_signal_connect(G_OBJECT(classsMajorBox), "button_press_event", G_CALLBACK(on_case_name_and_level_query_clicked), NULL);
-//    g_signal_connect(G_OBJECT(studentNameBox), "button_press_event", G_CALLBACK(on_media_number_and_name_query_clicked), NULL);
-//    g_signal_connect(G_OBJECT(studentMajorBox), "button_press_event", G_CALLBACK(on_media_date_and_partname_query_clicked), NULL);
+    g_signal_connect(G_OBJECT(classNoBox), "button_press_event", G_CALLBACK(on_classInfo_no_search_clicked), NULL);
+    g_signal_connect(G_OBJECT(classsMajorBox), "button_press_event", G_CALLBACK(on_classInfo_major_search_clicked),
+                     NULL);
+    g_signal_connect(G_OBJECT(classPeopleBox), "button_press_event", G_CALLBACK(on_classInfo_peopleNo_search_clicked),
+                     NULL);
+    g_signal_connect(G_OBJECT(classMentorNameBox), "button_press_event",
+                     G_CALLBACK(on_classInfo_mentorName_search_clicked), NULL);
+    g_signal_connect(G_OBJECT(studentNameBox), "button_press_event", G_CALLBACK(on_studentInfo_name_search_clicked),
+                     NULL);
+    g_signal_connect(G_OBJECT(studentMajorBox), "button_press_event", G_CALLBACK(on_studentInfo_major_search_clicked),
+                     NULL);
+    g_signal_connect(G_OBJECT(studentInTimeBox), "button_press_event", G_CALLBACK(on_studentInfo_Intime_search_clicked),
+                     NULL);
+    g_signal_connect(G_OBJECT(studentAgeBox), "button_press_event", G_CALLBACK(on_studentInfo_age_search_clicked),
+                     NULL);
 
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), queryview, NULL);
 }
@@ -562,7 +573,7 @@ void on_stastical_clicked(GtkWidget *widget) {
 void on_grade_clicked(GtkWidget *widget) {
     if (data_type != 1) {
         gtk_image_set_from_file(GTK_IMAGE(gradeInfo), "/home/victor/CLionProjects/course/img/highlighted_province.png");
-        gtk_image_set_from_file(GTK_IMAGE(classInfo), "/home/victor/CLionProjects/course/img/case.png");
+        gtk_image_set_from_file(GTK_IMAGE(classInfo), "/home/victor/CLionProjects/course/img/studentInfo.png");
         gtk_image_set_from_file(GTK_IMAGE(studentInfo), "/home/victor/CLionProjects/course/img/studentInfo.png");
         data_type = 1;
     }
@@ -592,7 +603,7 @@ void on_class_clicked(GtkWidget *widget) {
 void on_student_clicked(GtkWidget *widget) {
     if (data_type != 3) {
         gtk_image_set_from_file(GTK_IMAGE(gradeInfo), "/home/victor/CLionProjects/course/img/gradeInfo.png");
-        gtk_image_set_from_file(GTK_IMAGE(classInfo), "/home/victor/CLionProjects/course/img/case.png");
+        gtk_image_set_from_file(GTK_IMAGE(classInfo), "/home/victor/CLionProjects/course/img/studentInfo.png");
         gtk_image_set_from_file(GTK_IMAGE(studentInfo), "/home/victor/CLionProjects/course/img/highlighted_media.png");
         data_type = 3;
     }

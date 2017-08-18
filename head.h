@@ -31,14 +31,14 @@ typedef struct STUDENTINFO {
 typedef struct CLASSINFO {
     char GradeNo[5];  //所属年级编号
     char CNo[8];  //班级编号
-    char FullName[12];  //专业名称
+    char Major[12];  //专业名称
     int InNo;  //入学人数
     float AverageAge;  //入学平均年龄
     int GraduateNo; //毕业人数
     char MonitorName[12];  //班长姓名
-    char MonitorNo[12];  //班长联系电话
+    char MonitorNo[14];  //班长联系电话
     char MentorName[12]; //班主任姓名
-    char MentorNo[12]; //班主任联系电话
+    char MentorNo[14]; //班主任联系电话
     StudentInfo Students; //班级中学生
     struct CLASSINFO *next;
 
@@ -93,6 +93,22 @@ GradeInfo searchGradeInfoByTime(GradeInfo, char *, char *);
 
 GradeInfo searchGradeInfoByPeople(GradeInfo, char *, char *);
 
+ClassInfo searchClassInfoByNo(char *);
+
+ClassInfo searchClassInfoByMajor(char *);
+
+ClassInfo searchClassInfoByPeople(char *, char *);
+
+ClassInfo searchClassInfoByMentorName(char *);
+
+StudentInfo searchStudentInfoByName(char *);
+
+StudentInfo searchStudentInfoByMajor(char *);
+
+StudentInfo searchStudentInfoByInTime(char *, char *);
+
+StudentInfo searchStudentInfoByAge(char *, char *);
+
 void searchClassInfo(GradeInfo, int, char *, char, char **);//班级信息查询函数
 void searchStudentInfo(GradeInfo, int, char *, char *, char **);//学生信息查询函数
 
@@ -122,6 +138,10 @@ void show_queryview(void);
 void show_stasticalview(void);
 
 void run_gradeInfo_dialog(GradeInfo);
+
+void run_classInfo_dialog(ClassInfo);
+
+void run_studentInfo_dialog(StudentInfo);
 
 //事件类函数
 void on_data_clicked(GtkWidget *);
@@ -156,9 +176,21 @@ void on_gradeInfo_time_search_clicked(GtkWidget *);
 
 void on_gradeInfo_inno_search_clicked(GtkWidget *);
 
-void on_case_number_query_clicked(GtkWidget *);
+void on_classInfo_no_search_clicked(GtkWidget *);
 
-void on_case_name_and_level_query_clicked(GtkWidget *);
+void on_classInfo_major_search_clicked(GtkWidget *);
+
+void on_classInfo_peopleNo_search_clicked(GtkWidget *);
+
+void on_classInfo_mentorName_search_clicked(GtkWidget *);
+
+void on_studentInfo_name_search_clicked(GtkWidget *);
+
+void on_studentInfo_major_search_clicked(GtkWidget *);
+
+void on_studentInfo_Intime_search_clicked(GtkWidget *);
+
+void on_studentInfo_age_search_clicked(GtkWidget *);
 
 void on_media_number_and_name_query_clicked(GtkWidget *);
 
@@ -217,5 +249,8 @@ void warning_message_dialog(gchar *, gchar *);
 void error_message_dialog(gchar *, gchar *);
 
 void information_message_dialog(gchar *, gchar *);
+
+//数据辅助类函数
+int getAgeByBirthDay(char *);
 
 #endif //COURSE_HEAD_H

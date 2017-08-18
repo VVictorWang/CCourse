@@ -82,6 +82,7 @@ void studentInfo_method(void) {
     gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentNameColumn), TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentNameColumn);
 
+
     GtkTreeViewColumn *studentSexColumn = gtk_tree_view_column_new_with_attributes("性别", renderer, "text",
                                                                                    STUDENT_SEX_COLUMN, NULL);
     gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentSexColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
