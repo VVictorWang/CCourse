@@ -176,65 +176,15 @@ void run_gradeInfo_dialog(GradeInfo node) {
     g_object_unref(store);
 
     GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
-    GtkTreeViewColumn *gradeNoColumn = gtk_tree_view_column_new_with_attributes("年级编号", renderer, "text",
-                                                                                GRADENO_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeNoColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeNoColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeNoColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeNoColumn);
 
-    GtkTreeViewColumn *gradeTimeColumn = gtk_tree_view_column_new_with_attributes("入学时间", renderer, "text",
-                                                                                  GRADE_TIME_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeTimeColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeTimeColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeTimeColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeTimeColumn);
-
-    GtkTreeViewColumn *gradePeopleColumn = gtk_tree_view_column_new_with_attributes("入学人数", renderer, "text",
-                                                                                    GRADE_PEOPLE_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradePeopleColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradePeopleColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradePeopleColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradePeopleColumn);
-
-    GtkTreeViewColumn *gradeGradColumn = gtk_tree_view_column_new_with_attributes("毕业人数", renderer, "text",
-                                                                                  GRADE_GRAD_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeGradColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeGradColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeGradColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeGradColumn);
-
-    GtkTreeViewColumn *gradeMentorNameColumn = gtk_tree_view_column_new_with_attributes("年级辅导员姓名", renderer, "text",
-                                                                                        GRADE_MENTORNA_COLUMN,
-                                                                                        NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeMentorNameColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeMentorNameColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeMentorNameColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeMentorNameColumn);
-
-    GtkTreeViewColumn *gradeMentorNoColumn = gtk_tree_view_column_new_with_attributes("年级辅导员电话", renderer, "text",
-                                                                                      GRADE_MENTORNO_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeMentorNoColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeMentorNoColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeMentorNoColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeMentorNoColumn);
-
-    GtkTreeViewColumn *gradeChairmanNameColumn = gtk_tree_view_column_new_with_attributes("年级学生会主席姓名", renderer,
-                                                                                          "text",
-                                                                                          GRADE_CHAIRNA_COLUMN,
-                                                                                          NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeChairmanNameColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeChairmanNameColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeChairmanNameColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeChairmanNameColumn);
-
-    GtkTreeViewColumn *gradeChairmanNoColumn = gtk_tree_view_column_new_with_attributes("年级学生会主席电话", renderer,
-                                                                                        "text",
-                                                                                        GRADE_CHAIRNO_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeChairmanNoColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeChairmanNoColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeChairmanNoColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeChairmanNoColumn);
+    addTreeColumnView(grade_list, renderer, "年级编号", GRADENO_COLUMN);
+    addTreeColumnView(grade_list, renderer, "入学时间", GRADE_TIME_COLUMN);
+    addTreeColumnView(grade_list, renderer, "入学人数", GRADE_PEOPLE_COLUMN);
+    addTreeColumnView(grade_list, renderer, "毕业人数", GRADE_GRAD_COLUMN);
+    addTreeColumnView(grade_list, renderer, "年级辅导员姓名", GRADE_MENTORNA_COLUMN);
+    addTreeColumnView(grade_list, renderer, "年级学生会主席姓名", GRADE_CHAIRNA_COLUMN);
+    addTreeColumnView(grade_list, renderer, "年级辅导员电话", GRADE_MENTORNO_COLUMN);
+    addTreeColumnView(grade_list, renderer, "年级学生会主席电话", GRADE_CHAIRNO_COLUMN);
 
     GtkWidget *scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);

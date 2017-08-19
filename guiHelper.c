@@ -79,3 +79,21 @@ void information_message_dialog(gchar *title, gchar *message) {
     gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
 }
+
+/*************************************************
+ @name: addTreeColumnView
+ @function: add a column to a excel.
+ @param list: the widget which the column will be added to
+ @param renderer: the cell renderer
+ @param columnDes: the text description of the column
+ @param columnNo: the index of the column
+ @return none
+*************************************************/
+void addTreeColumnView(GtkWidget *list, GtkCellRenderer *renderer, char *columnDes, int columnNo) {
+    GtkTreeViewColumn *addColumn = gtk_tree_view_column_new_with_attributes(columnDes, renderer, "text",
+                                                                                      columnNo, NULL);
+    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(addColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
+    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(addColumn), TRUE);
+    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(addColumn), TRUE);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(list), addColumn);
+}

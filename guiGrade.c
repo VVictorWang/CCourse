@@ -55,61 +55,17 @@ void gradeInfo_method(void) {
     grade_list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
     g_object_unref(store);
     GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
-    GtkTreeViewColumn *gradeNoColumn = gtk_tree_view_column_new_with_attributes("年级编号", renderer, "text",
-                                                                                GRADENO_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeNoColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeNoColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeNoColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeNoColumn);
 
-    GtkTreeViewColumn *gradeTimeColumn = gtk_tree_view_column_new_with_attributes("入学时间", renderer, "text",
-                                                                                  GRADE_TIME_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeTimeColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeTimeColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeTimeColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeTimeColumn);
+    addTreeColumnView(grade_list, renderer, "年级编号", GRADENO_COLUMN);
+    addTreeColumnView(grade_list, renderer, "入学时间", GRADE_TIME_COLUMN);
+    addTreeColumnView(grade_list, renderer, "入学人数", GRADE_PEOPLE_COLUMN);
+    addTreeColumnView(grade_list, renderer, "毕业人数", GRADE_GRAD_COLUMN);
+    addTreeColumnView(grade_list, renderer, "年级辅导员姓名", GRADE_MENTORNA_COLUMN);
+    addTreeColumnView(grade_list, renderer, "年级学生会主席姓名", GRADE_CHAIRNA_COLUMN);
+    addTreeColumnView(grade_list, renderer, "年级辅导员电话", GRADE_MENTORNO_COLUMN);
+    addTreeColumnView(grade_list, renderer, "年级学生会主席电话", GRADE_CHAIRNO_COLUMN);
 
-    GtkTreeViewColumn *gradePeopleColumn = gtk_tree_view_column_new_with_attributes("入学人数", renderer, "text",
-                                                                                    GRADE_PEOPLE_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradePeopleColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradePeopleColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradePeopleColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradePeopleColumn);
 
-    GtkTreeViewColumn *gradeGradColumn = gtk_tree_view_column_new_with_attributes("毕业人数", renderer, "text",
-                                                                                  GRADE_GRAD_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeGradColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeGradColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeGradColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeGradColumn);
-
-    GtkTreeViewColumn *gradeMentorNameColumn = gtk_tree_view_column_new_with_attributes("年级辅导员姓名", renderer, "text",
-                                                                                        GRADE_MENTORNA_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeMentorNameColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeMentorNameColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeMentorNameColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeMentorNameColumn);
-
-    GtkTreeViewColumn *gradeMentorNoColumn = gtk_tree_view_column_new_with_attributes("年级辅导员电话", renderer, "text",
-                                                                                      GRADE_MENTORNO_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeMentorNoColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeMentorNoColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeMentorNoColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeMentorNoColumn);
-
-    GtkTreeViewColumn *gradeChairmanNameColumn = gtk_tree_view_column_new_with_attributes("年级学生会主席姓名", renderer, "text",
-                                                                                          GRADE_CHAIRNA_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeChairmanNameColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeChairmanNameColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeChairmanNameColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeChairmanNameColumn);
-
-    GtkTreeViewColumn *gradeChairmanNoColumn = gtk_tree_view_column_new_with_attributes("年级学生会主席电话", renderer, "text",
-                                                                                        GRADE_CHAIRNO_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(gradeChairmanNoColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(gradeChairmanNoColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(gradeChairmanNoColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(grade_list), gradeChairmanNoColumn);
 
     GtkWidget *scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
@@ -160,7 +116,9 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *gradeChairmanNameLabel = gtk_label_new("年级学生会主席姓名:");
     GtkWidget *gradeChairmanNoLabel = gtk_label_new("年级学生会主席电话:");
     GtkWidget *gradeNoEntry = gtk_entry_new();
-    GtkWidget *gradeTimeEntry = gtk_entry_new();
+
+
+    GtkWidget *gradeTimeCalendar = gtk_calendar_new();
     GtkWidget *gradePeopleEntry = gtk_entry_new();
     GtkWidget *gradeGradEntry = gtk_entry_new();
     GtkWidget *gradeMentorNameEntry = gtk_entry_new();
@@ -180,7 +138,7 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
     gtk_table_attach_defaults(GTK_TABLE(table), gradeChairmanNameLabel, 0, 1, 6, 7);
     gtk_table_attach_defaults(GTK_TABLE(table), gradeChairmanNoLabel, 0, 1, 7, 8);
     gtk_table_attach_defaults(GTK_TABLE(table), gradeNoEntry, 1, 2, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeTimeEntry, 1, 2, 1, 2);
+    gtk_table_attach_defaults(GTK_TABLE(table), gradeTimeCalendar, 1, 2, 1, 2);
     gtk_table_attach_defaults(GTK_TABLE(table), gradePeopleEntry, 1, 2, 2, 3);
     gtk_table_attach_defaults(GTK_TABLE(table), gradeGradEntry, 1, 2, 3, 4);
     gtk_table_attach_defaults(GTK_TABLE(table), gradeMentorNameEntry, 1, 2, 4, 5);
@@ -198,11 +156,13 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
     do {
         error = 1;
         gint result = gtk_dialog_run(GTK_DIALOG(dialog));
+        unsigned int year = 0, month = 0, day = 0;
         switch (result) {
             case GTK_RESPONSE_OK:
+                gtk_calendar_get_date(GTK_CALENDAR(gradeTimeCalendar), &year, &month, &day);
                 if (*gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)) == '\0') {
                     error_message_dialog("错误", "年级编号不能为空！");
-                } else if (*gtk_entry_get_text(GTK_ENTRY(gradeTimeEntry)) == '\0') {
+                } else if (year == 0 || month == 0 || day == 0) {
                     error_message_dialog("错误", "入学时间不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)) == '\0') {
                     error_message_dialog("错误", "入学人数不能为空！");
@@ -219,8 +179,10 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
                 } else if (testGradeInfo(gtk_entry_get_text(GTK_ENTRY(gradeNoEntry))) == 1) {
                     error_message_dialog("错误", "年级编号重复！");
                 } else {
+                    char time[9];
+                    snprintf(time, 9, "%d", year * 10000 + (month + 1) * 100 + day);
                     const char *str[] = {gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(gradeTimeEntry)),
+                                         time,
                                          gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)),
                                          gtk_entry_get_text(GTK_ENTRY(gradeGradEntry)),
                                          gtk_entry_get_text(GTK_ENTRY(gradeMentorNameEntry)),
@@ -277,7 +239,7 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *gradeChairmanNoLabel = gtk_label_new("年级学生会主席电话:");
 
     GtkWidget *gradeNoEntry = gtk_entry_new();
-    GtkWidget *gradeTimeEntry = gtk_entry_new();
+    GtkWidget *gradeTimeCalendar = gtk_calendar_new();
     GtkWidget *gradePeopleEntry = gtk_entry_new();
     GtkWidget *gradeGradEntry = gtk_entry_new();
     GtkWidget *gradeMentorNameEntry = gtk_entry_new();
@@ -289,8 +251,13 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     snprintf(inno, 8, "%d", node->InNo);
     snprintf(graduateNo, 8, "%d", node->GraduateNo);
 
+    int year = atoi(strsub(node->Year, 0, 4));
+    int month = atoi(strsub(node->Year, 4, 6));
+    int day = atoi(strsub(node->Year, 6, 8));
+    gtk_calendar_select_month(GTK_CALENDAR(gradeTimeCalendar), month, year);
+    gtk_calendar_select_day(GTK_CALENDAR(gradeTimeCalendar), day);
+
     gtk_entry_set_text(GTK_ENTRY(gradeNoEntry), node->CSNo);
-    gtk_entry_set_text(GTK_ENTRY(gradeTimeEntry), node->Year);
     gtk_entry_set_text(GTK_ENTRY(gradePeopleEntry), inno);
     gtk_entry_set_text(GTK_ENTRY(gradeGradEntry), graduateNo);
     gtk_entry_set_text(GTK_ENTRY(gradeMentorNameEntry), node->MentorName);
@@ -309,7 +276,7 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     gtk_table_attach_defaults(GTK_TABLE(table), gradeChairmanNameLabel, 0, 1, 6, 7);
     gtk_table_attach_defaults(GTK_TABLE(table), gradeChairmanNoLabel, 0, 1, 7, 8);
     gtk_table_attach_defaults(GTK_TABLE(table), gradeNoEntry, 1, 2, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeTimeEntry, 1, 2, 1, 2);
+    gtk_table_attach_defaults(GTK_TABLE(table), gradeTimeCalendar, 1, 2, 1, 2);
     gtk_table_attach_defaults(GTK_TABLE(table), gradePeopleEntry, 1, 2, 2, 3);
     gtk_table_attach_defaults(GTK_TABLE(table), gradeGradEntry, 1, 2, 3, 4);
     gtk_table_attach_defaults(GTK_TABLE(table), gradeMentorNameEntry, 1, 2, 4, 5);
@@ -329,9 +296,11 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
         gint result = gtk_dialog_run(GTK_DIALOG(dialog));
         switch (result) {
             case GTK_RESPONSE_OK:
+                year = 0, month = 0, day = 0;
+                gtk_calendar_get_date(GTK_CALENDAR(gradeTimeCalendar), &year, &month, &day);
                 if (*gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)) == '\0') {
                     error_message_dialog("错误", "年级编号不能为空！");
-                } else if (*gtk_entry_get_text(GTK_ENTRY(gradeTimeEntry)) == '\0') {
+                } else if (year == 0 || month == 0 || day == 0) {
                     error_message_dialog("错误", "入学时间不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)) == '\0') {
                     error_message_dialog("错误", "入学人数不能为空！");
@@ -346,8 +315,10 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
                 } else if (*gtk_entry_get_text(GTK_ENTRY(gradeChairmanNoEntry)) == '\0') {
                     error_message_dialog("错误", "年级学生会主席电话不能为空！");
                 } else {
+                    char time[9];
+                    snprintf(time, 9, "%d", year * 10000 + (month + 1) * 100 + day);
                     const char *str[] = {gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(gradeTimeEntry)),
+                                         time,
                                          gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)),
                                          gtk_entry_get_text(GTK_ENTRY(gradeGradEntry)),
                                          gtk_entry_get_text(GTK_ENTRY(gradeMentorNameEntry)),

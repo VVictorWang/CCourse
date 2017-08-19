@@ -61,78 +61,17 @@ void studentInfo_method(void) {
     g_object_unref(store);
     GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
 
-    GtkTreeViewColumn *studentClassNoColumn = gtk_tree_view_column_new_with_attributes("所属班级编号", renderer, "text",
-                                                                                       STUDENT_CLASSNO_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentClassNoColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentClassNoColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentClassNoColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentClassNoColumn);
+    addTreeColumnView(student_list, renderer, "所属班级编号", STUDENT_CLASSNO_COLUMN);
+    addTreeColumnView(student_list, renderer, "学号", STUDENTNO_COLUMN);
+    addTreeColumnView(student_list, renderer, "姓名", STUDENT_NAME_COLUMN);
+    addTreeColumnView(student_list, renderer, "性别", STUDENT_SEX_COLUMN);
+    addTreeColumnView(student_list, renderer, "籍贯", STUDENT_BIRTHPLACE_COLUMN);
+    addTreeColumnView(student_list, renderer, "生日", STUDENT_BIRTHDAY_COLUMN);
+    addTreeColumnView(student_list, renderer, "联系电话", STUDENT_NUMBER_COLUMN);
+    addTreeColumnView(student_list, renderer, "入学分数", STUDENT_INSCORE_COLUMN);
+    addTreeColumnView(student_list, renderer, "已经毕业", STUDENT_ISGRAD_COLUMN);
+    addTreeColumnView(student_list, renderer, "毕业去向", STUDENT_GRADUATETO_COLUMN);
 
-    GtkTreeViewColumn *studentNoColumn = gtk_tree_view_column_new_with_attributes("学号", renderer, "text",
-                                                                                  STUDENTNO_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentNoColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentNoColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentNoColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentNoColumn);
-
-    GtkTreeViewColumn *studentNameColumn = gtk_tree_view_column_new_with_attributes("姓名", renderer, "text",
-                                                                                    STUDENT_NAME_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentNameColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentNameColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentNameColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentNameColumn);
-
-
-    GtkTreeViewColumn *studentSexColumn = gtk_tree_view_column_new_with_attributes("性别", renderer, "text",
-                                                                                   STUDENT_SEX_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentSexColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentSexColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentSexColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentSexColumn);
-
-    GtkTreeViewColumn *studentBirthplaceColumn = gtk_tree_view_column_new_with_attributes("籍贯", renderer, "text",
-                                                                                          STUDENT_BIRTHPLACE_COLUMN,
-                                                                                          NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentBirthplaceColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentBirthplaceColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentBirthplaceColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentBirthplaceColumn);
-
-    GtkTreeViewColumn *studentBirthdayColumn = gtk_tree_view_column_new_with_attributes("生日", renderer, "text",
-                                                                                        STUDENT_BIRTHDAY_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentBirthdayColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentBirthdayColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentBirthdayColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentBirthdayColumn);
-
-    GtkTreeViewColumn *studentNumberColumn = gtk_tree_view_column_new_with_attributes("联系电话", renderer, "text",
-                                                                                      STUDENT_NUMBER_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentNumberColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentNumberColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentNumberColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentNumberColumn);
-
-    GtkTreeViewColumn *studentInScoreColumn = gtk_tree_view_column_new_with_attributes("入学分数", renderer, "text",
-                                                                                       STUDENT_INSCORE_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentInScoreColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentInScoreColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentInScoreColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentInScoreColumn);
-
-    GtkTreeViewColumn *studentIsGradColumn = gtk_tree_view_column_new_with_attributes("已经毕业", renderer, "text",
-                                                                                      STUDENT_ISGRAD_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentIsGradColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentIsGradColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentIsGradColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentIsGradColumn);
-
-    GtkTreeViewColumn *studentGraduaToColumn = gtk_tree_view_column_new_with_attributes("毕业去向", renderer, "text",
-                                                                                        STUDENT_GRADUATETO_COLUMN,
-                                                                                        NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentGraduaToColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentGraduaToColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentGraduaToColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentGraduaToColumn);
 
     GtkWidget *scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
@@ -207,34 +146,19 @@ void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *studentNoEntry = gtk_entry_new();
     GtkWidget *studentNameEntry = gtk_entry_new();
 
-    GtkListStore *sex_store = gtk_list_store_new(1, G_TYPE_STRING);
-    gtk_list_store_append(sex_store, &iter);
-    gtk_list_store_set(sex_store, &iter, 0, "男", -1);
-    gtk_list_store_append(sex_store, &iter);
-    gtk_list_store_set(sex_store, &iter, 0, "女", -1);
-    GtkWidget *studentSexCombo = gtk_combo_box_new_with_model(GTK_TREE_MODEL(sex_store));
-    g_object_unref(sex_store);
-    GtkCellRenderer *sexRenderer = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(studentSexCombo), sexRenderer, TRUE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(studentSexCombo), sexRenderer, "text", 0, NULL);
-    gtk_combo_box_set_active(GTK_COMBO_BOX(studentSexCombo), 0);
+    GtkWidget *hboxButton = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 3);
+    GtkWidget *manButton = gtk_radio_button_new_with_label(NULL, "男");
+    GtkWidget *womanButton = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(manButton), "女");
+    gtk_box_pack_start(GTK_BOX(hboxButton), manButton, TRUE, TRUE, 1);
+    gtk_box_pack_start(GTK_BOX(hboxButton), womanButton, TRUE, TRUE, 1);
 
     GtkWidget *studentBirthplaceEntry = gtk_entry_new();
-    GtkWidget *studentBirthdayEntry = gtk_entry_new();
+    GtkWidget *studentBirthdayCalendar = gtk_calendar_new();
     GtkWidget *studentNumberEntry = gtk_entry_new();
     GtkWidget *studentInScoreEntry = gtk_entry_new();
 
-    GtkListStore *ensure_store = gtk_list_store_new(1, G_TYPE_STRING);
-    gtk_list_store_append(ensure_store, &iter);
-    gtk_list_store_set(ensure_store, &iter, 0, "是", -1);
-    gtk_list_store_append(ensure_store, &iter);
-    gtk_list_store_set(ensure_store, &iter, 0, "否", -1);
-    GtkWidget *studentIsGradCombo = gtk_combo_box_new_with_model(GTK_TREE_MODEL(ensure_store));
-    g_object_unref(sex_store);
-    GtkCellRenderer *ensureRenderer = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(studentIsGradCombo), ensureRenderer, TRUE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(studentIsGradCombo), ensureRenderer, "text", 0, NULL);
-    gtk_combo_box_set_active(GTK_COMBO_BOX(studentIsGradCombo), 0);
+    GtkWidget *yesButton = gtk_check_button_new_with_label("是");
+
 
     GtkWidget *studentGraduaToEntry = gtk_entry_new();
 
@@ -255,12 +179,12 @@ void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
     gtk_table_attach_defaults(GTK_TABLE(table), studentClassNoCombo, 1, 2, 0, 1);
     gtk_table_attach_defaults(GTK_TABLE(table), studentNoEntry, 1, 2, 1, 2);
     gtk_table_attach_defaults(GTK_TABLE(table), studentNameEntry, 1, 2, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentSexCombo, 1, 2, 3, 4);
+    gtk_table_attach_defaults(GTK_TABLE(table), hboxButton, 1, 2, 3, 4);
     gtk_table_attach_defaults(GTK_TABLE(table), studentBirthplaceEntry, 1, 2, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentBirthdayEntry, 1, 2, 5, 6);
+    gtk_table_attach_defaults(GTK_TABLE(table), studentBirthdayCalendar, 1, 2, 5, 6);
     gtk_table_attach_defaults(GTK_TABLE(table), studentNumberEntry, 1, 2, 6, 7);
     gtk_table_attach_defaults(GTK_TABLE(table), studentInScoreEntry, 1, 2, 7, 8);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentIsGradCombo, 1, 2, 8, 9);
+    gtk_table_attach_defaults(GTK_TABLE(table), yesButton, 1, 2, 8, 9);
     gtk_table_attach_defaults(GTK_TABLE(table), studentGraduaToEntry, 1, 2, 9, 10);
 
     gtk_table_set_row_spacings(GTK_TABLE(table), 5);
@@ -274,8 +198,10 @@ void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
     do {
         error = 1;
         gint result = gtk_dialog_run(GTK_DIALOG(dialog));
+        unsigned int year = 0, month = 0, day = 0;
         switch (result) {
             case GTK_RESPONSE_OK:
+                gtk_calendar_get_date(GTK_CALENDAR(studentBirthdayCalendar), &year, &month, &day);
                 if (gtk_combo_box_get_active(GTK_COMBO_BOX(studentClassNoCombo)) == -1) {
                     error_message_dialog("错误", "请先录入对应的年级信息！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentNoEntry)) == '\0') {
@@ -284,7 +210,7 @@ void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "学生姓名不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentBirthplaceEntry)) == '\0') {
                     error_message_dialog("错误", "学生籍贯不能为空！");
-                } else if (*gtk_entry_get_text(GTK_ENTRY(studentBirthdayEntry)) == '\0') {
+                } else if (year == 0 || month == 0 || day == 0) {
                     error_message_dialog("错误", "学生生日不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentNumberEntry)) == '\0') {
                     error_message_dialog("错误", "学生联系电话不能为空！");
@@ -294,20 +220,22 @@ void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "学生毕业去向不能为空！");
                 } else {
                     char sex, isGraduated;
-                    if (gtk_combo_box_get_active(GTK_COMBO_BOX(studentSexCombo)) == 0)
+                    if (gtk_toggle_button_get_active(GTK_RADIO_BUTTON(manButton)) == TRUE) {
                         sex = '1';
-                    else
+                    } else
                         sex = '0';
-                    if (gtk_combo_box_get_active(GTK_COMBO_BOX(studentIsGradCombo)) == 0)
+                    if (gtk_toggle_button_get_active(GTK_CHECK_BUTTON(yesButton)) == TRUE)
                         isGraduated = '1';
                     else
                         isGraduated = '0';
+                    char time[9];
+                    snprintf(time, 9, "%d", year * 10000 + (month + 1) * 100 + day);
                     const char *str[] = {gtk_combo_box_get_active_text(GTK_COMBO_BOX(studentClassNoCombo)),
                                          gtk_entry_get_text(GTK_ENTRY(studentNoEntry)),
                                          gtk_entry_get_text(GTK_ENTRY(studentNameEntry)),
                                          &sex,
                                          gtk_entry_get_text(GTK_ENTRY(studentBirthplaceEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(studentBirthdayEntry)),
+                                         time,
                                          gtk_entry_get_text(GTK_ENTRY(studentNumberEntry)),
                                          gtk_entry_get_text(GTK_ENTRY(studentInScoreEntry)),
                                          &isGraduated,
@@ -387,32 +315,20 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *studentNoEntry = gtk_entry_new();
     GtkWidget *studentNameEntry = gtk_entry_new();
 
-    GtkListStore *sex_store = gtk_list_store_new(1, G_TYPE_STRING);
-    gtk_list_store_append(sex_store, &iter);
-    gtk_list_store_set(sex_store, &iter, 0, "男", -1);
-    gtk_list_store_append(sex_store, &iter);
-    gtk_list_store_set(sex_store, &iter, 0, "女", -1);
-    GtkWidget *studentSexCombo = gtk_combo_box_new_with_model(GTK_TREE_MODEL(sex_store));
-    g_object_unref(sex_store);
-    GtkCellRenderer *sexRenderer = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(studentSexCombo), sexRenderer, TRUE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(studentSexCombo), sexRenderer, "text", 0, NULL);
+
+
+    GtkWidget *hboxButton = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 3);
+    GtkWidget *manButton = gtk_radio_button_new_with_label(NULL, "男");
+    GtkWidget *womanButton = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(manButton), "女");
+    gtk_box_pack_start(GTK_BOX(hboxButton), manButton, TRUE, TRUE, 1);
+    gtk_box_pack_start(GTK_BOX(hboxButton), womanButton, TRUE, TRUE, 1);
 
     GtkWidget *studentBirthplaceEntry = gtk_entry_new();
-    GtkWidget *studentBirthdayEntry = gtk_entry_new();
+    GtkWidget *studentBirthdayCalendar = gtk_calendar_new();
     GtkWidget *studentNumberEntry = gtk_entry_new();
     GtkWidget *studentInScoreEntry = gtk_entry_new();
 
-    GtkListStore *ensure_store = gtk_list_store_new(1, G_TYPE_STRING);
-    gtk_list_store_append(ensure_store, &iter);
-    gtk_list_store_set(ensure_store, &iter, 0, "是", -1);
-    gtk_list_store_append(ensure_store, &iter);
-    gtk_list_store_set(ensure_store, &iter, 0, "否", -1);
-    GtkWidget *studentIsGradCombo = gtk_combo_box_new_with_model(GTK_TREE_MODEL(ensure_store));
-    g_object_unref(sex_store);
-    GtkCellRenderer *ensureRenderer = gtk_cell_renderer_text_new();
-    gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(studentIsGradCombo), ensureRenderer, TRUE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(studentIsGradCombo), ensureRenderer, "text", 0, NULL);
+    GtkWidget *yesButton = gtk_check_button_new_with_label("是");
 
     GtkWidget *studentGraduaToEntry = gtk_entry_new();
 
@@ -422,7 +338,7 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     while (temp != NULL) {
         ClassInfo classTemp = temp->Classes->next;
         while (classTemp != NULL) {
-            if (strcmp(studentNode->CNo, classTemp->CNo) == 0) {
+            if (strcmp(studentNode->ClassNo, classTemp->CNo) == 0) {
                 flag = 1;
                 break;
             }
@@ -436,22 +352,27 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     gtk_combo_box_set_active(GTK_COMBO_BOX(studentClassNoCombo), index);
 
     if (studentNode->sex == '1')
-        gtk_combo_box_set_active(GTK_COMBO_BOX(studentSexCombo), 0);
-    else if (studentNode->sex == '0')
-        gtk_combo_box_set_active(GTK_COMBO_BOX(studentSexCombo), 1);
+        gtk_toggle_button_set_active(GTK_RADIO_BUTTON(manButton), TRUE);
+    else
+        gtk_toggle_button_set_active(GTK_RADIO_BUTTON(womanButton), TRUE);
 
     if (studentNode->HasGraduated == '1')
-        gtk_combo_box_set_active(GTK_COMBO_BOX(studentIsGradCombo), 0);
-    else if (studentNode->sex == '0')
-        gtk_combo_box_set_active(GTK_COMBO_BOX(studentIsGradCombo), 1);
+        gtk_toggle_button_set_active(GTK_CHECK_BUTTON(yesButton), TRUE);
+    else if (studentNode->HasGraduated == '0')
+        gtk_toggle_button_set_active(GTK_CHECK_BUTTON(yesButton), FALSE);
 
     char inScore[8];
     snprintf(inScore, 8, "%f", studentNode->InScore);
 
+    int year = atoi(strsub(studentNode->Birthday, 0, 4));
+    int month = atoi(strsub(studentNode->Birthday, 4, 6));
+    int day = atoi(strsub(studentNode->Birthday, 6, 8));
+    gtk_calendar_select_month(GTK_CALENDAR(studentBirthdayCalendar), month, year);
+    gtk_calendar_select_day(GTK_CALENDAR(studentBirthdayCalendar), day);
+
     gtk_entry_set_text(GTK_ENTRY(studentNoEntry), studentNode->CNo);
     gtk_entry_set_text(GTK_ENTRY(studentNameEntry), studentNode->Name);
     gtk_entry_set_text(GTK_ENTRY(studentBirthplaceEntry), studentNode->Birthplace);
-    gtk_entry_set_text(GTK_ENTRY(studentBirthdayEntry), studentNode->Birthday);
     gtk_entry_set_text(GTK_ENTRY(studentNumberEntry), studentNode->Number);
     gtk_entry_set_text(GTK_ENTRY(studentInScoreEntry), inScore);
     gtk_entry_set_text(GTK_ENTRY(studentGraduaToEntry), studentNode->GraduateTo);
@@ -472,12 +393,12 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     gtk_table_attach_defaults(GTK_TABLE(table), studentClassNoCombo, 1, 2, 0, 1);
     gtk_table_attach_defaults(GTK_TABLE(table), studentNoEntry, 1, 2, 1, 2);
     gtk_table_attach_defaults(GTK_TABLE(table), studentNameEntry, 1, 2, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentSexCombo, 1, 2, 3, 4);
+    gtk_table_attach_defaults(GTK_TABLE(table), hboxButton, 1, 2, 3, 4);
     gtk_table_attach_defaults(GTK_TABLE(table), studentBirthplaceEntry, 1, 2, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentBirthdayEntry, 1, 2, 5, 6);
+    gtk_table_attach_defaults(GTK_TABLE(table), studentBirthdayCalendar, 1, 2, 5, 6);
     gtk_table_attach_defaults(GTK_TABLE(table), studentNumberEntry, 1, 2, 6, 7);
     gtk_table_attach_defaults(GTK_TABLE(table), studentInScoreEntry, 1, 2, 7, 8);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentIsGradCombo, 1, 2, 8, 9);
+    gtk_table_attach_defaults(GTK_TABLE(table), yesButton, 1, 2, 8, 9);
     gtk_table_attach_defaults(GTK_TABLE(table), studentGraduaToEntry, 1, 2, 9, 10);
 
     gtk_table_set_row_spacings(GTK_TABLE(table), 5);
@@ -493,6 +414,8 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
         gint result = gtk_dialog_run(GTK_DIALOG(dialog));
         switch (result) {
             case GTK_RESPONSE_OK:
+                year = 0, month = 0, day = 0;
+                gtk_calendar_get_date(GTK_CALENDAR(studentBirthdayCalendar), &year, &month, &day);
                 if (gtk_combo_box_get_active(GTK_COMBO_BOX(studentClassNoCombo)) == -1) {
                     error_message_dialog("错误", "请先录入对应的年级信息！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentNoEntry)) == '\0') {
@@ -501,7 +424,7 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "学生姓名不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentBirthplaceEntry)) == '\0') {
                     error_message_dialog("错误", "学生籍贯不能为空！");
-                } else if (*gtk_entry_get_text(GTK_ENTRY(studentBirthdayEntry)) == '\0') {
+                } else if (year == 0 || month == 0 || day == 0) {
                     error_message_dialog("错误", "学生生日不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentNumberEntry)) == '\0') {
                     error_message_dialog("错误", "学生联系电话不能为空！");
@@ -511,20 +434,22 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "学生毕业去向不能为空！");
                 } else {
                     char sex, isGraduated;
-                    if (gtk_combo_box_get_active(GTK_COMBO_BOX(studentSexCombo)) == 0)
+                    if (gtk_toggle_button_get_active(GTK_RADIO_BUTTON(manButton)) == TRUE) {
                         sex = '1';
-                    else
+                    } else
                         sex = '0';
-                    if (gtk_combo_box_get_active(GTK_COMBO_BOX(studentIsGradCombo)) == 0)
+                    if (gtk_toggle_button_get_active(GTK_CHECK_BUTTON(yesButton)) == TRUE)
                         isGraduated = '1';
                     else
                         isGraduated = '0';
+                    char time[9];
+                    snprintf(time, 9, "%d", year * 10000 + (month + 1) * 100 + day);
                     const char *str[] = {gtk_combo_box_get_active_text(GTK_COMBO_BOX(studentClassNoCombo)),
                                          gtk_entry_get_text(GTK_ENTRY(studentNoEntry)),
                                          gtk_entry_get_text(GTK_ENTRY(studentNameEntry)),
                                          &sex,
                                          gtk_entry_get_text(GTK_ENTRY(studentBirthplaceEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(studentBirthdayEntry)),
+                                         time,
                                          gtk_entry_get_text(GTK_ENTRY(studentNumberEntry)),
                                          gtk_entry_get_text(GTK_ENTRY(studentInScoreEntry)),
                                          &isGraduated,

@@ -29,7 +29,7 @@ typedef struct STUDENTINFO {
 
 //班级基本信息
 typedef struct CLASSINFO {
-    char GradeNo[5];  //所属年级编号
+    char GradeNo[6];  //所属年级编号
     char CNo[8];  //班级编号
     char Major[12];  //专业名称
     int InNo;  //入学人数
@@ -244,7 +244,11 @@ void error_message_dialog(gchar *, gchar *);
 
 void information_message_dialog(gchar *, gchar *);
 
+void addTreeColumnView(GtkWidget *, GtkCellRenderer *, char *, int );
+
 //数据辅助类函数
 int getAgeByBirthDay(char *);
+char *strsub(char *, int , int );
+int vagueSearch(char *, char *);
 
 #endif //COURSE_HEAD_H

@@ -20,7 +20,7 @@ GradeInfo searchGradeInfoByNo(GradeInfo head, char *temp) {
     GradeInfo result = p;
     while (tail->next != NULL) {
         tail = tail->next;
-        if (!strcmp(tail->CSNo, temp)) {
+        if (vagueSearch(tail->CSNo, temp)) {
             p->next = tail;
             p = p->next;
             p->next = NULL;
@@ -96,7 +96,7 @@ ClassInfo searchClassInfoByNo(char *number) {
         tail = tail->next;
         ClassInfo classHead = tail->Classes;
         while ((classHead = classHead->next) != NULL) {
-            if (!strcmp(classHead->CNo, number)) {
+            if (vagueSearch(classHead->CNo, number)) {
                 p->next = classHead;
                 p = p->next;
                 p->next = NULL;
@@ -124,7 +124,7 @@ ClassInfo searchClassInfoByMajor(char *major) {
         tail = tail->next;
         ClassInfo classHead = tail->Classes;
         while ((classHead = classHead->next) != NULL) {
-            if (!strcmp(classHead->Major, major)) {
+            if (vagueSearch(classHead->Major, major)) {
                 p->next = classHead;
                 p = p->next;
                 p->next = NULL;
@@ -181,7 +181,7 @@ ClassInfo searchClassInfoByMentorName(char *mentorName) {
         tail = tail->next;
         ClassInfo classHead = tail->Classes;
         while ((classHead = classHead->next) != NULL) {
-            if (!strcmp(classHead->MentorName, mentorName)) {
+            if (vagueSearch(classHead->MentorName, mentorName)) {
                 p->next = classHead;
                 p = p->next;
                 p->next = NULL;
@@ -210,7 +210,7 @@ StudentInfo searchStudentInfoByName(char *name) {
         while ((classHead = classHead->next) != NULL) {
             StudentInfo studentHead = classHead->Students;
             while ((studentHead = studentHead->next) != NULL) {
-                if (!strcmp(studentHead->Name, name)) {
+                if (vagueSearch(studentHead->Name, name)) {
                     p->next = studentHead;
                     p = p->next;
                     p->next = NULL;
@@ -241,7 +241,7 @@ StudentInfo searchStudentInfoByMajor(char *major) {
         while ((classHead = classHead->next) != NULL) {
             StudentInfo studentHead = classHead->Students;
             while ((studentHead = studentHead->next) != NULL) {
-                if (!strcmp(classHead->Major, major)) {
+                if (vagueSearch(classHead->Major, major)) {
                     p->next = studentHead;
                     p = p->next;
                     p->next = NULL;
@@ -367,7 +367,7 @@ StudentInfo searchStudentInfoByGradTo(char *gradTo) {
         while ((classHead = classHead->next) != NULL) {
             StudentInfo studentHead = classHead->Students;
             while ((studentHead = studentHead->next) != NULL) {
-                if (!strcmp(studentHead->GraduateTo, gradTo)) {
+                if (vagueSearch(studentHead->GraduateTo, gradTo)) {
                     p->next = studentHead;
                     p = p->next;
                     p->next = NULL;

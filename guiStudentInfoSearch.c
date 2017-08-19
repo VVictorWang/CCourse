@@ -329,77 +329,16 @@ void run_studentInfo_dialog(StudentInfo node) {
     g_object_unref(store);
     GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
 
-    GtkTreeViewColumn *studentClassNoColumn = gtk_tree_view_column_new_with_attributes("所属班级编号", renderer, "text",
-                                                                                       STUDENT_CLASSNO_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentClassNoColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentClassNoColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentClassNoColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentClassNoColumn);
-
-    GtkTreeViewColumn *studentNoColumn = gtk_tree_view_column_new_with_attributes("学号", renderer, "text",
-                                                                                  STUDENTNO_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentNoColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentNoColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentNoColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentNoColumn);
-
-    GtkTreeViewColumn *studentNameColumn = gtk_tree_view_column_new_with_attributes("姓名", renderer, "text",
-                                                                                    STUDENT_NAME_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentNameColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentNameColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentNameColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentNameColumn);
-
-    GtkTreeViewColumn *studentSexColumn = gtk_tree_view_column_new_with_attributes("性别", renderer, "text",
-                                                                                   STUDENT_SEX_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentSexColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentSexColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentSexColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentSexColumn);
-
-    GtkTreeViewColumn *studentBirthplaceColumn = gtk_tree_view_column_new_with_attributes("籍贯", renderer, "text",
-                                                                                          STUDENT_BIRTHPLACE_COLUMN,
-                                                                                          NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentBirthplaceColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentBirthplaceColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentBirthplaceColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentBirthplaceColumn);
-
-    GtkTreeViewColumn *studentBirthdayColumn = gtk_tree_view_column_new_with_attributes("生日", renderer, "text",
-                                                                                        STUDENT_BIRTHDAY_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentBirthdayColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentBirthdayColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentBirthdayColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentBirthdayColumn);
-
-    GtkTreeViewColumn *studentNumberColumn = gtk_tree_view_column_new_with_attributes("联系电话", renderer, "text",
-                                                                                      STUDENT_NUMBER_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentNumberColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentNumberColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentNumberColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentNumberColumn);
-
-    GtkTreeViewColumn *studentInScoreColumn = gtk_tree_view_column_new_with_attributes("入学分数", renderer, "text",
-                                                                                       STUDENT_INSCORE_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentInScoreColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentInScoreColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentInScoreColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentInScoreColumn);
-
-    GtkTreeViewColumn *studentIsGradColumn = gtk_tree_view_column_new_with_attributes("已经毕业", renderer, "text",
-                                                                                      STUDENT_ISGRAD_COLUMN, NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentIsGradColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentIsGradColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentIsGradColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentIsGradColumn);
-
-    GtkTreeViewColumn *studentGraduaToColumn = gtk_tree_view_column_new_with_attributes("毕业去向", renderer, "text",
-                                                                                        STUDENT_GRADUATETO_COLUMN,
-                                                                                        NULL);
-    gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(studentGraduaToColumn), GTK_TREE_VIEW_COLUMN_GROW_ONLY);
-    gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(studentGraduaToColumn), TRUE);
-    gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(studentGraduaToColumn), TRUE);
-    gtk_tree_view_append_column(GTK_TREE_VIEW(student_list), studentGraduaToColumn);
+    addTreeColumnView(student_list, renderer, "所属班级编号", STUDENT_CLASSNO_COLUMN);
+    addTreeColumnView(student_list, renderer, "学号", STUDENTNO_COLUMN);
+    addTreeColumnView(student_list, renderer, "姓名", STUDENT_NAME_COLUMN);
+    addTreeColumnView(student_list, renderer, "性别", STUDENT_SEX_COLUMN);
+    addTreeColumnView(student_list, renderer, "籍贯", STUDENT_BIRTHPLACE_COLUMN);
+    addTreeColumnView(student_list, renderer, "生日", STUDENT_BIRTHDAY_COLUMN);
+    addTreeColumnView(student_list, renderer, "联系电话", STUDENT_NUMBER_COLUMN);
+    addTreeColumnView(student_list, renderer, "入学分数", STUDENT_INSCORE_COLUMN);
+    addTreeColumnView(student_list, renderer, "已经毕业", STUDENT_ISGRAD_COLUMN);
+    addTreeColumnView(student_list, renderer, "毕业去向", STUDENT_GRADUATETO_COLUMN);
 
     GtkWidget *scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
