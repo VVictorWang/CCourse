@@ -4,7 +4,7 @@
 // blog:  www.victorwang.science
 //
 
-#include "head.h"
+#include "../head.h"
 
 static GtkWidget *fixed;
 static GtkWidget *notebook;
@@ -35,7 +35,7 @@ void show_window(GtkWidget **pwindow) {
     fixed = gtk_fixed_new();
     gtk_container_add(GTK_CONTAINER(window), fixed);
 
-    icon = create_pixbuf("/home/victor/CLionProjects/course/img/icon.png");
+    icon = create_pixbuf(MYIMAGEPATH.iconPath);
     gtk_window_set_icon(GTK_WINDOW(window), icon);
 
     g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
@@ -126,11 +126,11 @@ void show_sidebar(void) {
     GtkWidget *sidebar_fixed = gtk_fixed_new();
     gtk_container_add(GTK_CONTAINER(fixed), sidebar_fixed);
 
-    GtkWidget *background = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/sidebar.png");
+    GtkWidget *background = gtk_image_new_from_file(MYIMAGEPATH.sideBar);
     gtk_widget_set_usize(background, 212, 670);
     gtk_fixed_put(GTK_FIXED(sidebar_fixed), background, 0, 18);
 
-    data = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/highlighted_data.png");
+    data = gtk_image_new_from_file(MYIMAGEPATH.dataSelec);
     GtkWidget *datalabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(datalabel), "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>数据维护</span>");
     gtk_fixed_put(GTK_FIXED(sidebar_fixed), datalabel, 65, 224);
@@ -139,7 +139,7 @@ void show_sidebar(void) {
     gtk_container_add(GTK_CONTAINER(databox), data);
     gtk_fixed_put(GTK_FIXED(sidebar_fixed), databox, 26, 68);
 
-    query = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/query.png");
+    query = gtk_image_new_from_file(MYIMAGEPATH.searchNormal);
     GtkWidget *querylabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(querylabel),
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>数据查询</span>");
@@ -149,7 +149,7 @@ void show_sidebar(void) {
     gtk_container_add(GTK_CONTAINER(querybox), query);
     gtk_fixed_put(GTK_FIXED(sidebar_fixed), querybox, 26, 248);
 
-    stastical = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/stastical.png");
+    stastical = gtk_image_new_from_file(MYIMAGEPATH.statisticNormal);
     GtkWidget *stasticallabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(stasticallabel),
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>数据统计</span>");
@@ -186,49 +186,45 @@ void show_notebook(void) {
 *************************************************/
 void show_dataview(void) {
     dataview = gtk_fixed_new();
-    GtkWidget *typelabel = gtk_label_new("");
-    gtk_label_set_markup(GTK_LABEL(typelabel),
-                         "<span foreground='#60646d' font_desc='Microsoft YaHei 19.5'>选择数据类型</span>");
-    gtk_fixed_put(GTK_FIXED(dataview), typelabel, 505, 170);
 
-    gradeInfo = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/highlighted_province.png");
+    gradeInfo = gtk_image_new_from_file(MYIMAGEPATH.gradeInfoSelec);
     GtkWidget *provincelabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(provincelabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>年级信息</span>");
-    gtk_fixed_put(GTK_FIXED(dataview), provincelabel, 328, 335);
+    gtk_fixed_put(GTK_FIXED(dataview), provincelabel, 540, 220);
     GtkWidget *provincebox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(provincebox), FALSE);
     gtk_container_add(GTK_CONTAINER(provincebox), gradeInfo);
-    gtk_fixed_put(GTK_FIXED(dataview), provincebox, 309, 221);
+    gtk_fixed_put(GTK_FIXED(dataview), provincebox, 520, 100);
 
-    classInfo = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/studentInfo.png");
+    classInfo = gtk_image_new_from_file(MYIMAGEPATH.classInfoNormal);
     GtkWidget *caselabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(caselabel), "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>班级信息</span>");
-    gtk_fixed_put(GTK_FIXED(dataview), caselabel, 544, 335);
+    gtk_fixed_put(GTK_FIXED(dataview), caselabel, 370, 370);
     GtkWidget *casebox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(casebox), FALSE);
     gtk_container_add(GTK_CONTAINER(casebox), classInfo);
-    gtk_fixed_put(GTK_FIXED(dataview), casebox, 525, 221);
+    gtk_fixed_put(GTK_FIXED(dataview), casebox, 350, 250);
 
-    studentInfo = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/studentInfo.png");
+    studentInfo = gtk_image_new_from_file(MYIMAGEPATH.studentInfoNormal);
     GtkWidget *medialabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(medialabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>学生信息</span>");
-    gtk_fixed_put(GTK_FIXED(dataview), medialabel, 760, 335);
+    gtk_fixed_put(GTK_FIXED(dataview), medialabel, 730, 370);
     GtkWidget *mediabox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(mediabox), FALSE);
     gtk_container_add(GTK_CONTAINER(mediabox), studentInfo);
-    gtk_fixed_put(GTK_FIXED(dataview), mediabox, 741, 221);
+    gtk_fixed_put(GTK_FIXED(dataview), mediabox, 711, 250);
 
-    GtkWidget *confirm = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button1.png");
+    GtkWidget *confirm = gtk_image_new_from_file(MYIMAGEPATH.greenButton);
     GtkWidget *confirmbox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(confirmbox), FALSE);
     gtk_container_add(GTK_CONTAINER(confirmbox), confirm);
-    gtk_fixed_put(GTK_FIXED(dataview), confirmbox, 479, 391);
+    gtk_fixed_put(GTK_FIXED(dataview), confirmbox, 490, 460);
     GtkWidget *confirmlabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(confirmlabel),
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 19.5'>确认</span>");
-    gtk_fixed_put(GTK_FIXED(dataview), confirmlabel, 559, 397);
+    gtk_fixed_put(GTK_FIXED(dataview), confirmlabel, 569, 470);
 
     g_signal_connect(provincebox, "button_press_event", G_CALLBACK(on_grade_clicked), NULL);
     g_signal_connect(casebox, "button_press_event", G_CALLBACK(on_class_clicked), NULL);
@@ -252,7 +248,7 @@ void show_queryview(void) {
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 19.5'>年级信息查询</span>");
     gtk_fixed_put(GTK_FIXED(queryview), gradeLabel, 223, 45);
 
-    GtkWidget *gradeNo = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *gradeNo = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *gradeNoBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(gradeNoBox), FALSE);
     gtk_container_add(GTK_CONTAINER(gradeNoBox), gradeNo);
@@ -262,7 +258,7 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按年级编号查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), gradeNoLabel, 340, 107);
 
-    GtkWidget *gradeInTime = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *gradeInTime = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *gradeInTimeBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(gradeInTimeBox), FALSE);
     gtk_container_add(GTK_CONTAINER(gradeInTimeBox), gradeInTime);
@@ -272,7 +268,7 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按入学时间查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), gradeInTimelabel, 658, 107);
 
-    GtkWidget *gradeInNo = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *gradeInNo = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *gradeInNoBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(gradeInNoBox), FALSE);
     gtk_container_add(GTK_CONTAINER(gradeInNoBox), gradeInNo);
@@ -287,7 +283,7 @@ void show_queryview(void) {
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 19.5'>班级信息查询</span>");
     gtk_fixed_put(GTK_FIXED(queryview), classLabel, 223, 240);
 
-    GtkWidget *classNo = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *classNo = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *classNoBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(classNoBox), FALSE);
     gtk_container_add(GTK_CONTAINER(classNoBox), classNo);
@@ -297,7 +293,7 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按班级编号查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), classNoLabel, 340, 302);
 
-    GtkWidget *classMajor = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *classMajor = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *classsMajorBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(classsMajorBox), FALSE);
     gtk_container_add(GTK_CONTAINER(classsMajorBox), classMajor);
@@ -307,7 +303,7 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按专业查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), classMajorLabel, 638, 302);
 
-    GtkWidget *classPeople = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *classPeople = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *classPeopleBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(classPeopleBox), FALSE);
     gtk_container_add(GTK_CONTAINER(classPeopleBox), classPeople);
@@ -317,7 +313,7 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按人数查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), classPeopleLabel, 340, 372);
 
-    GtkWidget *classMentorName = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *classMentorName = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *classMentorNameBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(classMentorNameBox), FALSE);
     gtk_container_add(GTK_CONTAINER(classMentorNameBox), classMentorName);
@@ -332,7 +328,7 @@ void show_queryview(void) {
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 19.5'>学生信息查询</span>");
     gtk_fixed_put(GTK_FIXED(queryview), studentLabel, 223, 430);
 
-    GtkWidget *studentName = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *studentName = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *studentNameBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(studentNameBox), FALSE);
     gtk_container_add(GTK_CONTAINER(studentNameBox), studentName);
@@ -342,7 +338,7 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按学生姓名查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), studentNameLabel, 288, 492);
 
-    GtkWidget *studentMajor = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *studentMajor = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *studentMajorBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(studentMajorBox), FALSE);
     gtk_container_add(GTK_CONTAINER(studentMajorBox), studentMajor);
@@ -352,7 +348,7 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按学生专业查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), studentMajorLabel, 638, 492);
 
-    GtkWidget *studentInTime = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *studentInTime = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *studentInTimeBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(studentInTimeBox), FALSE);
     gtk_container_add(GTK_CONTAINER(studentInTimeBox), studentInTime);
@@ -362,7 +358,7 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按学生入学时间查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), studentInTineLabel, 288, 560);
 
-    GtkWidget *studentAge = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *studentAge = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *studentAgeBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(studentAgeBox), FALSE);
     gtk_container_add(GTK_CONTAINER(studentAgeBox), studentAge);
@@ -372,7 +368,7 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按学生年龄查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), studentAgeLabel, 638, 560);
 
-    GtkWidget *studentIsGrad = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *studentIsGrad = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *studentIsGradBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(studentIsGradBox), FALSE);
     gtk_container_add(GTK_CONTAINER(studentIsGradBox), studentIsGrad);
@@ -382,7 +378,7 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按学生毕业与否查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), studentIsGradLabel, 288, 628);
 
-    GtkWidget *studentGradTo = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button2.png");
+    GtkWidget *studentGradTo = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
     GtkWidget *studentGradToBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(studentGradToBox), FALSE);
     gtk_container_add(GTK_CONTAINER(studentGradToBox), studentGradTo);
@@ -433,63 +429,65 @@ void show_stasticalview(void) {
     gtk_label_set_markup(GTK_LABEL(gradeTimeLabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>统计指定时间期限内各年级的班数、入学人数、毕业人数、未毕业人数。</span>");
     gtk_fixed_put(GTK_FIXED(stasticalview), gradeTimeLabel, 245, 70);
-    GtkWidget *gradeTimeBtn = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button3.png");
+    GtkWidget *gradeTimeBtn = gtk_image_new_from_file(MYIMAGEPATH.yellowButton);
     GtkWidget *gradeTimeBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(gradeTimeBox), FALSE);
     gtk_container_add(GTK_CONTAINER(gradeTimeBox), gradeTimeBtn);
-    gtk_fixed_put(GTK_FIXED(stasticalview), gradeTimeBox, 623, 127);
+    gtk_fixed_put(GTK_FIXED(stasticalview), gradeTimeBox, 403, 120);
     GtkWidget *gradeTimeTitle = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(gradeTimeTitle),
-                         "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按指定期限统计年级信息</span>");
-    gtk_fixed_put(GTK_FIXED(stasticalview), gradeTimeTitle, 670, 136);
+                         "<span foreground='#848484' font_desc='Microsoft YaHei 15'>按指定期限统计年级信息</span>");
+    gtk_fixed_put(GTK_FIXED(stasticalview), gradeTimeTitle, 450, 132);
 
     GtkWidget *classTimeLabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(classTimeLabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>统计指定时间期限内各班级未毕业学生人数，按未毕业学生人数从大到小排序</span>");
-    gtk_fixed_put(GTK_FIXED(stasticalview), classTimeLabel, 245, 180);
-    GtkWidget *classTimeBtn = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button3.png");
+    gtk_fixed_put(GTK_FIXED(stasticalview), classTimeLabel, 245, 190);
+    GtkWidget *classTimeBtn = gtk_image_new_from_file(MYIMAGEPATH.yellowButton);
     GtkWidget *classTimeBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(classTimeBox), FALSE);
     gtk_container_add(GTK_CONTAINER(classTimeBox), classTimeBtn);
-    gtk_fixed_put(GTK_FIXED(stasticalview), classTimeBox, 623, 237);
+    gtk_fixed_put(GTK_FIXED(stasticalview), classTimeBox, 403, 240);
     GtkWidget *classTimeTitle = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(classTimeTitle),
-                         "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按指定期限统计班级信息</span>");
-    gtk_fixed_put(GTK_FIXED(stasticalview), classTimeTitle, 670, 246);
+                         "<span foreground='#848484' font_desc='Microsoft YaHei 15'>按指定期限统计班级信息</span>");
+    gtk_fixed_put(GTK_FIXED(stasticalview), classTimeTitle, 450, 252);
 
     GtkWidget *studentTimeLabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(studentTimeLabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>统计指定时间期限内毕业后到某企业工作的学生数量，按人数从大到小排序</span>");
-    gtk_fixed_put(GTK_FIXED(stasticalview), studentTimeLabel, 245, 290);
-    GtkWidget *studentTimeBtn = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button3.png");
+    gtk_fixed_put(GTK_FIXED(stasticalview), studentTimeLabel, 245, 310);
+    GtkWidget *studentTimeBtn = gtk_image_new_from_file(MYIMAGEPATH.yellowButton);
     GtkWidget *studentTimeBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(studentTimeBox), FALSE);
     gtk_container_add(GTK_CONTAINER(studentTimeBox), studentTimeBtn);
-    gtk_fixed_put(GTK_FIXED(stasticalview), studentTimeBox, 623, 347);
+    gtk_fixed_put(GTK_FIXED(stasticalview), studentTimeBox, 403, 360);
     GtkWidget *studentTimeTitle = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(studentTimeTitle),
-                         "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按指定期限统计学生信息</span>");
-    gtk_fixed_put(GTK_FIXED(stasticalview), studentTimeTitle, 670, 356);
+                         "<span foreground='#848484' font_desc='Microsoft YaHei 15'>按指定期限统计学生信息</span>");
+    gtk_fixed_put(GTK_FIXED(stasticalview), studentTimeTitle, 450, 372);
 
     GtkWidget *studentBirthLabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(studentBirthLabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>按年度统计从某年到某年每年出生的学生人数,按年度排序。</span>");
-    gtk_fixed_put(GTK_FIXED(stasticalview), studentBirthLabel, 245, 400);
-    GtkWidget *studentBirthBtn = gtk_image_new_from_file("/home/victor/CLionProjects/course/img/button3.png");
+    gtk_fixed_put(GTK_FIXED(stasticalview), studentBirthLabel, 245, 440);
+    GtkWidget *studentBirthBtn = gtk_image_new_from_file(MYIMAGEPATH.yellowButton);
     GtkWidget *studentBirthBox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(studentBirthBox), FALSE);
     gtk_container_add(GTK_CONTAINER(studentBirthBox), studentBirthBtn);
-    gtk_fixed_put(GTK_FIXED(stasticalview), studentBirthBox, 623, 457);
+    gtk_fixed_put(GTK_FIXED(stasticalview), studentBirthBox, 403, 480);
     GtkWidget *studentBirthTitle = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(studentBirthTitle),
-                         "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按年度统计学生信息</span>");
-    gtk_fixed_put(GTK_FIXED(stasticalview), studentBirthTitle, 670, 466);
+                         "<span foreground='#848484' font_desc='Microsoft YaHei 15'>按年度统计学生信息</span>");
+    gtk_fixed_put(GTK_FIXED(stasticalview), studentBirthTitle, 450, 492);
 
 
     g_signal_connect(G_OBJECT(gradeTimeBox), "button_press_event", G_CALLBACK(on_gradeInfo_stastical_clicked), NULL);
     g_signal_connect(G_OBJECT(classTimeBox), "button_press_event", G_CALLBACK(on_classInfo_stastical_clicked), NULL);
-    g_signal_connect(G_OBJECT(studentTimeBox), "button_press_event", G_CALLBACK(on_studentInfo_stastical_clicked), NULL);
-    g_signal_connect(G_OBJECT(studentBirthBox), "button_press_event", G_CALLBACK(on_student_stastical_by_year_clicked), NULL);
+    g_signal_connect(G_OBJECT(studentTimeBox), "button_press_event", G_CALLBACK(on_studentInfo_stastical_clicked),
+                     NULL);
+    g_signal_connect(G_OBJECT(studentBirthBox), "button_press_event", G_CALLBACK(on_student_stastical_by_year_clicked),
+                     NULL);
 
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), stasticalview, NULL);
 }
@@ -502,9 +500,9 @@ void show_stasticalview(void) {
 *************************************************/
 void on_data_clicked(GtkWidget *widget) {
     if (state != 1) {
-        gtk_image_set_from_file(GTK_IMAGE(data), "/home/victor/CLionProjects/course/img/highlighted_data.png");
-        gtk_image_set_from_file(GTK_IMAGE(query), "/home/victor/CLionProjects/course/img/query.png");
-        gtk_image_set_from_file(GTK_IMAGE(stastical), "/home/victor/CLionProjects/course/img/stastical.png");
+        gtk_image_set_from_file(GTK_IMAGE(data), MYIMAGEPATH.dataSelec);
+        gtk_image_set_from_file(GTK_IMAGE(query), MYIMAGEPATH.searchNormal);
+        gtk_image_set_from_file(GTK_IMAGE(stastical), MYIMAGEPATH.statisticNormal);
         if (state == 2) {
             gtk_notebook_prev_page(GTK_NOTEBOOK(notebook));
         } else if (state == 3) {
@@ -523,9 +521,9 @@ void on_data_clicked(GtkWidget *widget) {
 *************************************************/
 void on_query_clicked(GtkWidget *widget) {
     if (state != 2) {
-        gtk_image_set_from_file(GTK_IMAGE(data), "/home/victor/CLionProjects/course/img/data.png");
-        gtk_image_set_from_file(GTK_IMAGE(query), "/home/victor/CLionProjects/course/img/highlighted_query.png");
-        gtk_image_set_from_file(GTK_IMAGE(stastical), "/home/victor/CLionProjects/course/img/stastical.png");
+        gtk_image_set_from_file(GTK_IMAGE(data), MYIMAGEPATH.dataNormal);
+        gtk_image_set_from_file(GTK_IMAGE(query), MYIMAGEPATH.searchSelec);
+        gtk_image_set_from_file(GTK_IMAGE(stastical), MYIMAGEPATH.statisticNormal);
         if (state == 1) {
             gtk_notebook_next_page(GTK_NOTEBOOK(notebook));
         } else if (state == 3) {
@@ -543,10 +541,9 @@ void on_query_clicked(GtkWidget *widget) {
 *************************************************/
 void on_stastical_clicked(GtkWidget *widget) {
     if (state != 3) {
-        gtk_image_set_from_file(GTK_IMAGE(data), "/home/victor/CLionProjects/course/img/data.png");
-        gtk_image_set_from_file(GTK_IMAGE(query), "/home/victor/CLionProjects/course/img/query.png");
-        gtk_image_set_from_file(GTK_IMAGE(stastical),
-                                "/home/victor/CLionProjects/course/img/highlighted_stastical.png");
+        gtk_image_set_from_file(GTK_IMAGE(data), MYIMAGEPATH.dataNormal);
+        gtk_image_set_from_file(GTK_IMAGE(query), MYIMAGEPATH.searchNormal);
+        gtk_image_set_from_file(GTK_IMAGE(stastical), MYIMAGEPATH.statisticSelec);
         if (state == 1) {
             gtk_notebook_next_page(GTK_NOTEBOOK(notebook));
             gtk_notebook_next_page(GTK_NOTEBOOK(notebook));
@@ -565,9 +562,9 @@ void on_stastical_clicked(GtkWidget *widget) {
 *************************************************/
 void on_grade_clicked(GtkWidget *widget) {
     if (data_type != 1) {
-        gtk_image_set_from_file(GTK_IMAGE(gradeInfo), "/home/victor/CLionProjects/course/img/highlighted_province.png");
-        gtk_image_set_from_file(GTK_IMAGE(classInfo), "/home/victor/CLionProjects/course/img/studentInfo.png");
-        gtk_image_set_from_file(GTK_IMAGE(studentInfo), "/home/victor/CLionProjects/course/img/studentInfo.png");
+        gtk_image_set_from_file(GTK_IMAGE(gradeInfo), MYIMAGEPATH.gradeInfoSelec);
+        gtk_image_set_from_file(GTK_IMAGE(classInfo), MYIMAGEPATH.classInfoNormal);
+        gtk_image_set_from_file(GTK_IMAGE(studentInfo), MYIMAGEPATH.studentInfoNormal);
         data_type = 1;
     }
 }
@@ -580,9 +577,9 @@ void on_grade_clicked(GtkWidget *widget) {
 *************************************************/
 void on_class_clicked(GtkWidget *widget) {
     if (data_type != 2) {
-        gtk_image_set_from_file(GTK_IMAGE(gradeInfo), "/home/victor/CLionProjects/course/img/gradeInfo.png");
-        gtk_image_set_from_file(GTK_IMAGE(classInfo), "/home/victor/CLionProjects/course/img/highlighted_case.png");
-        gtk_image_set_from_file(GTK_IMAGE(studentInfo), "/home/victor/CLionProjects/course/img/studentInfo.png");
+        gtk_image_set_from_file(GTK_IMAGE(gradeInfo), MYIMAGEPATH.gradeInfoNormal);
+        gtk_image_set_from_file(GTK_IMAGE(classInfo), MYIMAGEPATH.classInfoSelec);
+        gtk_image_set_from_file(GTK_IMAGE(studentInfo), MYIMAGEPATH.studentInfoNormal);
         data_type = 2;
     }
 }
@@ -595,9 +592,9 @@ void on_class_clicked(GtkWidget *widget) {
 *************************************************/
 void on_student_clicked(GtkWidget *widget) {
     if (data_type != 3) {
-        gtk_image_set_from_file(GTK_IMAGE(gradeInfo), "/home/victor/CLionProjects/course/img/gradeInfo.png");
-        gtk_image_set_from_file(GTK_IMAGE(classInfo), "/home/victor/CLionProjects/course/img/studentInfo.png");
-        gtk_image_set_from_file(GTK_IMAGE(studentInfo), "/home/victor/CLionProjects/course/img/highlighted_media.png");
+        gtk_image_set_from_file(GTK_IMAGE(gradeInfo), MYIMAGEPATH.gradeInfoNormal);
+        gtk_image_set_from_file(GTK_IMAGE(classInfo), MYIMAGEPATH.classInfoNormal);
+        gtk_image_set_from_file(GTK_IMAGE(studentInfo), MYIMAGEPATH.studentInfoSelec);
         data_type = 3;
     }
 }
@@ -677,7 +674,7 @@ void on_save_clicked(GtkWidget *widget, gpointer data) {
  @return None
 *************************************************/
 void on_restore_clicked(GtkWidget *widget, gpointer data) {
-    GdkPixbuf *pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/about.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("警告", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -729,7 +726,7 @@ void on_restore_clicked(GtkWidget *widget, gpointer data) {
  @return None
 *************************************************/
 void on_aboutsystem_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/about.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_about_dialog_new();
     gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), "学生信息管理系统");
     gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), "V1.0");
@@ -753,7 +750,7 @@ void on_aboutsystem_clicked(GtkWidget *widget) {
  @return None
 *************************************************/
 void on_aboutme_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/about.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_OTHER, GTK_BUTTONS_OK,
                                                "华中科技大学 CS1609\nChengyi Wang\nchengyiwang@hustunique.com");
 

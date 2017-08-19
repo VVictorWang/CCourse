@@ -3,7 +3,7 @@
 // email: chengyiwang@hustunique.com
 // blog:  www.victorwang.science
 //
-#include "head.h"
+#include "../head.h"
 
 
 enum {
@@ -19,7 +19,7 @@ enum {
  @return none
 *************************************************/
 void on_classInfo_no_search_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按班级编号查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -56,7 +56,7 @@ void on_classInfo_no_search_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void on_classInfo_major_search_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按班级所修专业查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
@@ -94,7 +94,7 @@ void on_classInfo_major_search_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void on_classInfo_peopleNo_search_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按人数查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -136,7 +136,7 @@ void on_classInfo_peopleNo_search_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void on_classInfo_mentorName_search_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按班级班主任姓名查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
@@ -174,7 +174,7 @@ void on_classInfo_mentorName_search_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void run_classInfo_dialog(ClassInfo node) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *resultdialog = gtk_dialog_new_with_buttons("查询结果", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                           GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
     gtk_window_set_icon(GTK_WINDOW(resultdialog), pixbuf);

@@ -11,6 +11,8 @@ This project is a course design of the C programming language in Computer Scienc
 ## Project Structure
 
 - img folder: the image source of the project.
+- src folder: the source code file folder
+- bin folder: the executable program folder
 - //Todo
 
 ## Reference
@@ -18,3 +20,16 @@ This project is a course design of the C programming language in Computer Scienc
 - [GTK+ 2.0 Reference Manual](https://developer.gnome.org/gtk2/stable/)
 - [GTK+ 2.0 Tutorial](https://developer.gnome.org/gtk-tutorial/stable/)
 - [GTK demo](https://github.com/GNOME/gtk/tree/master/demos/gtk-demo)
+
+## Build
+
+### Linux
+
+`git clone https://github.com/VVictorWang/CCourse`
+
+`cd CCourse`
+
+`make`
+
+And then the executable program will be generated in folder `CCourse/bin`
+

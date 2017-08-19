@@ -92,3 +92,9 @@ int vagueSearch(char *src, char *des) {
             return 1;
     }
 }
+
+int getGtkWidgetListLen(GtkWidget **str) {
+    int i = 0;
+    while (str[i++] != NULL);
+    return --i;
+}

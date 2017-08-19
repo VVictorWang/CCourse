@@ -7,6 +7,7 @@
 #include "head.h"
 
 int main(int argc, char *argv[]) {
+
     gtk_init(&argc, &argv);
     show_window(&main_window);
     int n = initInfo(&head);

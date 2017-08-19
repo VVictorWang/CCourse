@@ -3,7 +3,7 @@
 // email: chengyiwang@hustunique.com
 // blog:  www.victorwang.science
 //
-#include "head.h"
+#include "../head.h"
 
 enum {
     GRADENO_COLUMN,
@@ -25,7 +25,7 @@ enum {
  @return none
 *************************************************/
 void on_gradeInfo_no_search_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按年级编号查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -65,7 +65,7 @@ void on_gradeInfo_no_search_clicked(GtkWidget *widget) {
 *************************************************/
 void on_gradeInfo_time_search_clicked(GtkWidget *widget) {
 
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按入学时间查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -111,7 +111,7 @@ void on_gradeInfo_time_search_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void on_gradeInfo_inno_search_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按入学人数查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -154,7 +154,7 @@ void on_gradeInfo_inno_search_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void run_gradeInfo_dialog(GradeInfo node) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *resultdialog = gtk_dialog_new_with_buttons("查询结果", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                           GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
     gtk_window_set_icon(GTK_WINDOW(resultdialog), pixbuf);

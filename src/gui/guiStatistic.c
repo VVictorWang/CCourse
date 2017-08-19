@@ -3,7 +3,7 @@
 // email: chengyiwang@hustunique.com
 // blog:  www.victorwang.science
 //
-#include "head.h"
+#include "../head.h"
 
 
 enum {
@@ -39,7 +39,7 @@ enum {
  @return none
 *************************************************/
 void on_gradeInfo_stastical_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按指定期限统计年级信息", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
@@ -76,7 +76,7 @@ void on_gradeInfo_stastical_clicked(GtkWidget *widget) {
 
     if (resultcode == GTK_RESPONSE_OK) {
 
-        GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+        GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
         GtkWidget *resuledialog = gtk_dialog_new_with_buttons("统计结果", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                               GTK_STOCK_CLOSE,
                                                               GTK_RESPONSE_CLOSE, NULL);
@@ -180,7 +180,7 @@ void on_gradeInfo_stastical_clicked(GtkWidget *widget) {
 *************************************************/
 void on_classInfo_stastical_clicked(GtkWidget *widget) {
 
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按指定期限统计班级信息", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
@@ -217,7 +217,7 @@ void on_classInfo_stastical_clicked(GtkWidget *widget) {
 
     if (resultcode == GTK_RESPONSE_OK) {
 
-        GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+        GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
         GtkWidget *resultdialog = gtk_dialog_new_with_buttons("统计结果", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                               GTK_STOCK_CLOSE,
                                                               GTK_RESPONSE_CLOSE, NULL);
@@ -294,7 +294,7 @@ void on_classInfo_stastical_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void on_studentInfo_stastical_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按指定期限统计学生信息", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
@@ -331,7 +331,7 @@ void on_studentInfo_stastical_clicked(GtkWidget *widget) {
 
     if (resultcode == GTK_RESPONSE_OK) {
 
-        GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+        GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
         GtkWidget *resultdialog = gtk_dialog_new_with_buttons("统计结果", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                               GTK_STOCK_CLOSE,
                                                               GTK_RESPONSE_CLOSE, NULL);
@@ -390,7 +390,7 @@ void on_studentInfo_stastical_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void on_student_stastical_by_year_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按年度统计学生信息", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
@@ -427,7 +427,7 @@ void on_student_stastical_by_year_clicked(GtkWidget *widget) {
 
     if (resultcode == GTK_RESPONSE_OK) {
 
-        GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+        GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
         GtkWidget *resultdialog = gtk_dialog_new_with_buttons("统计结果", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                               GTK_STOCK_CLOSE,
                                                               GTK_RESPONSE_CLOSE, NULL);

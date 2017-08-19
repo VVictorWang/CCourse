@@ -4,7 +4,7 @@
 // blog:  www.victorwang.science
 //
 
-#include "head.h"
+#include "../head.h"
 
 enum {
     STUDENT_CLASSNO_COLUMN,
@@ -29,7 +29,7 @@ enum {
  @return none
 *************************************************/
 void on_studentInfo_name_search_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按姓名查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
@@ -68,7 +68,7 @@ void on_studentInfo_name_search_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void on_studentInfo_major_search_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生专业查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
@@ -106,7 +106,7 @@ void on_studentInfo_major_search_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void on_studentInfo_Intime_search_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生入学时间查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
@@ -151,7 +151,7 @@ void on_studentInfo_Intime_search_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void on_studentInfo_age_search_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生年龄查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -194,7 +194,7 @@ void on_studentInfo_age_search_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void on_studentInfo_isGrad_search_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_icon(GTK_WINDOW(window), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
@@ -233,7 +233,7 @@ void on_studentInfo_isGrad_search_clicked(GtkWidget *widget) {
  @return none
 *************************************************/
 void on_studentInfo_graduaTo_search_clicked(GtkWidget *widget) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生毕业去向查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
@@ -293,7 +293,7 @@ void on_studentInfo_not_Graduate_clicked(GtkWidget *widget){
  @return none
 *************************************************/
 void run_studentInfo_dialog(StudentInfo node) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *resultdialog = gtk_dialog_new_with_buttons("查询结果", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
                                                           GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
     gtk_window_set_icon(GTK_WINDOW(resultdialog), pixbuf);

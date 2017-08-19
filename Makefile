@@ -1,39 +1,33 @@
-OBJS = changeInfo.o deleteInfo.o gui.o guiClass.o guiGrade.o guiHelper.o guiStudent.o informationIn.o main.o testInfo.o
-CC = gcc
+CC ?= gcc
 PKGCONFIG = $(shell which pkg-config)
-CFLAGs = $(shell $(PKGCONFIG) --cflags gtk+-2.0)
-StuddentSystem : $(OBJS)
-	$(CC) $(OBJS) -o StuddentSystem
+CFLAGS = $(shell $(PKGCONFIG) --cflags gtk+-2.0)
+LIBS = $(shell $(PKGCONFIG) --libs gtk+-2.0)
+RM = rm
 
-changeInfo.o : changeInfo.c head.h
-	$(CC) -c changeInfo.c $(CFLAGs) -o changeInfo.o 
+DIR_GUI = ./src/gui
+DIR_SRC = ./src
+DIR_BIN = ./bin
+SRC = $(wildcard ${DIR_SRC}/*.c)
+SRC += $(wildcard ${DIR_GUI}/*.c)
+OBJ = $(patsubst %.c,${DIR_BIN}/%.o,$(notdir ${SRC}))
 
-deleteInfo.o : deleteInfo.c head.h
-	$(CC) -c deleteInfo.c -o deleteInfo.o $(CFLAGs)
+TARGET = infoManagementSystem
+BIN_TARGET = ${DIR_BIN}/${TARGET}
 
-gui.o : gui.c head.h
-	$(CC) -c gui.c -o gui.o $(CFLAGs)
+.PHONY:all clean
 
-guiClass.o : guiClass.c head.h
-	$(CC) -c guiClass.c -o guiClass.o $(CFLAGs)
+all: ${BIN_TARGET}
 
-guiGrade.o : guiGrade.c head.h
-	$(CC) -c guiGrade.c -o guiGrade.o $(CFLAGs)
+${BIN_TARGET}:${OBJ}
+	$(CC) $^ -o $@  $(LIBS)
+	find ${DIR_BIN} . -name '*.o' -exec $(RM) '{}' \;
 
-guiHelper.o : guiHelper.c head.h
-	$(CC) -c guiHelper.c -o guiHelper.o $(CFLAGs)
+${DIR_BIN}/%.o:$(DIR_SRC)/%.c
+	$(CC) $(CFLAGS) -c $^ -o $@
 
-guiStudent.o : guiStudent.c head.h
-	$(CC) -c guiStudent.c -o guiStudent.o $(CFLAGs)
-
-informationIn.o : informationIn.c head.h
-	$(CC) -c informationIn.c -o informationIn.o $(CFLAGs)
-
-main.o : main.c head.h
-	$(CC) -c main.c -o main.o $(CFLAGs)
-
-testInfo.o : testInfo.c head.h
-	$(CC) -c testInfo.c -o testInfo.o $(CFLAGs)
+${DIR_BIN}/%.o:$(DIR_GUI)/%.c
+	$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:
-	rm -rf *.o StuddentSystem
+	$(RM) ${BIN_TARGET}
+

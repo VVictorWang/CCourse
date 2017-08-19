@@ -5,7 +5,7 @@
 //
 
 
-#include "head.h"
+#include "../head.h"
 
 GtkWidget *grade_list;
 enum {
@@ -29,7 +29,7 @@ enum {
  @return none
 *************************************************/
 void gradeInfo_method(void) {
-    GdkPixbuf *pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_icon(GTK_WINDOW(window), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
@@ -66,7 +66,6 @@ void gradeInfo_method(void) {
     addTreeColumnView(grade_list, renderer, "年级学生会主席电话", GRADE_CHAIRNO_COLUMN);
 
 
-
     GtkWidget *scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolledwindow), grade_list);
@@ -101,7 +100,7 @@ void gradeInfo_method(void) {
  @return none
 *************************************************/
 void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
-    GdkPixbuf *pixbuf = create_pixbuf("/home/victor/CLionProjects/course/img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("年级信息录入", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -116,8 +115,6 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *gradeChairmanNameLabel = gtk_label_new("年级学生会主席姓名:");
     GtkWidget *gradeChairmanNoLabel = gtk_label_new("年级学生会主席电话:");
     GtkWidget *gradeNoEntry = gtk_entry_new();
-
-
     GtkWidget *gradeTimeCalendar = gtk_calendar_new();
     GtkWidget *gradePeopleEntry = gtk_entry_new();
     GtkWidget *gradeGradEntry = gtk_entry_new();
@@ -126,29 +123,12 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *gradeChairmanNameEntry = gtk_entry_new();
     GtkWidget *gradeChairmanNoEntry = gtk_entry_new();
 
+    GtkWidget *labels[] = {gradeNoLabel, gradeTimeLabel, gradePeopleLabel, gradeGradLabel, gradeMentorNameLabel,
+                           gradeMentorNoLabel, gradeChairmanNameLabel, gradeChairmanNoLabel, NULL};
+    GtkWidget *entries[] = {gradeNoEntry, gradeTimeCalendar, gradePeopleEntry, gradeGradEntry, gradeMentorNameEntry,
+                            gradeMentorNoEntry, gradeChairmanNameEntry, gradeChairmanNoEntry, NULL};
+    setTableView(labels, entries, dialog);
 
-    GtkWidget *table = gtk_table_new(8, 2, FALSE);
-
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeNoLabel, 0, 1, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeTimeLabel, 0, 1, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradePeopleLabel, 0, 1, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeGradLabel, 0, 1, 3, 4);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeMentorNameLabel, 0, 1, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeMentorNoLabel, 0, 1, 5, 6);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeChairmanNameLabel, 0, 1, 6, 7);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeChairmanNoLabel, 0, 1, 7, 8);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeNoEntry, 1, 2, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeTimeCalendar, 1, 2, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradePeopleEntry, 1, 2, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeGradEntry, 1, 2, 3, 4);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeMentorNameEntry, 1, 2, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeMentorNoEntry, 1, 2, 5, 6);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeChairmanNameEntry, 1, 2, 6, 7);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeChairmanNoEntry, 1, 2, 7, 8);
-    gtk_table_set_row_spacings(GTK_TABLE(table), 5);
-    gtk_table_set_col_spacings(GTK_TABLE(table), 5);
-    gtk_container_set_border_width(GTK_CONTAINER(table), 5);
-    gtk_box_pack_start_defaults(GTK_BOX(GTK_DIALOG(dialog)->vbox), table);
     gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_widget_show_all(dialog);
 
@@ -223,7 +203,7 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
         return;
     }
 
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("省份监管信息维护", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -254,7 +234,7 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     int year = atoi(strsub(node->Year, 0, 4));
     int month = atoi(strsub(node->Year, 4, 6));
     int day = atoi(strsub(node->Year, 6, 8));
-    gtk_calendar_select_month(GTK_CALENDAR(gradeTimeCalendar), month, year);
+    gtk_calendar_select_month(GTK_CALENDAR(gradeTimeCalendar), month - 1, year);
     gtk_calendar_select_day(GTK_CALENDAR(gradeTimeCalendar), day);
 
     gtk_entry_set_text(GTK_ENTRY(gradeNoEntry), node->CSNo);
@@ -265,28 +245,12 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     gtk_entry_set_text(GTK_ENTRY(gradeChairmanNameEntry), node->ChairmanName);
     gtk_entry_set_text(GTK_ENTRY(gradeChairmanNoEntry), node->ChairmanNo);
 
-    GtkWidget *table = gtk_table_new(8, 2, FALSE);
+    GtkWidget *labels[] = {gradeNoLabel, gradeTimeLabel, gradePeopleLabel, gradeGradLabel, gradeMentorNameLabel,
+                           gradeMentorNoLabel, gradeChairmanNameLabel, gradeChairmanNoLabel, NULL};
+    GtkWidget *entries[] = {gradeNoEntry, gradeTimeCalendar, gradePeopleEntry, gradeGradEntry, gradeMentorNameEntry,
+                            gradeMentorNoEntry, gradeChairmanNameEntry, gradeChairmanNoEntry, NULL};
+    setTableView(labels, entries, dialog);
 
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeNoLabel, 0, 1, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeTimeLabel, 0, 1, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradePeopleLabel, 0, 1, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeGradLabel, 0, 1, 3, 4);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeMentorNameLabel, 0, 1, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeMentorNoLabel, 0, 1, 5, 6);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeChairmanNameLabel, 0, 1, 6, 7);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeChairmanNoLabel, 0, 1, 7, 8);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeNoEntry, 1, 2, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeTimeCalendar, 1, 2, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradePeopleEntry, 1, 2, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeGradEntry, 1, 2, 3, 4);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeMentorNameEntry, 1, 2, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeMentorNoEntry, 1, 2, 5, 6);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeChairmanNameEntry, 1, 2, 6, 7);
-    gtk_table_attach_defaults(GTK_TABLE(table), gradeChairmanNoEntry, 1, 2, 7, 8);
-    gtk_table_set_row_spacings(GTK_TABLE(table), 5);
-    gtk_table_set_col_spacings(GTK_TABLE(table), 5);
-    gtk_container_set_border_width(GTK_CONTAINER(table), 5);
-    gtk_box_pack_start_defaults(GTK_BOX(GTK_DIALOG(dialog)->vbox), table);
     gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_widget_show_all(dialog);
 

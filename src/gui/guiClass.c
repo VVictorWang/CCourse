@@ -3,7 +3,7 @@
 // email: chengyiwang@hustunique.com
 // blog:  www.victorwang.science
 //
-#include "head.h"
+#include "../head.h"
 
 GtkWidget *classInfo_list;
 
@@ -29,7 +29,7 @@ enum {
  @return None
 *************************************************/
 void classInfo_method() {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_icon(GTK_WINDOW(window), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
@@ -101,7 +101,7 @@ void classInfo_method() {
  @return None
 *************************************************/
 void on_classInfo_add_clicked(GtkWidget *widget, gpointer data) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("班级信息录入", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -144,35 +144,14 @@ void on_classInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *classMentorNameEntry = gtk_entry_new();
     GtkWidget *classMentorNoEntry = gtk_entry_new();
 
+    GtkWidget *labels[] = {classGradeNoLabel, classNoLabel, classMajorLabel, classInNoLabel, classInAgeLabel,
+                           classGradLabel, classMonitorNameLabel, classMonitorNoLabel, classMentorNameLabel,
+                           classMentorNoLabel, NULL};
+    GtkWidget *entries[] = {classGradeNoCombo, classNoEntry, classMajorEntry, classInNoEntry, classInAgeEntry,
+                            classGradEntry, classMonitorNameEnrtry, classMonitorNoEntry, classMentorNameEntry,
+                            classMentorNoEntry, NULL};
+    setTableView(labels, entries, dialog);
 
-    GtkWidget *table = gtk_table_new(10, 2, FALSE);
-
-    gtk_table_attach_defaults(GTK_TABLE(table), classGradeNoLabel, 0, 1, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), classNoLabel, 0, 1, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMajorLabel, 0, 1, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), classInNoLabel, 0, 1, 3, 4);
-    gtk_table_attach_defaults(GTK_TABLE(table), classInAgeLabel, 0, 1, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), classGradLabel, 0, 1, 5, 6);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMonitorNameLabel, 0, 1, 6, 7);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMonitorNoLabel, 0, 1, 7, 8);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMentorNameLabel, 0, 1, 8, 9);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMentorNoLabel, 0, 1, 9, 10);
-
-    gtk_table_attach_defaults(GTK_TABLE(table), classGradeNoCombo, 1, 2, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), classNoEntry, 1, 2, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMajorEntry, 1, 2, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), classInNoEntry, 1, 2, 3, 4);
-    gtk_table_attach_defaults(GTK_TABLE(table), classInAgeEntry, 1, 2, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), classGradEntry, 1, 2, 5, 6);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMonitorNameEnrtry, 1, 2, 6, 7);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMonitorNoEntry, 1, 2, 7, 8);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMentorNameEntry, 1, 2, 8, 9);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMentorNoEntry, 1, 2, 9, 10);
-
-    gtk_table_set_row_spacings(GTK_TABLE(table), 5);
-    gtk_table_set_col_spacings(GTK_TABLE(table), 5);
-    gtk_container_set_border_width(GTK_CONTAINER(table), 5);
-    gtk_box_pack_start_defaults(GTK_BOX(GTK_DIALOG(dialog)->vbox), table);
     gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_widget_show_all(dialog);
 
@@ -250,7 +229,7 @@ void on_classInfo_modify_clicked(GtkWidget *widget, gpointer data) {
         return;
     }
 
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("班级信息修改", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -320,34 +299,14 @@ void on_classInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     gtk_entry_set_text(GTK_ENTRY(classMentorNameEntry), classNode->MentorName);
     gtk_entry_set_text(GTK_ENTRY(classMentorNoEntry), classNode->MentorNo);
 
-    GtkWidget *table = gtk_table_new(10, 2, FALSE);
+    GtkWidget *labels[] = {classGradeNoLabel, classNoLabel, classMajorLabel, classInNoLabel, classInAgeLabel,
+                           classGradLabel, classMonitorNameLabel, classMonitorNoLabel, classMentorNameLabel,
+                           classMentorNoLabel, NULL};
+    GtkWidget *entries[] = {classGradeNoCombo, classNoEntry, classMajorEntry, classInNoEntry, classInAgeEntry,
+                            classGradEntry, classMonitorNameEnrtry, classMonitorNoEntry, classMentorNameEntry,
+                            classMentorNoEntry, NULL};
+    setTableView(labels, entries, dialog);
 
-    gtk_table_attach_defaults(GTK_TABLE(table), classGradeNoLabel, 0, 1, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), classNoLabel, 0, 1, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMajorLabel, 0, 1, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), classInNoLabel, 0, 1, 3, 4);
-    gtk_table_attach_defaults(GTK_TABLE(table), classInAgeLabel, 0, 1, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), classGradLabel, 0, 1, 5, 6);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMonitorNameLabel, 0, 1, 6, 7);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMonitorNoLabel, 0, 1, 7, 8);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMentorNameLabel, 0, 1, 8, 9);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMentorNoLabel, 0, 1, 9, 10);
-
-    gtk_table_attach_defaults(GTK_TABLE(table), classGradeNoCombo, 1, 2, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), classNoEntry, 1, 2, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMajorEntry, 1, 2, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), classInNoEntry, 1, 2, 3, 4);
-    gtk_table_attach_defaults(GTK_TABLE(table), classInAgeEntry, 1, 2, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), classGradEntry, 1, 2, 5, 6);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMonitorNameEnrtry, 1, 2, 6, 7);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMonitorNoEntry, 1, 2, 7, 8);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMentorNameEntry, 1, 2, 8, 9);
-    gtk_table_attach_defaults(GTK_TABLE(table), classMentorNoEntry, 1, 2, 9, 10);
-
-    gtk_table_set_row_spacings(GTK_TABLE(table), 5);
-    gtk_table_set_col_spacings(GTK_TABLE(table), 5);
-    gtk_container_set_border_width(GTK_CONTAINER(table), 5);
-    gtk_box_pack_start_defaults(GTK_BOX(GTK_DIALOG(dialog)->vbox), table);
     gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_widget_show_all(dialog);
 

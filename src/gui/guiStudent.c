@@ -4,7 +4,7 @@
 // blog:  www.victorwang.science
 //
 
-#include "head.h"
+#include "../head.h"
 
 GtkWidget *student_list;
 enum {
@@ -32,7 +32,7 @@ enum {
  @return none
 *************************************************/
 void studentInfo_method(void) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_icon(GTK_WINDOW(window), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
@@ -107,7 +107,7 @@ void studentInfo_method(void) {
  @return none
 *************************************************/
 void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("学生信息录入", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -277,7 +277,7 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
         return;
     }
 
-    GdkPixbuf *pixbuf = create_pixbuf("img/icon.png");
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
     GtkWidget *dialog = gtk_dialog_new_with_buttons("学生信息修改", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
@@ -314,7 +314,6 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
 
     GtkWidget *studentNoEntry = gtk_entry_new();
     GtkWidget *studentNameEntry = gtk_entry_new();
-
 
 
     GtkWidget *hboxButton = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 3);
@@ -367,7 +366,7 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     int year = atoi(strsub(studentNode->Birthday, 0, 4));
     int month = atoi(strsub(studentNode->Birthday, 4, 6));
     int day = atoi(strsub(studentNode->Birthday, 6, 8));
-    gtk_calendar_select_month(GTK_CALENDAR(studentBirthdayCalendar), month, year);
+    gtk_calendar_select_month(GTK_CALENDAR(studentBirthdayCalendar), month - 1, year);
     gtk_calendar_select_day(GTK_CALENDAR(studentBirthdayCalendar), day);
 
     gtk_entry_set_text(GTK_ENTRY(studentNoEntry), studentNode->CNo);
@@ -501,10 +500,8 @@ void on_studentInfo_delete_clicked(GtkWidget *widget) {
 *************************************************/
 void reload_studentInfo_list(void) {
     GtkListStore *store;
-    GtkTreeModel *model;
     GtkTreeIter iter;
     store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(student_list)));
-    model = gtk_tree_view_get_model(GTK_TREE_VIEW(student_list));
     gtk_list_store_clear(store);
     GradeInfo gradeNode = head->next;
     ClassInfo classNode = NULL;

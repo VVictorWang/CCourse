@@ -8,6 +8,9 @@ include_directories(${GTK2_INCLUDE_DIRS})
 link_directories(${GTK2_LIBRARY_DIRS})
 add_definitions(${GTK2_CFLAGS_OTHER})
 
-set(SOURCE_FILES main.c head.h gui.c guiHelper.c  initInfo.c guiGrade.c guiClass.c informationIn.c testInfo.c changeInfo.c deleteInfo.c guiStudent.c saveInfo.c dataHepler.c guiGradeInfoSearch.c searchInfo.c guiClassInfoSearch.c guiStudentInfoSearch.c guiStatistic.c statistics.c)
+set(SOURCE_FILES src/main.c src/head.h src/gui/guiInterface.c src/gui/guiHelper.c src/initInfo.c src/gui/guiGrade.c
+        src/gui/guiClass.c src/informationIn.c src/testInfo.c src/changeInfo.c src/deleteInfo.c src/gui/guiStudent.c
+        src/saveInfo.c src/dataHepler.c src/gui/guiGradeInfoSearch.c src/searchInfo.c src/gui/guiClassInfoSearch.c
+        src/gui/guiStudentInfoSearch.c src/gui/guiStatistic.c src/statisticsInfo.c)
 add_executable(course ${SOURCE_FILES})
 target_link_libraries(course ${GTK2_LIBRARIES})

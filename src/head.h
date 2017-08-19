@@ -90,7 +90,44 @@ typedef struct STUDENTINFOBYYEAR {
     struct STUDENTINFOBYYEAR *next;
 } *StudentInfoByYear, STUDENTinfobyYear;
 
-
+typedef struct IMAGEPATH {
+    char iconPath[70];
+    char sideBar[70];
+    char blueButton[70];
+    char yellowButton[70];
+    char greenButton[70];
+    char gradeInfoNormal[70];
+    char classInfoNormal[70];
+    char studentInfoNormal[70];
+    char gradeInfoSelec[70];
+    char classInfoSelec[70];
+    char studentInfoSelec[70];
+    char dataNormal[70];
+    char searchNormal[70];
+    char statisticNormal[70];
+    char dataSelec[70];
+    char searchSelec[70];
+    char statisticSelec[70];
+} ImagePath;
+static ImagePath MYIMAGEPATH = {
+        "/home/victor/CLionProjects/course/img/icon.png",
+        "/home/victor/CLionProjects/course/img/sidebar.png",
+        "/home/victor/CLionProjects/course/img/blue_button.png",
+        "/home/victor/CLionProjects/course/img/yellow_button.png",
+        "/home/victor/CLionProjects/course/img/green_button.png",
+        "/home/victor/CLionProjects/course/img/gradeInfo.png",
+        "/home/victor/CLionProjects/course/img/classInfo.png",
+        "/home/victor/CLionProjects/course/img/studentInfo.png",
+        "/home/victor/CLionProjects/course/img/gradeInfo_selected.png",
+        "/home/victor/CLionProjects/course/img/classInfo_selected.png",
+        "/home/victor/CLionProjects/course/img/studentInfo_selected.png",
+        "/home/victor/CLionProjects/course/img/data.png",
+        "/home/victor/CLionProjects/course/img/search.png",
+        "/home/victor/CLionProjects/course/img/statistic.png",
+        "/home/victor/CLionProjects/course/img/data_selected.png",
+        "/home/victor/CLionProjects/course/img/search_selected.png",
+        "/home/victor/CLionProjects/course/img/statistic_selected.png"
+};
 GradeInfo head;
 GtkWidget *main_window;
 
@@ -244,11 +281,17 @@ void error_message_dialog(gchar *, gchar *);
 
 void information_message_dialog(gchar *, gchar *);
 
-void addTreeColumnView(GtkWidget *, GtkCellRenderer *, char *, int );
+void addTreeColumnView(GtkWidget *, GtkCellRenderer *, char *, int);
+
+void setTableView(GtkWidget **, GtkWidget **, GtkWidget *);
 
 //数据辅助类函数
 int getAgeByBirthDay(char *);
-char *strsub(char *, int , int );
+
+char *strsub(char *, int, int);
+
 int vagueSearch(char *, char *);
+
+int getGtkWidgetListLen(GtkWidget **);
 
 #endif //COURSE_HEAD_H
