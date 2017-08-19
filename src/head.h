@@ -90,43 +90,46 @@ typedef struct STUDENTINFOBYYEAR {
     struct STUDENTINFOBYYEAR *next;
 } *StudentInfoByYear, STUDENTinfobyYear;
 
+//所有图片资源的路径
 typedef struct IMAGEPATH {
-    char iconPath[70];
-    char sideBar[70];
-    char blueButton[70];
-    char yellowButton[70];
-    char greenButton[70];
-    char gradeInfoNormal[70];
-    char classInfoNormal[70];
-    char studentInfoNormal[70];
-    char gradeInfoSelec[70];
-    char classInfoSelec[70];
-    char studentInfoSelec[70];
-    char dataNormal[70];
-    char searchNormal[70];
-    char statisticNormal[70];
-    char dataSelec[70];
-    char searchSelec[70];
-    char statisticSelec[70];
+    const char iconPath[50];
+    const char sideBar[50];
+    const char blueButton[50];
+    const char yellowButton[50];
+    const char greenButton[50];
+    const char gradeInfoNormal[50];
+    const char classInfoNormal[50];
+    const char studentInfoNormal[50];
+    const char gradeInfoSelec[50];
+    const char classInfoSelec[50];
+    const char studentInfoSelec[50];
+    const char dataNormal[50];
+    const char searchNormal[50];
+    const char statisticNormal[50];
+    const char dataSelec[50];
+    const char searchSelec[50];
+    const char statisticSelec[50];
 } ImagePath;
-static ImagePath MYIMAGEPATH = {
-        "/home/victor/CLionProjects/course/img/icon.png",
-        "/home/victor/CLionProjects/course/img/sidebar.png",
-        "/home/victor/CLionProjects/course/img/blue_button.png",
-        "/home/victor/CLionProjects/course/img/yellow_button.png",
-        "/home/victor/CLionProjects/course/img/green_button.png",
-        "/home/victor/CLionProjects/course/img/gradeInfo.png",
-        "/home/victor/CLionProjects/course/img/classInfo.png",
-        "/home/victor/CLionProjects/course/img/studentInfo.png",
-        "/home/victor/CLionProjects/course/img/gradeInfo_selected.png",
-        "/home/victor/CLionProjects/course/img/classInfo_selected.png",
-        "/home/victor/CLionProjects/course/img/studentInfo_selected.png",
-        "/home/victor/CLionProjects/course/img/data.png",
-        "/home/victor/CLionProjects/course/img/search.png",
-        "/home/victor/CLionProjects/course/img/statistic.png",
-        "/home/victor/CLionProjects/course/img/data_selected.png",
-        "/home/victor/CLionProjects/course/img/search_selected.png",
-        "/home/victor/CLionProjects/course/img/statistic_selected.png"
+
+//所有图片资源的路径，这里使用了相对路径(..代表当前目录的上一级目录),使用静态全局变量存储，节省内存开销与方便更改图片名称
+const static ImagePath MYIMAGEPATH = {
+        "../img/icon.png",
+        "../img/sidebar.png",
+        "../img/blue_button.png",
+        "../img/yellow_button.png",
+        "../img/green_button.png",
+        "../img/gradeInfo.png",
+        "../img/classInfo.png",
+        "../img/studentInfo.png",
+        "../img/gradeInfo_selected.png",
+        "../img/classInfo_selected.png",
+        "../img/studentInfo_selected.png",
+        "../img/data.png",
+        "../img/search.png",
+        "../img/statistic.png",
+        "../img/data_selected.png",
+        "../img/search_selected.png",
+        "../img/statistic_selected.png"
 };
 GradeInfo head;
 GtkWidget *main_window;

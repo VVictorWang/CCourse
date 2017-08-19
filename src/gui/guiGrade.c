@@ -204,7 +204,7 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     }
 
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("省份监管信息维护", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("年级信息修改", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
