@@ -1,5 +1,7 @@
 # STUDENT-CLASS INFORMATION MANAGEMENT SYSTEM
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9bb61478fc464c29ae84fe2d03633a39)](https://www.codacy.com/app/VVictorWang/CCourse?utm_source=github.com&utm_medium=referral&utm_content=VVictorWang/CCourse&utm_campaign=badger)
+
 ## Introduction
 
 This project is a course design of the C programming language in Computer Science of HUST. It's a information management tool of students' and classes' information.
