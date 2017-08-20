@@ -47,9 +47,8 @@ int changeClassInfo(GradeInfo head, char *match, const char **str) {
     while (tail->next != NULL) {
         tail = tail->next;
         ClassInfo tail1 = tail->Classes;
-        ClassInfo tail1old;
         while (tail1->next != NULL) {
-            tail1old = tail1;
+            ClassInfo tail1old = tail1;
             tail1 = tail1->next;
             if (!strcmp(tail1->CNo, match)) {
                 strcpy(tail1->GradeNo, str[0]);

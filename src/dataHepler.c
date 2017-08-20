@@ -78,9 +78,8 @@ int vagueSearch(char *src, char *des) {
     res = memchr(src, des[0], strlen(src));   //根据要查找的字符串第一个字符，切割源字符串
     if (res == NULL)
         return 0;
-    int n;
     while (1) {
-        n = memcmp(res, des, strlen(des) - 1); //比较
+        int n =  memcmp(res, des, strlen(des) - 1); //比较
         if (n != 0) {
             if (strlen(res) <= strlen(des))    //切割出的字符串小于要查找字符串的长度
                 return 0;

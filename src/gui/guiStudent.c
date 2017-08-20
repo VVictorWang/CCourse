@@ -363,9 +363,9 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     char inScore[8];
     snprintf(inScore, 8, "%f", studentNode->InScore);
 
-    int year = atoi(strsub(studentNode->Birthday, 0, 4));
-    int month = atoi(strsub(studentNode->Birthday, 4, 6));
-    int day = atoi(strsub(studentNode->Birthday, 6, 8));
+    unsigned int year = (unsigned int) atoi(strsub(studentNode->Birthday, 0, 4));
+    unsigned int month = (unsigned int) atoi(strsub(studentNode->Birthday, 4, 6));
+    unsigned int day = (unsigned int) atoi(strsub(studentNode->Birthday, 6, 8));
     gtk_calendar_select_month(GTK_CALENDAR(studentBirthdayCalendar), month - 1, year);
     gtk_calendar_select_day(GTK_CALENDAR(studentBirthdayCalendar), day);
 
