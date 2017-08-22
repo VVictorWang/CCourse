@@ -4,7 +4,7 @@
 // blog:  www.victorwang.science
 //
 
-#include"head.h"
+#include"../head.h"
 
 /**
  * @name deleteGradeInfo

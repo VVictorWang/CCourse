@@ -646,7 +646,7 @@ void on_backup_clicked(GtkWidget *widget, gpointer data) {
     if (gtk_dialog_run(GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
         char *filename;
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (dialog));
-        backup_data(head, filename);
+        backupInfo(head, filename);
         information_message_dialog("备份完成", "备份已完成。");
         g_free(filename);
     }
@@ -701,7 +701,7 @@ void on_restore_clicked(GtkWidget *widget, gpointer data) {
             if (gtk_dialog_run(GTK_DIALOG (choosedialog)) == GTK_RESPONSE_ACCEPT) {
                 char *filename;
                 filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (choosedialog));
-                int n = restore_data(&head, filename);
+                int n = restoreInfo(&head, filename);
                 if (n == -1) {
                     error_message_dialog("恢复失败", "打开文件失败");
                 } else if (n == -2) {

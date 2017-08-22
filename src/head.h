@@ -4,6 +4,7 @@
 // blog:  www.victorwang.science
 //
 
+//防止头文件重复引入
 #ifndef COURSE_HEAD_H
 #define COURSE_HEAD_H
 //头文件引入
@@ -131,24 +132,23 @@ const static ImagePath MYIMAGEPATH = {
         "../img/search_selected.png",
         "../img/statistic_selected.png"
 };
-GradeInfo head;
-GtkWidget *main_window;
+
+GradeInfo head; //整个链表头结点
+GtkWidget *main_window; //主窗体
 
 //函数原型声明
 int initInfo(GradeInfo *);//信息初始化函数
 void saveInfo(GradeInfo);//信息保存函数
-void backup_data(GradeInfo, char *); //信息备份函数
-int restore_data(GradeInfo *, char *);//信息恢复函数
+void backupInfo(GradeInfo, char *); //信息备份函数
+int restoreInfo(GradeInfo *, char *);//信息恢复函数
 
 //信息录入函数
-void inputGradeInfo(GradeInfo, const char **);//年级信息录入函数
-void inputClassInfo(GradeInfo, const char **);//班级信息录入函数
-void inputStudentInfo(GradeInfo, const char **);//学生信息录入函数
-void gradeInfoIn(GradeInfo *, const char **);
-
-void classInfoIn(ClassInfo *, const char **);
-
-void studentInfoIn(StudentInfo *, const char **);
+void inputGradeInfo(GradeInfo, const char **);//年级信息录入函数，为新节点分配内存
+void inputClassInfo(GradeInfo, const char **);//班级信息录入函数，为新节点分配内存
+void inputStudentInfo(GradeInfo, const char **);//学生信息录入函数，为新节点分配内存
+void gradeInfoIn(GradeInfo *, const char **);  //将年级信息保存到链表中
+void classInfoIn(ClassInfo *, const char **); //将班级信息保存到链表中
+void studentInfoIn(StudentInfo *, const char **); //将学生信息保存到链表中
 
 //信息修改函数
 int changeGradeInfo(GradeInfo, char *, const char **);//年级信息修改函数
@@ -161,19 +161,19 @@ void deleteClassInfo(GradeInfo, char *);//班级信息删除函数
 void deleteStudentInfo(GradeInfo, char *);//学生信息删除函数
 
 //信息查询函数
-GradeInfo searchGradeInfoByNo(GradeInfo, char *);//年级信息查询函数
-GradeInfo searchGradeInfoByTime(GradeInfo, char *, char *);//
-GradeInfo searchGradeInfoByPeople(GradeInfo, char *, char *);//
-ClassInfo searchClassInfoByNo(char *);//
-ClassInfo searchClassInfoByMajor(char *);//
-ClassInfo searchClassInfoByPeople(char *, char *);//
-ClassInfo searchClassInfoByMentorName(char *);//
-StudentInfo searchStudentInfoByName(char *);//
-StudentInfo searchStudentInfoByMajor(char *);//
-StudentInfo searchStudentInfoByInTime(char *, char *);//
-StudentInfo searchStudentInfoByAge(char *, char *);//
-StudentInfo searchStudentInfoGraduate(char);//
-StudentInfo searchStudentInfoByGradTo(char *);//
+GradeInfo searchGradeInfoByNo(GradeInfo, char *);//年级信息查询函数,通过年级编号
+GradeInfo searchGradeInfoByTime(GradeInfo, char *, char *); //年级信息查询函数,通过入学时间（区间)
+GradeInfo searchGradeInfoByPeople(GradeInfo, char *, char *);//年级信息查询函数,通过入学人数
+ClassInfo searchClassInfoByNo(char *); //班级信息查询函数,通过班级编号
+ClassInfo searchClassInfoByMajor(char *); //班级信息查询函数,通过班级所修专业
+ClassInfo searchClassInfoByPeople(char *, char *);//班级信息查询函数,通过班级入学人数
+ClassInfo searchClassInfoByMentorName(char *); //班级信息查询函数,通过班级班主任姓名
+StudentInfo searchStudentInfoByName(char *); //学生信息查询函数,通过学生姓名
+StudentInfo searchStudentInfoByMajor(char *); //学生信息查询函数,通过学生所修专业
+StudentInfo searchStudentInfoByInTime(char *, char *); //学生信息查询函数,通过学生入学时间
+StudentInfo searchStudentInfoByAge(char *, char *); //学生信息查询函数,通过学生年龄(区间)
+StudentInfo searchStudentInfoGraduate(char); //学生信息查询函数,通过学生是否已毕业
+StudentInfo searchStudentInfoByGradTo(char *); //学生信息查询函数,通过学生毕业去向
 
 
 //信息统计函数
@@ -184,117 +184,94 @@ StudentInfoByYear countStudentInfoByYear(char *, char *);//按年度统计从某
 int getClassNumber(GradeInfo); //统计该年级下的班级数量
 
 //测试类函数
-int testGradeInfo(char *);
+int testGradeInfo(const char *); //通过编号测试是否已经存在此年级
+int testClassInfo(const char *); //通过编号测试是否已经存在此班级
+int testStudentInfo(const char *); //通过学号测试是否已经存在此学生
 
 //界面类函数
-void show_window(GtkWidget **);//
-void show_notebook(void);//
-void show_menubar(GtkWidget *);//
-void show_sidebar(void);//
-void show_dataview(void);//
-void show_queryview(void);//
-void show_stasticalview(void);//
-void run_gradeInfo_dialog(GradeInfo);//
-void run_classInfo_dialog(ClassInfo);//
-void run_studentInfo_dialog(StudentInfo);//
+void show_window(GtkWidget **); //显示主界面
+void show_notebook(void); //显示右边窗体的容器
+void show_menubar(GtkWidget *);//显示上方菜单
+void show_sidebar(void);//显示侧边菜单
+void show_dataview(void);//显示数据维护界面
+void show_queryview(void);//显示数据查询界面
+void show_stasticalview(void);//显示数据统计界面
+void run_gradeInfo_dialog(GradeInfo);//显示年级信息的表格
+void run_classInfo_dialog(ClassInfo);//显示班级信息的表格
+void run_studentInfo_dialog(StudentInfo);//显示学生信息的表格
 
 //事件类函数
-void on_data_clicked(GtkWidget *);//
-void on_query_clicked(GtkWidget *);//
-void on_stastical_clicked(GtkWidget *);//
-void on_grade_clicked(GtkWidget *);//
-void on_class_clicked(GtkWidget *);//
-void on_student_clicked(GtkWidget *);//
-void on_confirm_clicked(GtkWidget *);//
-void on_backup_clicked(GtkWidget *, gpointer);//
-void on_save_clicked(GtkWidget *, gpointer);//
-void on_restore_clicked(GtkWidget *, gpointer);//
-void on_aboutsystem_clicked(GtkWidget *);//
-void on_aboutme_clicked(GtkWidget *);//
+void on_data_clicked(GtkWidget *);//数据维护控件被点击事件
+void on_query_clicked(GtkWidget *);//数据查询控件被点击事件
+void on_stastical_clicked(GtkWidget *);//数据统计控件被点击事件
+void on_grade_clicked(GtkWidget *);//年级信息控件被点击事件
+void on_class_clicked(GtkWidget *);//班级信息控件被点击事件
+void on_student_clicked(GtkWidget *);//学生信息控件被点击事件
+void on_confirm_clicked(GtkWidget *);//确定被点击事件
+void on_backup_clicked(GtkWidget *, gpointer);//数据另存为被点击事件
+void on_save_clicked(GtkWidget *, gpointer);//数据保存被点击事件
+void on_restore_clicked(GtkWidget *, gpointer);//数据恢复被点击事件
+void on_aboutsystem_clicked(GtkWidget *);//关于本系统被点击事件
+void on_aboutme_clicked(GtkWidget *);//关于作者被点击事件
 
 
 //数据查询事件函数
-void on_gradeInfo_no_search_clicked(GtkWidget *);//
-void on_gradeInfo_time_search_clicked(GtkWidget *);//
-void on_gradeInfo_inno_search_clicked(GtkWidget *);//
-void on_classInfo_no_search_clicked(GtkWidget *);//
-void on_classInfo_major_search_clicked(GtkWidget *);//
-void on_classInfo_peopleNo_search_clicked(GtkWidget *);//
-void on_classInfo_mentorName_search_clicked(GtkWidget *);//
-void on_studentInfo_name_search_clicked(GtkWidget *);//
-void on_studentInfo_major_search_clicked(GtkWidget *);//
-void on_studentInfo_Intime_search_clicked(GtkWidget *);//
-void on_studentInfo_age_search_clicked(GtkWidget *);//
-void on_studentInfo_isGrad_search_clicked(GtkWidget *);//
-void on_studentInfo_Graduate_clicked(GtkWidget *);//
-void on_studentInfo_not_Graduate_clicked(GtkWidget *);//
-void on_studentInfo_graduaTo_search_clicked(GtkWidget *);//
+void on_gradeInfo_no_search_clicked(GtkWidget *);//年级信息查询事件,通过年级编号
+void on_gradeInfo_time_search_clicked(GtkWidget *);//年级信息查询事件,通过入学时间（区间)
+void on_gradeInfo_inno_search_clicked(GtkWidget *);//年级信息查询事件,通过入学人数
+void on_classInfo_no_search_clicked(GtkWidget *);//班级信息查询事件,通过班级编号
+void on_classInfo_major_search_clicked(GtkWidget *);//班级信息查询事件,通过班级所修专业
+void on_classInfo_peopleNo_search_clicked(GtkWidget *);//班级信息查询事件,通过班级入学人数
+void on_classInfo_mentorName_search_clicked(GtkWidget *);//班级信息查询事件,通过班级班主任姓名
+void on_studentInfo_name_search_clicked(GtkWidget *); //学生信息查询事件,通过学生姓名
+void on_studentInfo_major_search_clicked(GtkWidget *); //学生信息查询事件,通过学生所修专业
+void on_studentInfo_Intime_search_clicked(GtkWidget *); //学生信息查询事件,通过学生入学时间(区间)
+void on_studentInfo_age_search_clicked(GtkWidget *); //学生信息查询事件,通过学生年龄(区间)
+void on_studentInfo_isGrad_search_clicked(GtkWidget *); //学生信息查询事件,通过学生是否已经毕业(区间)
+void on_studentInfo_Graduate_clicked(GtkWidget *); //学生信息查询事件,通过学生毕业去向
+void on_studentInfo_not_Graduate_clicked(GtkWidget *);//查询未毕业学生信息事件
+void on_studentInfo_graduaTo_search_clicked(GtkWidget *); //查询已毕业学生信息事件
 
 
 //数据统计事件函数
-void on_gradeInfo_stastical_clicked(GtkWidget *);
-
-void on_classInfo_stastical_clicked(GtkWidget *);
-
-void on_studentInfo_stastical_clicked(GtkWidget *);
-
-void on_student_stastical_by_year_clicked(GtkWidget *);
+void on_gradeInfo_stastical_clicked(GtkWidget *); //年级信息统计事件
+void on_classInfo_stastical_clicked(GtkWidget *); //班级信息统计事件
+void on_studentInfo_stastical_clicked(GtkWidget *); //学生信息统计事件
+void on_student_stastical_by_year_clicked(GtkWidget *); //学生信息统计事件,按年度
 
 
 //数据维护事件函数
-void gradeInfo_method(void);
-
-void on_gradeInfo_add_clicked(GtkWidget *, gpointer);
-
-void on_gradeInfo_modify_clicked(GtkWidget *, gpointer);
-
-void on_gradeInfo_delete_clicked(GtkWidget *);
-
-void on_cancel_clicked(GtkWidget *, gpointer);
-
-void reload_gradeInfo_list(void);
-
-void classInfo_method(void);
-
-void on_classInfo_add_clicked(GtkWidget *, gpointer);
-
-void on_classInfo_modify_clicked(GtkWidget *, gpointer);
-
-void on_classInfo_delete_clicked(GtkWidget *);
-
-void reload_classInfo_list(void);
-
-void studentInfo_method(void);
-
-void on_studentInfo_add_clicked(GtkWidget *, gpointer);
-
-void on_studentInfo_modify_clicked(GtkWidget *, gpointer);
-
-void on_studentInfo_delete_clicked(GtkWidget *);
-
-void reload_studentInfo_list(void);
+void gradeInfo_method(void); //年级信息数据维护事件
+void on_gradeInfo_add_clicked(GtkWidget *, gpointer); //录入年级信息事件
+void on_gradeInfo_modify_clicked(GtkWidget *, gpointer); //修改年级信息事件
+void on_gradeInfo_delete_clicked(GtkWidget *); //删除年级信息事件
+void on_cancel_clicked(GtkWidget *, gpointer); //取消事件
+void reload_gradeInfo_list(void); //重新加载年级信息列表
+void classInfo_method(void); //班级信息数据维护事件
+void on_classInfo_add_clicked(GtkWidget *, gpointer); //录入班级信息事件
+void on_classInfo_modify_clicked(GtkWidget *, gpointer); //修改班级信息事件
+void on_classInfo_delete_clicked(GtkWidget *); //删除班级信息事件
+void reload_classInfo_list(void); //重新加载班级信息列表
+void studentInfo_method(void); //学生信息数据维护事件
+void on_studentInfo_add_clicked(GtkWidget *, gpointer); //录入学生信息事件
+void on_studentInfo_modify_clicked(GtkWidget *, gpointer); //修改学生信息事件
+void on_studentInfo_delete_clicked(GtkWidget *); //删除学生信息事件
+void reload_studentInfo_list(void); //重新学生信息列表
 
 
 //界面辅助类函数
-GdkPixbuf *create_pixbuf(const gchar *);
+GdkPixbuf *create_pixbuf(const gchar *); //创建一个pixbuf
+void warning_message_dialog(gchar *, gchar *); //警告信息弹窗界面
+void error_message_dialog(gchar *, gchar *); //错误信息弹窗界面
+void information_message_dialog(gchar *, gchar *); //一般信息弹窗界面
+void addTreeColumnView(GtkWidget *, GtkCellRenderer *, char *, int); //在表格中增加一列
+void setTableView(GtkWidget **, GtkWidget **, GtkWidget *); //设置table中的控件
 
-void warning_message_dialog(gchar *, gchar *);
-
-void error_message_dialog(gchar *, gchar *);
-
-void information_message_dialog(gchar *, gchar *);
-
-void addTreeColumnView(GtkWidget *, GtkCellRenderer *, char *, int);
-
-void setTableView(GtkWidget **, GtkWidget **, GtkWidget *);
 
 //数据辅助类函数
-int getAgeByBirthDay(char *);
-
-char *strsub(char *, int, int);
-
-int vagueSearch(char *, char *);
-
-int getGtkWidgetListLen(GtkWidget **);
+int getAgeByBirthDay(char *); //通过生日得到年龄
+char *strsub(char *, int, int); //得到给定字符串的子串
+int vagueSearch(char *, char *); //模糊搜素字符串
+int getGtkWidgetListLen(GtkWidget **); //得到一个GtkWidget数组的长度
 
 #endif //COURSE_HEAD_H

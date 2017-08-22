@@ -73,20 +73,12 @@ void on_gradeInfo_time_search_clicked(GtkWidget *widget) {
 
     GtkWidget *startlabel = gtk_label_new("开始日期：");
     GtkWidget *endlabel = gtk_label_new("截止日期：");
-    GtkWidget *startentry = gtk_entry_new();
-    GtkWidget *endentry = gtk_entry_new();
+    GtkWidget *startTimeCalendar = gtk_calendar_new();
+    GtkWidget *endTimeCalendar = gtk_calendar_new();
 
-    GtkWidget *table = gtk_table_new(2, 2, FALSE);
-
-    gtk_table_attach_defaults(GTK_TABLE(table), startlabel, 0, 1, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), endlabel, 0, 1, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), startentry, 1, 2, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), endentry, 1, 2, 1, 2);
-
-    gtk_table_set_row_spacings(GTK_TABLE(table), 5);
-    gtk_table_set_col_spacings(GTK_TABLE(table), 5);
-    gtk_container_set_border_width(GTK_CONTAINER(table), 5);
-    gtk_box_pack_start_defaults(GTK_BOX(GTK_DIALOG(dialog)->vbox), table);
+    GtkWidget *labels[] = {startlabel, endlabel, NULL};
+    GtkWidget *entries[] = {startTimeCalendar, endTimeCalendar, NULL};
+    setTableView(labels, entries, dialog);
 
     gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
 
@@ -94,8 +86,11 @@ void on_gradeInfo_time_search_clicked(GtkWidget *widget) {
     gint result = gtk_dialog_run(GTK_DIALOG(dialog));
 
     char startdate[10], enddate[10];
-    strcpy(startdate, gtk_entry_get_text(GTK_ENTRY(startentry)));
-    strcpy(enddate, gtk_entry_get_text(GTK_ENTRY(endentry)));
+    unsigned int year = 0, month = 0, day = 0;
+    gtk_calendar_get_date(GTK_CALENDAR(startTimeCalendar), &year, &month, &day);
+    snprintf(startdate, 9, "%d", year * 10000 + (month + 1) * 100 + day);
+    gtk_calendar_get_date(GTK_CALENDAR(endTimeCalendar), &year, &month, &day);
+    snprintf(enddate, 9, "%d", year * 10000 + (month + 1) * 100 + day);
     gtk_widget_destroy(dialog);
     if (result == GTK_RESPONSE_OK) {
         GradeInfo node;

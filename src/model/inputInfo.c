@@ -3,7 +3,7 @@
 // email: chengyiwang@hustunique.com
 // blog:  www.victorwang.science
 //
-#include "head.h"
+#include "../head.h"
 
 /**
  * @name gradeInfoIn
@@ -79,9 +79,6 @@ void inputGradeInfo(GradeInfo head, const char **str) {
     tail->next = (GradeInfo) malloc(sizeof(GRADEInfo));
     tail = tail->next;
     gradeInfoIn(&tail, str);
-//    strcpy(tail->CSNo, str[0]);
-//    strcpy(tail->ProvLeader,str[1]);
-//    strcpy(tail->ProvTel,str[2]);
     tail->Classes = (ClassInfo) malloc(sizeof(CLASSInfo));
     tail->Classes->next = NULL;
     tail->next = NULL;

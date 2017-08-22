@@ -4,7 +4,7 @@
 // blog:  www.victorwang.science
 //
 
-#include "head.h"
+#include "../head.h"
 
 /**
 * @name getClassNumber
@@ -79,7 +79,7 @@ int vagueSearch(char *src, char *des) {
     if (res == NULL)
         return 0;
     while (1) {
-        int n =  memcmp(res, des, strlen(des) - 1); //比较
+        int n = memcmp(res, des, strlen(des) - 1); //比较
         if (n != 0) {
             if (strlen(res) <= strlen(des))    //切割出的字符串小于要查找字符串的长度
                 return 0;
@@ -92,6 +92,12 @@ int vagueSearch(char *src, char *des) {
     }
 }
 
+/**
+ * @name getGtkWidgetListLen
+ * @function get the length of a list of Gtkwidget * widgets
+ * @param str: the list of the src
+ * @return the length
+ */
 int getGtkWidgetListLen(GtkWidget **str) {
     int i = 0;
     while (str[i++] != NULL);

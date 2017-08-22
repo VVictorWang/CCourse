@@ -3,7 +3,7 @@
 // email: chengyiwang@hustunique.com
 // blog:  www.victorwang.science
 //
-#include"head.h"
+#include"../head.h"
 
 /**
  * @name initInfo
@@ -124,7 +124,7 @@ int initInfo(GradeInfo *phead) {
  @return: none
  @details: The data file is picked up by file chooser using absolute location
 *************************************************/
-int restore_data(GradeInfo *phead, char *filename) {
+int restoreInfo(GradeInfo *phead, char *filename) {
     int flag = 0;
     FILE *pf = fopen(filename, "r");
     if (!pf) {

@@ -163,34 +163,15 @@ void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *studentGraduaToEntry = gtk_entry_new();
 
 
-    GtkWidget *table = gtk_table_new(10, 2, FALSE);
+    GtkWidget *labels[] = {studentClassNoLabel, studentNoLabel, studentNameLabel, studentSexLabel,
+                           studentBirthplaceLabel, studentBirthdayLabel, studentNumberLabel, studentInScoreLabel,
+                           studentIsGradLabel, studentGraduaToLabel, NULL};
 
-    gtk_table_attach_defaults(GTK_TABLE(table), studentClassNoLabel, 0, 1, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentNoLabel, 0, 1, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentNameLabel, 0, 1, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentSexLabel, 0, 1, 3, 4);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentBirthplaceLabel, 0, 1, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentBirthdayLabel, 0, 1, 5, 6);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentNumberLabel, 0, 1, 6, 7);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentInScoreLabel, 0, 1, 7, 8);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentIsGradLabel, 0, 1, 8, 9);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentGraduaToLabel, 0, 1, 9, 10);
+    GtkWidget *entries[] = {studentClassNoCombo, studentNoEntry, studentNameEntry, hboxButton, studentBirthplaceEntry,
+                            studentBirthdayCalendar, studentNumberEntry, studentInScoreEntry, yesButton,
+                            studentGraduaToEntry, NULL};
+    setTableView(labels, entries, dialog);
 
-    gtk_table_attach_defaults(GTK_TABLE(table), studentClassNoCombo, 1, 2, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentNoEntry, 1, 2, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentNameEntry, 1, 2, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), hboxButton, 1, 2, 3, 4);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentBirthplaceEntry, 1, 2, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentBirthdayCalendar, 1, 2, 5, 6);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentNumberEntry, 1, 2, 6, 7);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentInScoreEntry, 1, 2, 7, 8);
-    gtk_table_attach_defaults(GTK_TABLE(table), yesButton, 1, 2, 8, 9);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentGraduaToEntry, 1, 2, 9, 10);
-
-    gtk_table_set_row_spacings(GTK_TABLE(table), 5);
-    gtk_table_set_col_spacings(GTK_TABLE(table), 5);
-    gtk_container_set_border_width(GTK_CONTAINER(table), 5);
-    gtk_box_pack_start_defaults(GTK_BOX(GTK_DIALOG(dialog)->vbox), table);
     gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_widget_show_all(dialog);
 
@@ -206,6 +187,8 @@ void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "请先录入对应的年级信息！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentNoEntry)) == '\0') {
                     error_message_dialog("错误", "学号不能为空！");
+                } else if (testStudentInfo(gtk_entry_get_text(GTK_ENTRY(studentNoEntry)))) {
+                    error_message_dialog("错误", "学号已存在");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentNameEntry)) == '\0') {
                     error_message_dialog("错误", "学生姓名不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentBirthplaceEntry)) == '\0') {
@@ -376,34 +359,15 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     gtk_entry_set_text(GTK_ENTRY(studentInScoreEntry), inScore);
     gtk_entry_set_text(GTK_ENTRY(studentGraduaToEntry), studentNode->GraduateTo);
 
-    GtkWidget *table = gtk_table_new(10, 2, FALSE);
+    GtkWidget *labels[] = {studentClassNoLabel, studentNoLabel, studentNameLabel, studentSexLabel,
+                           studentBirthplaceLabel, studentBirthdayLabel, studentNumberLabel, studentInScoreLabel,
+                           studentIsGradLabel, studentGraduaToLabel, NULL};
 
-    gtk_table_attach_defaults(GTK_TABLE(table), studentClassNoLabel, 0, 1, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentNoLabel, 0, 1, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentNameLabel, 0, 1, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentSexLabel, 0, 1, 3, 4);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentBirthplaceLabel, 0, 1, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentBirthdayLabel, 0, 1, 5, 6);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentNumberLabel, 0, 1, 6, 7);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentInScoreLabel, 0, 1, 7, 8);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentIsGradLabel, 0, 1, 8, 9);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentGraduaToLabel, 0, 1, 9, 10);
+    GtkWidget *entries[] = {studentClassNoCombo, studentNoEntry, studentNameEntry, hboxButton, studentBirthplaceEntry,
+                            studentBirthdayCalendar, studentNumberEntry, studentInScoreEntry, yesButton,
+                            studentGraduaToEntry, NULL};
+    setTableView(labels, entries, dialog);
 
-    gtk_table_attach_defaults(GTK_TABLE(table), studentClassNoCombo, 1, 2, 0, 1);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentNoEntry, 1, 2, 1, 2);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentNameEntry, 1, 2, 2, 3);
-    gtk_table_attach_defaults(GTK_TABLE(table), hboxButton, 1, 2, 3, 4);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentBirthplaceEntry, 1, 2, 4, 5);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentBirthdayCalendar, 1, 2, 5, 6);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentNumberEntry, 1, 2, 6, 7);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentInScoreEntry, 1, 2, 7, 8);
-    gtk_table_attach_defaults(GTK_TABLE(table), yesButton, 1, 2, 8, 9);
-    gtk_table_attach_defaults(GTK_TABLE(table), studentGraduaToEntry, 1, 2, 9, 10);
-
-    gtk_table_set_row_spacings(GTK_TABLE(table), 5);
-    gtk_table_set_col_spacings(GTK_TABLE(table), 5);
-    gtk_container_set_border_width(GTK_CONTAINER(table), 5);
-    gtk_box_pack_start_defaults(GTK_BOX(GTK_DIALOG(dialog)->vbox), table);
     gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_widget_show_all(dialog);
 
@@ -419,6 +383,8 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "请先录入对应的年级信息！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentNoEntry)) == '\0') {
                     error_message_dialog("错误", "学号不能为空！");
+                } else if (testStudentInfo(gtk_entry_get_text(GTK_ENTRY(studentNoEntry)))) {
+                    error_message_dialog("错误", "学号已存在");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentNameEntry)) == '\0') {
                     error_message_dialog("错误", "学生姓名不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentBirthplaceEntry)) == '\0') {

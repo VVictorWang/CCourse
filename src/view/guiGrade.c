@@ -142,7 +142,9 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
                 gtk_calendar_get_date(GTK_CALENDAR(gradeTimeCalendar), &year, &month, &day);
                 if (*gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)) == '\0') {
                     error_message_dialog("错误", "年级编号不能为空！");
-                } else if (year == 0 || month == 0 || day == 0) {
+                } else if (testGradeInfo(gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)))) {
+                    error_message_dialog("错误", "年级编号已存在");
+                }else if (year == 0 || month == 0 || day == 0) {
                     error_message_dialog("错误", "入学时间不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)) == '\0') {
                     error_message_dialog("错误", "入学人数不能为空！");
@@ -156,8 +158,6 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "年级学生会主席姓名不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(gradeChairmanNoEntry)) == '\0') {
                     error_message_dialog("错误", "年级学生会主席电话不能为空！");
-                } else if (testGradeInfo(gtk_entry_get_text(GTK_ENTRY(gradeNoEntry))) == 1) {
-                    error_message_dialog("错误", "年级编号重复！");
                 } else {
                     char time[9];
                     snprintf(time, 9, "%d", year * 10000 + (month + 1) * 100 + day);
@@ -265,6 +265,8 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
                 gtk_calendar_get_date(GTK_CALENDAR(gradeTimeCalendar), &year, &month, &day);
                 if (*gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)) == '\0') {
                     error_message_dialog("错误", "年级编号不能为空！");
+                } else if (testGradeInfo(gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)))) {
+                    error_message_dialog("错误", "年级编号已存在");
                 } else if (year == 0 || month == 0 || day == 0) {
                     error_message_dialog("错误", "入学时间不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)) == '\0') {

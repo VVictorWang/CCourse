@@ -4,11 +4,13 @@ CFLAGS = $(shell $(PKGCONFIG) --cflags gtk+-2.0)
 LIBS = $(shell $(PKGCONFIG) --libs gtk+-2.0)
 RM = rm
 
-DIR_GUI = ./src/gui
+DIR_GUI = ./src/view
+DIR_MODEL = ./src/model
 DIR_SRC = ./src
 DIR_BIN = ./bin
 SRC = $(wildcard ${DIR_SRC}/*.c)
 SRC += $(wildcard ${DIR_GUI}/*.c)
+SRC += $(wildcard ${DIR_MODEL}/*.c)
 OBJ = $(patsubst %.c,${DIR_BIN}/%.o,$(notdir ${SRC}))
 
 TARGET = infoManagementSystem
@@ -26,6 +28,9 @@ ${DIR_BIN}/%.o:$(DIR_SRC)/%.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 ${DIR_BIN}/%.o:$(DIR_GUI)/%.c
+	$(CC) $(CFLAGS) -c $^ -o $@
+
+${DIR_BIN}/%.o:$(DIR_MODEL)/%.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:

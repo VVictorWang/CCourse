@@ -4,7 +4,7 @@
 // blog:  www.victorwang.science
 //
 
-#include "head.h"
+#include "../head.h"
 
 /**
  * @name: searchGradeInfoByNo
@@ -49,6 +49,7 @@ GradeInfo searchGradeInfoByTime(GradeInfo head, char *start, char *end) {
         if (time >= starttime && time <= endtime) {
             p->next = node;
             p = p->next;
+            p->next = NULL;
         }
     }
     return result;

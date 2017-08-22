@@ -3,7 +3,7 @@
 // email: chengyiwang@hustunique.com
 // blog:  www.victorwang.science
 //
-#include "head.h"
+#include "../head.h"
 
 /**
 **
@@ -51,7 +51,7 @@ void saveInfo(GradeInfo head) {
  @details: The data file is picked up by file chooser
         using absolute location
 *************************************************/
-void backup_data(GradeInfo head, char *filename) {
+void backupInfo(GradeInfo head, char *filename) {
     FILE *p = fopen(filename, "w+");
     GradeInfo tail = head;
     while (tail->next != NULL)//第一级链表保存年级信息
