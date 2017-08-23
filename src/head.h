@@ -5,8 +5,8 @@
 //
 
 //防止头文件重复引入
-#ifndef COURSE_HEAD_H
-#define COURSE_HEAD_H
+#ifndef CCOURSE_HEAD_H
+#define CCOURSE_HEAD_H
 //头文件引入
 #include <stdio.h>
 #include <stdlib.h>
@@ -274,4 +274,4 @@ char *strsub(char *, int, int); //得到给定字符串的子串
 int vagueSearch(char *, char *); //模糊搜素字符串
 int getGtkWidgetListLen(GtkWidget **); //得到一个GtkWidget数组的长度
 
-#endif //COURSE_HEAD_H
+#endif //CCOURSE_HEAD_H

@@ -1,6 +1,7 @@
 CC ?= gcc
 PKGCONFIG = $(shell which pkg-config)
 CFLAGS = $(shell $(PKGCONFIG) --cflags gtk+-2.0)
+CFLAGS += -std=c11
 LIBS = $(shell $(PKGCONFIG) --libs gtk+-2.0)
 RM = rm
 
@@ -24,13 +25,13 @@ ${BIN_TARGET}:${OBJ}
 	$(CC) $^ -o $@  $(LIBS)
 	find ${DIR_BIN} . -name '*.o' -exec $(RM) '{}' \;
 
-${DIR_BIN}/%.o:$(DIR_SRC)/%.c
-	$(CC) $(CFLAGS) -c $^ -o $@
-
 ${DIR_BIN}/%.o:$(DIR_GUI)/%.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 ${DIR_BIN}/%.o:$(DIR_MODEL)/%.c
+	$(CC) $(CFLAGS) -c $^ -o $@
+
+${DIR_BIN}/%.o:$(DIR_SRC)/%.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:
