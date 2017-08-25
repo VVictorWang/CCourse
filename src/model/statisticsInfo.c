@@ -79,27 +79,42 @@ ClassInfoByTime countClassInfoByTime(char *start, char *end) {
  @return none
 *************************************************/
 StudentInfoByTime countStudentInfoByTime(char *start, char *end) {
-    StudentInfoByTime result = (StudentInfoByTime) malloc(sizeof(STUDENTinfobyTime));
-    long startTime = atol(start);
-    long endTime = atol(end);
+    StudentInfoByTime p = (StudentInfoByTime) malloc(sizeof(STUDENTinfobyTime));
+    p->next = NULL;
+    StudentInfoByTime result = p;
+    int startTime = atoi(start);
+    int endTime = atoi(end);
+    int flag = 0;
     GradeInfo gradeNode = head;
-    int count = 0;
     while ((gradeNode = gradeNode->next) != NULL) {
         ClassInfo classNode = gradeNode->Classes;
         while ((classNode = classNode->next) != NULL) {
             StudentInfo studentNode = classNode->Students;
             while ((studentNode = studentNode->next) != NULL) {
-                long year = atol(gradeNode->Year) + 4;
+                int year = atoi(gradeNode->CSNo) + 4;
                 if (year >= startTime && year <= endTime) {
-                    strcpy(result->GraduateTo, studentNode->GraduateTo);
-                    count++;
+                    StudentInfoByTime temp = result;
+                    while ((temp = temp->next) != NULL) {
+                        if (year == atoi(p->Year)) {
+                            flag = 1;
+                            p->Count++;
+                            break;
+                        }
+                    }
+                    if (!flag) {
+                        p->next = (StudentInfoByTime) malloc(sizeof(STUDENTinfobyTime));
+                        p = p->next;
+                        strcpy(p->GraduateTo, studentNode->GraduateTo);
+                        strcpy(p->Year, intToStr(year));
+                        p->Count = 1;
+                        p->next = NULL;
+                    }
+                    flag = 0;
                 }
             }
         }
     }
-    result->Count = count;
     return result;
-
 }
 
 /*************************************************
@@ -114,19 +129,32 @@ StudentInfoByYear countStudentInfoByYear(char *start, char *end) {
     p->next = NULL;
     StudentInfoByYear result = p;
     GradeInfo gradeNode = head;
-    long startTime = atol(start);
-    long endTime = atol(end);
+    int startTime = atoi(start);
+    int endTime = atoi(end);
+    int flag = 0;
     while ((gradeNode = gradeNode->next) != NULL) {
         ClassInfo classNode = gradeNode->Classes;
         while ((classNode = classNode->next) != NULL) {
             StudentInfo studentNode = classNode->Students;
             while ((studentNode = studentNode->next) != NULL) {
-                long year = atol(studentNode->Birthday);
+                int year = atoi(strsub(studentNode->Birthday, 0, 4));
                 if (year >= startTime && year <= endTime) {
-                    p->next = (StudentInfoByYear) malloc(sizeof(STUDENTinfobyYear));
-                    p = p->next;
-//                    Todo
-                    p->next = NULL;
+                    StudentInfoByYear temp = result;
+                    while ((temp = temp->next) != NULL) {
+                        if (year == atoi(temp->Year)) {
+                            temp->Count++;
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if (!flag) {
+                        p->next = (StudentInfoByYear) malloc(sizeof(STUDENTinfobyYear));
+                        p = p->next;
+                        strcpy(p->Year, strsub(studentNode->Birthday, 0, 4));
+                        p->Count = 1;
+                        p->next = NULL;
+                    }
+                    flag = 0;
                 }
             }
 
@@ -134,5 +162,4 @@ StudentInfoByYear countStudentInfoByYear(char *start, char *end) {
 
     }
     return result;
-
 }

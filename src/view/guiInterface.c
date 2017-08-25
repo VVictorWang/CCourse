@@ -132,7 +132,8 @@ void show_sidebar(void) {
 
     data = gtk_image_new_from_file(MYIMAGEPATH.dataSelec);
     GtkWidget *datalabel = gtk_label_new("");
-    gtk_label_set_markup(GTK_LABEL(datalabel), "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>数据维护</span>");
+    gtk_label_set_markup(GTK_LABEL(datalabel),
+                         "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>数据维护</span>");
     gtk_fixed_put(GTK_FIXED(sidebar_fixed), datalabel, 65, 224);
     GtkWidget *databox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(databox), FALSE);
@@ -199,7 +200,8 @@ void show_dataview(void) {
 
     classInfo = gtk_image_new_from_file(MYIMAGEPATH.classInfoNormal);
     GtkWidget *caselabel = gtk_label_new("");
-    gtk_label_set_markup(GTK_LABEL(caselabel), "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>班级信息</span>");
+    gtk_label_set_markup(GTK_LABEL(caselabel),
+                         "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>班级信息</span>");
     gtk_fixed_put(GTK_FIXED(dataview), caselabel, 370, 370);
     GtkWidget *casebox = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(casebox), FALSE);
@@ -388,26 +390,37 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按学生毕业去向查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), studentGradToLabel, 638, 628);
 
-    g_signal_connect(G_OBJECT(gradeNoBox), "button_press_event", G_CALLBACK(on_gradeInfo_no_search_clicked), NULL);
-    g_signal_connect(G_OBJECT(gradeInTimeBox), "button_press_event", G_CALLBACK(on_gradeInfo_time_search_clicked),
+    g_signal_connect(G_OBJECT(gradeNoBox), "button_press_event",
+                     G_CALLBACK(on_gradeInfo_no_search_clicked), NULL);
+    g_signal_connect(G_OBJECT(gradeInTimeBox), "button_press_event",
+                     G_CALLBACK(on_gradeInfo_time_search_clicked),
                      NULL);
-    g_signal_connect(G_OBJECT(gradeInNoBox), "button_press_event", G_CALLBACK(on_gradeInfo_inno_search_clicked), NULL);
-    g_signal_connect(G_OBJECT(classNoBox), "button_press_event", G_CALLBACK(on_classInfo_no_search_clicked), NULL);
-    g_signal_connect(G_OBJECT(classsMajorBox), "button_press_event", G_CALLBACK(on_classInfo_major_search_clicked),
+    g_signal_connect(G_OBJECT(gradeInNoBox), "button_press_event",
+                     G_CALLBACK(on_gradeInfo_inno_search_clicked), NULL);
+    g_signal_connect(G_OBJECT(classNoBox), "button_press_event",
+                     G_CALLBACK(on_classInfo_no_search_clicked), NULL);
+    g_signal_connect(G_OBJECT(classsMajorBox), "button_press_event",
+                     G_CALLBACK(on_classInfo_major_search_clicked),
                      NULL);
-    g_signal_connect(G_OBJECT(classPeopleBox), "button_press_event", G_CALLBACK(on_classInfo_peopleNo_search_clicked),
+    g_signal_connect(G_OBJECT(classPeopleBox), "button_press_event",
+                     G_CALLBACK(on_classInfo_peopleNo_search_clicked),
                      NULL);
     g_signal_connect(G_OBJECT(classMentorNameBox), "button_press_event",
                      G_CALLBACK(on_classInfo_mentorName_search_clicked), NULL);
-    g_signal_connect(G_OBJECT(studentNameBox), "button_press_event", G_CALLBACK(on_studentInfo_name_search_clicked),
+    g_signal_connect(G_OBJECT(studentNameBox), "button_press_event",
+                     G_CALLBACK(on_studentInfo_name_search_clicked),
                      NULL);
-    g_signal_connect(G_OBJECT(studentMajorBox), "button_press_event", G_CALLBACK(on_studentInfo_major_search_clicked),
+    g_signal_connect(G_OBJECT(studentMajorBox), "button_press_event",
+                     G_CALLBACK(on_studentInfo_major_search_clicked),
                      NULL);
-    g_signal_connect(G_OBJECT(studentInTimeBox), "button_press_event", G_CALLBACK(on_studentInfo_Intime_search_clicked),
+    g_signal_connect(G_OBJECT(studentInTimeBox), "button_press_event",
+                     G_CALLBACK(on_studentInfo_Intime_search_clicked),
                      NULL);
-    g_signal_connect(G_OBJECT(studentAgeBox), "button_press_event", G_CALLBACK(on_studentInfo_age_search_clicked),
+    g_signal_connect(G_OBJECT(studentAgeBox), "button_press_event",
+                     G_CALLBACK(on_studentInfo_age_search_clicked),
                      NULL);
-    g_signal_connect(G_OBJECT(studentIsGradBox), "button_press_event", G_CALLBACK(on_studentInfo_isGrad_search_clicked),
+    g_signal_connect(G_OBJECT(studentIsGradBox), "button_press_event",
+                     G_CALLBACK(on_studentInfo_isGrad_search_clicked),
                      NULL);
     g_signal_connect(G_OBJECT(studentGradToBox), "button_press_event",
                      G_CALLBACK(on_studentInfo_graduaTo_search_clicked),
@@ -482,11 +495,15 @@ void show_stasticalview(void) {
     gtk_fixed_put(GTK_FIXED(stasticalview), studentBirthTitle, 450, 492);
 
 
-    g_signal_connect(G_OBJECT(gradeTimeBox), "button_press_event", G_CALLBACK(on_gradeInfo_stastical_clicked), NULL);
-    g_signal_connect(G_OBJECT(classTimeBox), "button_press_event", G_CALLBACK(on_classInfo_stastical_clicked), NULL);
-    g_signal_connect(G_OBJECT(studentTimeBox), "button_press_event", G_CALLBACK(on_studentInfo_stastical_clicked),
+    g_signal_connect(G_OBJECT(gradeTimeBox), "button_press_event",
+                     G_CALLBACK(on_gradeInfo_stastical_clicked), NULL);
+    g_signal_connect(G_OBJECT(classTimeBox), "button_press_event",
+                     G_CALLBACK(on_classInfo_stastical_clicked), NULL);
+    g_signal_connect(G_OBJECT(studentTimeBox), "button_press_event",
+                     G_CALLBACK(on_studentInfo_stastical_clicked),
                      NULL);
-    g_signal_connect(G_OBJECT(studentBirthBox), "button_press_event", G_CALLBACK(on_student_stastical_by_year_clicked),
+    g_signal_connect(G_OBJECT(studentBirthBox), "button_press_event",
+                     G_CALLBACK(on_student_stastical_by_year_clicked),
                      NULL);
 
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), stasticalview, NULL);
@@ -675,8 +692,10 @@ void on_save_clicked(GtkWidget *widget, gpointer data) {
 *************************************************/
 void on_restore_clicked(GtkWidget *widget, gpointer data) {
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("警告", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
-                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("警告", GTK_WINDOW(data), GTK_DIALOG_MODAL,
+                                                    GTK_STOCK_OK,
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -751,7 +770,8 @@ void on_aboutsystem_clicked(GtkWidget *widget) {
 *************************************************/
 void on_aboutme_clicked(GtkWidget *widget) {
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_OTHER, GTK_BUTTONS_OK,
+    GtkWidget *dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_OTHER,
+                                               GTK_BUTTONS_OK,
                                                "华中科技大学 CS1609\nChengyi Wang\nchengyiwang@hustunique.com");
 
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);

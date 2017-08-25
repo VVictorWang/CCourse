@@ -52,9 +52,11 @@ void studentInfo_method(void) {
     gtk_widget_set_usize(deletebtn, 72, 24);
     gtk_widget_set_usize(cancelbtn, 72, 24);
 
-    GtkListStore *store = gtk_list_store_new(STUDENT_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+    GtkListStore *store = gtk_list_store_new(STUDENT_COLUMNS, G_TYPE_STRING, G_TYPE_STRING,
                                              G_TYPE_STRING,
-                                             G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
+                                             G_TYPE_STRING,
+                                             G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+                                             G_TYPE_FLOAT, G_TYPE_STRING,
                                              G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_POINTER,
                                              G_TYPE_POINTER);
     student_list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
@@ -74,7 +76,8 @@ void studentInfo_method(void) {
 
 
     GtkWidget *scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC,
+                                   GTK_POLICY_AUTOMATIC);
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolledwindow), student_list);
 
     GtkWidget *vbox = gtk_vbox_new(FALSE, 5);
@@ -90,8 +93,10 @@ void studentInfo_method(void) {
     gtk_container_add(GTK_CONTAINER(window), vbox);
 
     g_signal_connect(G_OBJECT(addbtn), "clicked", G_CALLBACK(on_studentInfo_add_clicked), window);
-    g_signal_connect(G_OBJECT(modifybtn), "clicked", G_CALLBACK(on_studentInfo_modify_clicked), window);
-    g_signal_connect(G_OBJECT(deletebtn), "clicked", G_CALLBACK(on_studentInfo_delete_clicked), NULL);
+    g_signal_connect(G_OBJECT(modifybtn), "clicked", G_CALLBACK(on_studentInfo_modify_clicked),
+                     window);
+    g_signal_connect(G_OBJECT(deletebtn), "clicked", G_CALLBACK(on_studentInfo_delete_clicked),
+                     NULL);
     g_signal_connect(G_OBJECT(cancelbtn), "clicked", G_CALLBACK(on_cancel_clicked), window);
 
     reload_studentInfo_list();
@@ -108,8 +113,10 @@ void studentInfo_method(void) {
 *************************************************/
 void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("学生信息录入", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
-                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("学生信息录入", GTK_WINDOW(data), GTK_DIALOG_MODAL,
+                                                    GTK_STOCK_OK,
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -136,11 +143,13 @@ void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
         }
         node = node->next;
     }
-    GtkWidget *studentClassNoCombo = gtk_combo_box_new_with_model(GTK_TREE_MODEL(studentClassNoStore));
+    GtkWidget *studentClassNoCombo = gtk_combo_box_new_with_model(
+            GTK_TREE_MODEL(studentClassNoStore));
     g_object_unref(studentClassNoStore);
     GtkCellRenderer *studentClassNoRenderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(studentClassNoCombo), studentClassNoRenderer, TRUE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(studentClassNoCombo), studentClassNoRenderer, "text", 0, NULL);
+    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(studentClassNoCombo), studentClassNoRenderer,
+                                   "text", 0, NULL);
     gtk_combo_box_set_active(GTK_COMBO_BOX(studentClassNoCombo), 0);
 
     GtkWidget *studentNoEntry = gtk_entry_new();
@@ -148,7 +157,8 @@ void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
 
     GtkWidget *hboxButton = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 3);
     GtkWidget *manButton = gtk_radio_button_new_with_label(NULL, "男");
-    GtkWidget *womanButton = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(manButton), "女");
+    GtkWidget *womanButton = gtk_radio_button_new_with_label_from_widget(
+            GTK_RADIO_BUTTON(manButton), "女");
     gtk_box_pack_start(GTK_BOX(hboxButton), manButton, TRUE, TRUE, 1);
     gtk_box_pack_start(GTK_BOX(hboxButton), womanButton, TRUE, TRUE, 1);
 
@@ -164,11 +174,14 @@ void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
 
 
     GtkWidget *labels[] = {studentClassNoLabel, studentNoLabel, studentNameLabel, studentSexLabel,
-                           studentBirthplaceLabel, studentBirthdayLabel, studentNumberLabel, studentInScoreLabel,
+                           studentBirthplaceLabel, studentBirthdayLabel, studentNumberLabel,
+                           studentInScoreLabel,
                            studentIsGradLabel, studentGraduaToLabel, NULL};
 
-    GtkWidget *entries[] = {studentClassNoCombo, studentNoEntry, studentNameEntry, hboxButton, studentBirthplaceEntry,
-                            studentBirthdayCalendar, studentNumberEntry, studentInScoreEntry, yesButton,
+    GtkWidget *entries[] = {studentClassNoCombo, studentNoEntry, studentNameEntry, hboxButton,
+                            studentBirthplaceEntry,
+                            studentBirthdayCalendar, studentNumberEntry, studentInScoreEntry,
+                            yesButton,
                             studentGraduaToEntry, NULL};
     setTableView(labels, entries, dialog);
 
@@ -213,16 +226,17 @@ void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
                         isGraduated = '0';
                     char time[9];
                     snprintf(time, 9, "%d", year * 10000 + (month + 1) * 100 + day);
-                    const char *str[] = {gtk_combo_box_get_active_text(GTK_COMBO_BOX(studentClassNoCombo)),
-                                         gtk_entry_get_text(GTK_ENTRY(studentNoEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(studentNameEntry)),
-                                         &sex,
-                                         gtk_entry_get_text(GTK_ENTRY(studentBirthplaceEntry)),
-                                         time,
-                                         gtk_entry_get_text(GTK_ENTRY(studentNumberEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(studentInScoreEntry)),
-                                         &isGraduated,
-                                         gtk_entry_get_text(GTK_ENTRY(studentGraduaToEntry))
+                    const char *str[] = {
+                            gtk_combo_box_get_active_text(GTK_COMBO_BOX(studentClassNoCombo)),
+                            gtk_entry_get_text(GTK_ENTRY(studentNoEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(studentNameEntry)),
+                            &sex,
+                            gtk_entry_get_text(GTK_ENTRY(studentBirthplaceEntry)),
+                            time,
+                            gtk_entry_get_text(GTK_ENTRY(studentNumberEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(studentInScoreEntry)),
+                            &isGraduated,
+                            gtk_entry_get_text(GTK_ENTRY(studentGraduaToEntry))
                     };
                     inputStudentInfo(head, str);
                     reload_studentInfo_list();
@@ -251,9 +265,11 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     GradeInfo gradeNode;
     ClassInfo classNode;
     StudentInfo studentNode;
-    if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(student_list))),
-                                        &model, &iter)) {
-        gtk_tree_model_get(model, &iter, STUDENT_GRADE_ADDRESS_COLUMN, &gradeNode, STUDENT_CLASS_ADDRESS_COLUMN,
+    if (gtk_tree_selection_get_selected(
+            GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(student_list))),
+            &model, &iter)) {
+        gtk_tree_model_get(model, &iter, STUDENT_GRADE_ADDRESS_COLUMN, &gradeNode,
+                           STUDENT_CLASS_ADDRESS_COLUMN,
                            &classNode, STUDENT_ADDRESS_COLUMN, &studentNode, -1);
     } else {
         warning_message_dialog("未选中任何条目", "请先选中一个条目");
@@ -261,8 +277,10 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     }
 
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("学生信息修改", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
-                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("学生信息修改", GTK_WINDOW(data), GTK_DIALOG_MODAL,
+                                                    GTK_STOCK_OK,
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -288,11 +306,13 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
         }
         node = node->next;
     }
-    GtkWidget *studentClassNoCombo = gtk_combo_box_new_with_model(GTK_TREE_MODEL(studentClassNoStore));
+    GtkWidget *studentClassNoCombo = gtk_combo_box_new_with_model(
+            GTK_TREE_MODEL(studentClassNoStore));
     g_object_unref(studentClassNoStore);
     GtkCellRenderer *studentClassNoRenderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(studentClassNoCombo), studentClassNoRenderer, TRUE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(studentClassNoCombo), studentClassNoRenderer, "text", 0, NULL);
+    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(studentClassNoCombo), studentClassNoRenderer,
+                                   "text", 0, NULL);
     gtk_combo_box_set_active(GTK_COMBO_BOX(studentClassNoCombo), 0);
 
     GtkWidget *studentNoEntry = gtk_entry_new();
@@ -301,7 +321,8 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
 
     GtkWidget *hboxButton = gtk_hbox_new(GTK_ORIENTATION_HORIZONTAL, 3);
     GtkWidget *manButton = gtk_radio_button_new_with_label(NULL, "男");
-    GtkWidget *womanButton = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(manButton), "女");
+    GtkWidget *womanButton = gtk_radio_button_new_with_label_from_widget(
+            GTK_RADIO_BUTTON(manButton), "女");
     gtk_box_pack_start(GTK_BOX(hboxButton), manButton, TRUE, TRUE, 1);
     gtk_box_pack_start(GTK_BOX(hboxButton), womanButton, TRUE, TRUE, 1);
 
@@ -360,11 +381,14 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     gtk_entry_set_text(GTK_ENTRY(studentGraduaToEntry), studentNode->GraduateTo);
 
     GtkWidget *labels[] = {studentClassNoLabel, studentNoLabel, studentNameLabel, studentSexLabel,
-                           studentBirthplaceLabel, studentBirthdayLabel, studentNumberLabel, studentInScoreLabel,
+                           studentBirthplaceLabel, studentBirthdayLabel, studentNumberLabel,
+                           studentInScoreLabel,
                            studentIsGradLabel, studentGraduaToLabel, NULL};
 
-    GtkWidget *entries[] = {studentClassNoCombo, studentNoEntry, studentNameEntry, hboxButton, studentBirthplaceEntry,
-                            studentBirthdayCalendar, studentNumberEntry, studentInScoreEntry, yesButton,
+    GtkWidget *entries[] = {studentClassNoCombo, studentNoEntry, studentNameEntry, hboxButton,
+                            studentBirthplaceEntry,
+                            studentBirthdayCalendar, studentNumberEntry, studentInScoreEntry,
+                            yesButton,
                             studentGraduaToEntry, NULL};
     setTableView(labels, entries, dialog);
 
@@ -409,16 +433,17 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
                         isGraduated = '0';
                     char time[9];
                     snprintf(time, 9, "%d", year * 10000 + (month + 1) * 100 + day);
-                    const char *str[] = {gtk_combo_box_get_active_text(GTK_COMBO_BOX(studentClassNoCombo)),
-                                         gtk_entry_get_text(GTK_ENTRY(studentNoEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(studentNameEntry)),
-                                         &sex,
-                                         gtk_entry_get_text(GTK_ENTRY(studentBirthplaceEntry)),
-                                         time,
-                                         gtk_entry_get_text(GTK_ENTRY(studentNumberEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(studentInScoreEntry)),
-                                         &isGraduated,
-                                         gtk_entry_get_text(GTK_ENTRY(studentGraduaToEntry))
+                    const char *str[] = {
+                            gtk_combo_box_get_active_text(GTK_COMBO_BOX(studentClassNoCombo)),
+                            gtk_entry_get_text(GTK_ENTRY(studentNoEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(studentNameEntry)),
+                            &sex,
+                            gtk_entry_get_text(GTK_ENTRY(studentBirthplaceEntry)),
+                            time,
+                            gtk_entry_get_text(GTK_ENTRY(studentNumberEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(studentInScoreEntry)),
+                            &isGraduated,
+                            gtk_entry_get_text(GTK_ENTRY(studentGraduaToEntry))
                     };
                     changeStudentInfo(head, studentNode->CNo, str);
                     reload_studentInfo_list();
@@ -446,9 +471,11 @@ void on_studentInfo_delete_clicked(GtkWidget *widget) {
     GradeInfo gradeNode;
     ClassInfo classNode;
     StudentInfo studentNode;
-    if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(student_list))),
-                                        &model, &iter)) {
-        gtk_tree_model_get(model, &iter, STUDENT_GRADE_ADDRESS_COLUMN, &gradeNode, STUDENT_CLASS_ADDRESS_COLUMN,
+    if (gtk_tree_selection_get_selected(
+            GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(student_list))),
+            &model, &iter)) {
+        gtk_tree_model_get(model, &iter, STUDENT_GRADE_ADDRESS_COLUMN, &gradeNode,
+                           STUDENT_CLASS_ADDRESS_COLUMN,
                            &classNode, STUDENT_ADDRESS_COLUMN, &studentNode, -1);
     } else {
         warning_message_dialog("未选中任何条目", "请先选中一个条目");
@@ -489,13 +516,19 @@ void reload_studentInfo_list(void) {
 
 
                 gtk_list_store_append(store, &iter);
-                gtk_list_store_set(store, &iter, STUDENT_CLASSNO_COLUMN, studentNode->ClassNo, STUDENTNO_COLUMN,
-                                   studentNode->CNo, STUDENT_NAME_COLUMN, studentNode->Name, STUDENT_SEX_COLUMN,
-                                   sex, STUDENT_BIRTHPLACE_COLUMN, studentNode->Birthplace, STUDENT_BIRTHDAY_COLUMN,
-                                   studentNode->Birthday, STUDENT_NUMBER_COLUMN, studentNode->Number,
-                                   STUDENT_INSCORE_COLUMN, studentNode->InScore, STUDENT_ISGRAD_COLUMN, isGraduated,
+                gtk_list_store_set(store, &iter, STUDENT_CLASSNO_COLUMN, studentNode->ClassNo,
+                                   STUDENTNO_COLUMN,
+                                   studentNode->CNo, STUDENT_NAME_COLUMN, studentNode->Name,
+                                   STUDENT_SEX_COLUMN,
+                                   sex, STUDENT_BIRTHPLACE_COLUMN, studentNode->Birthplace,
+                                   STUDENT_BIRTHDAY_COLUMN,
+                                   studentNode->Birthday, STUDENT_NUMBER_COLUMN,
+                                   studentNode->Number,
+                                   STUDENT_INSCORE_COLUMN, studentNode->InScore,
+                                   STUDENT_ISGRAD_COLUMN, isGraduated,
                                    STUDENT_GRADUATETO_COLUMN, studentNode->GraduateTo,
-                                   STUDENT_GRADE_ADDRESS_COLUMN, gradeNode, STUDENT_CLASS_ADDRESS_COLUMN, classNode,
+                                   STUDENT_GRADE_ADDRESS_COLUMN, gradeNode,
+                                   STUDENT_CLASS_ADDRESS_COLUMN, classNode,
                                    STUDENT_ADDRESS_COLUMN,
                                    studentNode, -1);
                 studentNode = studentNode->next;

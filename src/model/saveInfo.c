@@ -12,7 +12,6 @@
 * @param head the head of the list
 * @return none
 */
-
 void saveInfo(GradeInfo head) {
     FILE *fgrade = fopen("/home/victor/CLionProjects/course/data/GradeInfo.txt", "w+");
     FILE *fclass = fopen("/home/victor/CLionProjects/course/data/ClassInfo.txt", "w+");
@@ -20,19 +19,24 @@ void saveInfo(GradeInfo head) {
     GradeInfo tail = head;
     while (tail->next != NULL) {
         tail = tail->next;
-        fprintf(fgrade, "%s %s %d %d %s %s %s %s\n", tail->CSNo, tail->Year, tail->InNo, tail->GraduateNo,
+        fprintf(fgrade, "%s %s %d %d %s %s %s %s\n", tail->CSNo, tail->Year, tail->InNo,
+                tail->GraduateNo,
                 tail->MentorName, tail->MentorNo, tail->ChairmanName, tail->ChairmanNo);
         ClassInfo tail1 = tail->Classes;
         while (tail1->next != NULL) {
             tail1 = tail1->next;
-            fprintf(fclass, "%s %s %s %d %f %d %s %s %s %s\n", tail1->GradeNo, tail1->CNo, tail1->Major,
-                    tail1->InNo, tail1->AverageAge, tail1->GraduateNo, tail1->MonitorName, tail1->MonitorNo,
+            fprintf(fclass, "%s %s %s %d %f %d %s %s %s %s\n", tail1->GradeNo, tail1->CNo,
+                    tail1->Major,
+                    tail1->InNo, tail1->AverageAge, tail1->GraduateNo, tail1->MonitorName,
+                    tail1->MonitorNo,
                     tail1->MentorName, tail1->MentorNo);
             StudentInfo tail2 = tail1->Students;
             while (tail2->next != NULL) {
                 tail2 = tail2->next;
-                fprintf(fstudent, "%s %s %s %c %s %s %s %f %c %s\n", tail2->ClassNo, tail2->CNo, tail2->Name,
-                        tail2->sex, tail2->Birthplace, tail2->Birthday, tail2->Number, tail2->InScore,
+                fprintf(fstudent, "%s %s %s %c %s %s %s %f %c %s\n", tail2->ClassNo, tail2->CNo,
+                        tail2->Name,
+                        tail2->sex, tail2->Birthplace, tail2->Birthday, tail2->Number,
+                        tail2->InScore,
                         tail2->HasGraduated, tail2->GraduateTo);
             }
         }
@@ -57,21 +61,26 @@ void backupInfo(GradeInfo head, char *filename) {
     while (tail->next != NULL)//第一级链表保存年级信息
     {
         tail = tail->next;
-        fprintf(p, "%d %s %s %d %d %s %s %s %s\n", 1, tail->CSNo, tail->Year, tail->InNo, tail->GraduateNo,
+        fprintf(p, "%d %s %s %d %d %s %s %s %s\n", 1, tail->CSNo, tail->Year, tail->InNo,
+                tail->GraduateNo,
                 tail->MentorName, tail->MentorNo, tail->ChairmanName, tail->ChairmanNo);
         ClassInfo tail1 = tail->Classes;
         while (tail1->next != NULL)//第二级链表保存班级信息
         {
             tail1 = tail1->next;
-            fprintf(p, "%d %s %s %s %d %f %d %s %s %s %s\n", 2, tail1->GradeNo, tail1->CNo, tail1->Major,
-                    tail1->InNo, tail1->AverageAge, tail1->GraduateNo, tail1->MonitorName, tail1->MonitorNo,
+            fprintf(p, "%d %s %s %s %d %f %d %s %s %s %s\n", 2, tail1->GradeNo, tail1->CNo,
+                    tail1->Major,
+                    tail1->InNo, tail1->AverageAge, tail1->GraduateNo, tail1->MonitorName,
+                    tail1->MonitorNo,
                     tail1->MentorName, tail1->MentorNo);
             StudentInfo tail2 = tail1->Students;
             while (tail2->next != NULL)//第三级链表保存学生信息
             {
                 tail2 = tail2->next;
-                fprintf(p, "%d %s %s %s %c %s %s %s %f %c %s\n", 3, tail2->ClassNo, tail2->CNo, tail2->Name,
-                        tail2->sex, tail2->Birthplace, tail2->Birthday, tail2->Number, tail2->InScore,
+                fprintf(p, "%d %s %s %s %c %s %s %s %f %c %s\n", 3, tail2->ClassNo, tail2->CNo,
+                        tail2->Name,
+                        tail2->sex, tail2->Birthplace, tail2->Birthday, tail2->Number,
+                        tail2->InScore,
                         tail2->HasGraduated, tail2->GraduateTo);
             }
         }

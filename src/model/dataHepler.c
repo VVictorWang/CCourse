@@ -63,6 +63,7 @@ char *strsub(char *src, int start, int end) {
             result[i - start] = src[i];
         }
     }
+    result[i - start] = '\0';
     return result;
 }
 
@@ -102,4 +103,42 @@ int getGtkWidgetListLen(GtkWidget **str) {
     int i = 0;
     while (str[i++] != NULL);
     return --i;
+}
+
+/**
+ * @name swapStr
+ * @function swap the two given string
+ * @param str1: the first string
+ * @param str2: the second string
+ * @return none
+ */
+void swapStr(char *str1, char *str2) {
+    char temp[40];
+    strcpy(temp, str1);
+    strcpy(str1, str2);
+    strcpy(str2, temp);
+}
+
+/**
+ * @name intToStr
+ * @function change the given int to a string
+ * @param m: the given integer
+ * @return the string
+ */
+char *intToStr(int m) {
+    char temp[20], *result;
+    int i = 0;
+    while (m > 0) {
+        temp[i++] = m % 10 + '0';
+        m /= 10;
+    }
+    temp[i] = '\0';
+    i--;
+    int j = 0;
+    result = (char *) malloc(sizeof(char) * (strlen(temp) + 1));
+    for (j = 0; i >= 0; j++, i--) {
+        result[j] = temp[i];
+    }
+    result[j] = '\0';
+    return result;
 }

@@ -49,9 +49,11 @@ void classInfo_method() {
     gtk_widget_set_usize(deletebtn, 72, 24);
     gtk_widget_set_usize(cancelbtn, 72, 24);
 
-    GtkListStore *store = gtk_list_store_new(CASE_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT,
+    GtkListStore *store = gtk_list_store_new(CASE_COLUMNS, G_TYPE_STRING, G_TYPE_STRING,
+                                             G_TYPE_STRING, G_TYPE_INT,
                                              G_TYPE_FLOAT, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING,
-                                             G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_POINTER);
+                                             G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
+                                             G_TYPE_POINTER);
     classInfo_list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
     g_object_unref(store);
     GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
@@ -68,7 +70,8 @@ void classInfo_method() {
     addTreeColumnView(classInfo_list, renderer, "班主任联系电话", CLASS_MENTORNO_COLUMN);
 
     GtkWidget *scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC,
+                                   GTK_POLICY_AUTOMATIC);
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolledwindow), classInfo_list);
 
     GtkWidget *vbox = gtk_vbox_new(FALSE, 5);
@@ -84,7 +87,8 @@ void classInfo_method() {
     gtk_container_add(GTK_CONTAINER(window), vbox);
 
     g_signal_connect(G_OBJECT(addbtn), "clicked", G_CALLBACK(on_classInfo_add_clicked), window);
-    g_signal_connect(G_OBJECT(modifybtn), "clicked", G_CALLBACK(on_classInfo_modify_clicked), window);
+    g_signal_connect(G_OBJECT(modifybtn), "clicked", G_CALLBACK(on_classInfo_modify_clicked),
+                     window);
     g_signal_connect(G_OBJECT(deletebtn), "clicked", G_CALLBACK(on_classInfo_delete_clicked), NULL);
     g_signal_connect(G_OBJECT(cancelbtn), "clicked", G_CALLBACK(on_cancel_clicked), window);
 
@@ -102,8 +106,10 @@ void classInfo_method() {
 *************************************************/
 void on_classInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("班级信息录入", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
-                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("班级信息录入", GTK_WINDOW(data), GTK_DIALOG_MODAL,
+                                                    GTK_STOCK_OK,
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -131,7 +137,8 @@ void on_classInfo_add_clicked(GtkWidget *widget, gpointer data) {
     g_object_unref(classGradeNoStore);
     GtkCellRenderer *classGradeNoRenderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(classGradeNoCombo), classGradeNoRenderer, TRUE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(classGradeNoCombo), classGradeNoRenderer, "text", 0, NULL);
+    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(classGradeNoCombo), classGradeNoRenderer, "text",
+                                   0, NULL);
     gtk_combo_box_set_active(GTK_COMBO_BOX(classGradeNoCombo), 0);
 
     GtkWidget *classNoEntry = gtk_entry_new();
@@ -144,11 +151,15 @@ void on_classInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *classMentorNameEntry = gtk_entry_new();
     GtkWidget *classMentorNoEntry = gtk_entry_new();
 
-    GtkWidget *labels[] = {classGradeNoLabel, classNoLabel, classMajorLabel, classInNoLabel, classInAgeLabel,
-                           classGradLabel, classMonitorNameLabel, classMonitorNoLabel, classMentorNameLabel,
+    GtkWidget *labels[] = {classGradeNoLabel, classNoLabel, classMajorLabel, classInNoLabel,
+                           classInAgeLabel,
+                           classGradLabel, classMonitorNameLabel, classMonitorNoLabel,
+                           classMentorNameLabel,
                            classMentorNoLabel, NULL};
-    GtkWidget *entries[] = {classGradeNoCombo, classNoEntry, classMajorEntry, classInNoEntry, classInAgeEntry,
-                            classGradEntry, classMonitorNameEnrtry, classMonitorNoEntry, classMentorNameEntry,
+    GtkWidget *entries[] = {classGradeNoCombo, classNoEntry, classMajorEntry, classInNoEntry,
+                            classInAgeEntry,
+                            classGradEntry, classMonitorNameEnrtry, classMonitorNoEntry,
+                            classMentorNameEntry,
                             classMentorNoEntry, NULL};
     setTableView(labels, entries, dialog);
 
@@ -184,16 +195,17 @@ void on_classInfo_add_clicked(GtkWidget *widget, gpointer data) {
                 } else if (*gtk_entry_get_text(GTK_ENTRY(classMentorNoEntry)) == '\0') {
                     error_message_dialog("错误", "班主任联系电话不能为空！");
                 } else {
-                    const char *str[] = {gtk_combo_box_get_active_text(GTK_COMBO_BOX(classGradeNoCombo)),
-                                         gtk_entry_get_text(GTK_ENTRY(classNoEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classMajorEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classInNoEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classInAgeEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classGradEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classMonitorNameEnrtry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classMonitorNoEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classMentorNameEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classMentorNoEntry))
+                    const char *str[] = {
+                            gtk_combo_box_get_active_text(GTK_COMBO_BOX(classGradeNoCombo)),
+                            gtk_entry_get_text(GTK_ENTRY(classNoEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classMajorEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classInNoEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classInAgeEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classGradEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classMonitorNameEnrtry)),
+                            gtk_entry_get_text(GTK_ENTRY(classMonitorNoEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classMentorNameEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classMentorNoEntry))
                     };
                     inputClassInfo(head, str);
                     reload_classInfo_list();
@@ -223,8 +235,10 @@ void on_classInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     GradeInfo gradeNode;
     ClassInfo classNode;
     if (gtk_tree_selection_get_selected(
-            GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(classInfo_list))), &model, &iter)) {
-        gtk_tree_model_get(model, &iter, CLASS_GRADE_ADDRESS_COLUMN, &gradeNode, CLASS_ADDRESS_COLUMN, &classNode,
+            GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(classInfo_list))), &model,
+            &iter)) {
+        gtk_tree_model_get(model, &iter, CLASS_GRADE_ADDRESS_COLUMN, &gradeNode,
+                           CLASS_ADDRESS_COLUMN, &classNode,
                            -1);
     } else {
         warning_message_dialog("未选中任何条目", "请先选中一个条目");
@@ -232,8 +246,10 @@ void on_classInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     }
 
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("班级信息修改", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
-                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("班级信息修改", GTK_WINDOW(data), GTK_DIALOG_MODAL,
+                                                    GTK_STOCK_OK,
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -261,7 +277,8 @@ void on_classInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     g_object_unref(classGradeNoStore);
     GtkCellRenderer *classGradeNoRenderer = gtk_cell_renderer_text_new();
     gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(classGradeNoCombo), classGradeNoRenderer, TRUE);
-    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(classGradeNoCombo), classGradeNoRenderer, "text", 0, NULL);
+    gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(classGradeNoCombo), classGradeNoRenderer, "text",
+                                   0, NULL);
     gtk_combo_box_set_active(GTK_COMBO_BOX(classGradeNoCombo), 0);
 
     GtkWidget *classNoEntry = gtk_entry_new();
@@ -301,11 +318,15 @@ void on_classInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     gtk_entry_set_text(GTK_ENTRY(classMentorNameEntry), classNode->MentorName);
     gtk_entry_set_text(GTK_ENTRY(classMentorNoEntry), classNode->MentorNo);
 
-    GtkWidget *labels[] = {classGradeNoLabel, classNoLabel, classMajorLabel, classInNoLabel, classInAgeLabel,
-                           classGradLabel, classMonitorNameLabel, classMonitorNoLabel, classMentorNameLabel,
+    GtkWidget *labels[] = {classGradeNoLabel, classNoLabel, classMajorLabel, classInNoLabel,
+                           classInAgeLabel,
+                           classGradLabel, classMonitorNameLabel, classMonitorNoLabel,
+                           classMentorNameLabel,
                            classMentorNoLabel, NULL};
-    GtkWidget *entries[] = {classGradeNoCombo, classNoEntry, classMajorEntry, classInNoEntry, classInAgeEntry,
-                            classGradEntry, classMonitorNameEnrtry, classMonitorNoEntry, classMentorNameEntry,
+    GtkWidget *entries[] = {classGradeNoCombo, classNoEntry, classMajorEntry, classInNoEntry,
+                            classInAgeEntry,
+                            classGradEntry, classMonitorNameEnrtry, classMonitorNoEntry,
+                            classMentorNameEntry,
                             classMentorNoEntry, NULL};
     setTableView(labels, entries, dialog);
 
@@ -341,16 +362,17 @@ void on_classInfo_modify_clicked(GtkWidget *widget, gpointer data) {
                 } else if (*gtk_entry_get_text(GTK_ENTRY(classMentorNoEntry)) == '\0') {
                     error_message_dialog("错误", "班主任联系电话不能为空！");
                 } else {
-                    const char *str[] = {gtk_combo_box_get_active_text(GTK_COMBO_BOX(classGradeNoCombo)),
-                                         gtk_entry_get_text(GTK_ENTRY(classNoEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classMajorEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classInNoEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classInAgeEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classGradEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classMonitorNameEnrtry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classMonitorNoEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classMentorNameEntry)),
-                                         gtk_entry_get_text(GTK_ENTRY(classMentorNoEntry))
+                    const char *str[] = {
+                            gtk_combo_box_get_active_text(GTK_COMBO_BOX(classGradeNoCombo)),
+                            gtk_entry_get_text(GTK_ENTRY(classNoEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classMajorEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classInNoEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classInAgeEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classGradEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classMonitorNameEnrtry)),
+                            gtk_entry_get_text(GTK_ENTRY(classMonitorNoEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classMentorNameEntry)),
+                            gtk_entry_get_text(GTK_ENTRY(classMentorNoEntry))
                     };
                     if (changeClassInfo(head, classNode->CNo, str) == 1) {
                         warning_message_dialog("修改成功", "原班级下的学生信息将丢失");
@@ -380,9 +402,11 @@ void on_classInfo_delete_clicked(GtkWidget *widget) {
     GtkTreeModel *model;
     GradeInfo gradeNode = NULL;
     ClassInfo classNode = NULL;
-    if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(classInfo_list))),
-                                        &model, &iter)) {
-        gtk_tree_model_get(model, &iter, CLASS_GRADE_ADDRESS_COLUMN, &gradeNode, CLASS_ADDRESS_COLUMN, &classNode,
+    if (gtk_tree_selection_get_selected(
+            GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(classInfo_list))),
+            &model, &iter)) {
+        gtk_tree_model_get(model, &iter, CLASS_GRADE_ADDRESS_COLUMN, &gradeNode,
+                           CLASS_ADDRESS_COLUMN, &classNode,
                            -1);
     } else {
         warning_message_dialog("未选中任何条目", "请先选中一个条目");
@@ -409,10 +433,14 @@ void reload_classInfo_list(void) {
         class_node = grade_node->Classes->next;
         while (class_node != NULL) {
             gtk_list_store_append(store, &iter);
-            gtk_list_store_set(store, &iter, CLASS_GRADENO_COLUMN, class_node->GradeNo, CLASSNO_COLUMN,
-                               class_node->CNo, CLASS_MAJOR_COLUMN, class_node->Major, CLASS_INNO_COLUMN,
-                               class_node->InNo, CLASS_AGE_COLUMN, class_node->AverageAge, CLASS_GRAD_COLUMN,
-                               class_node->GraduateNo, CLASS_MONITORNA_COLUMN, class_node->MonitorName,
+            gtk_list_store_set(store, &iter, CLASS_GRADENO_COLUMN, class_node->GradeNo,
+                               CLASSNO_COLUMN,
+                               class_node->CNo, CLASS_MAJOR_COLUMN, class_node->Major,
+                               CLASS_INNO_COLUMN,
+                               class_node->InNo, CLASS_AGE_COLUMN, class_node->AverageAge,
+                               CLASS_GRAD_COLUMN,
+                               class_node->GraduateNo, CLASS_MONITORNA_COLUMN,
+                               class_node->MonitorName,
                                CLASS_MONITORNO_COLUMN, class_node->MonitorNo, CLASS_MENTORNA_COLUMN,
                                class_node->MentorName, CLASS_MENTORNO_COLUMN, class_node->MentorNo,
                                CLASS_GRADE_ADDRESS_COLUMN,

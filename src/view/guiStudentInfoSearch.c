@@ -30,9 +30,11 @@ enum {
 *************************************************/
 void on_studentInfo_name_search_clicked(GtkWidget *widget) {
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("按姓名查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("按姓名查询", GTK_WINDOW(main_window),
+                                                    GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
-                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -69,9 +71,11 @@ void on_studentInfo_name_search_clicked(GtkWidget *widget) {
 *************************************************/
 void on_studentInfo_major_search_clicked(GtkWidget *widget) {
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生专业查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生专业查询", GTK_WINDOW(main_window),
+                                                    GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
-                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -107,9 +111,11 @@ void on_studentInfo_major_search_clicked(GtkWidget *widget) {
 *************************************************/
 void on_studentInfo_Intime_search_clicked(GtkWidget *widget) {
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生入学时间查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生入学时间查询", GTK_WINDOW(main_window),
+                                                    GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
-                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -147,8 +153,10 @@ void on_studentInfo_Intime_search_clicked(GtkWidget *widget) {
 *************************************************/
 void on_studentInfo_age_search_clicked(GtkWidget *widget) {
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生年龄查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL, GTK_STOCK_OK,
-                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生年龄查询", GTK_WINDOW(main_window),
+                                                    GTK_DIALOG_MODAL, GTK_STOCK_OK,
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
     GtkWidget *minNoEntry = gtk_entry_new();
@@ -214,8 +222,10 @@ void on_studentInfo_isGrad_search_clicked(GtkWidget *widget) {
 
 
     gtk_widget_show_all(window);
-    g_signal_connect(G_OBJECT(yesbtn), "clicked", G_CALLBACK(on_studentInfo_Graduate_clicked), NULL);
-    g_signal_connect(G_OBJECT(nobtn), "clicked", G_CALLBACK(on_studentInfo_not_Graduate_clicked), NULL);
+    g_signal_connect(G_OBJECT(yesbtn), "clicked", G_CALLBACK(on_studentInfo_Graduate_clicked),
+                     NULL);
+    g_signal_connect(G_OBJECT(nobtn), "clicked", G_CALLBACK(on_studentInfo_not_Graduate_clicked),
+                     NULL);
 
 }
 
@@ -228,9 +238,11 @@ void on_studentInfo_isGrad_search_clicked(GtkWidget *widget) {
 *************************************************/
 void on_studentInfo_graduaTo_search_clicked(GtkWidget *widget) {
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生毕业去向查询", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("按学生毕业去向查询", GTK_WINDOW(main_window),
+                                                    GTK_DIALOG_MODAL,
                                                     GTK_STOCK_OK,
-                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -288,15 +300,19 @@ void on_studentInfo_not_Graduate_clicked(GtkWidget *widget) {
 *************************************************/
 void run_studentInfo_dialog(StudentInfo node) {
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *resultdialog = gtk_dialog_new_with_buttons("查询结果", GTK_WINDOW(main_window), GTK_DIALOG_MODAL,
-                                                          GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
+    GtkWidget *resultdialog = gtk_dialog_new_with_buttons("查询结果", GTK_WINDOW(main_window),
+                                                          GTK_DIALOG_MODAL,
+                                                          GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE,
+                                                          NULL);
     gtk_window_set_icon(GTK_WINDOW(resultdialog), pixbuf);
     gtk_widget_set_usize(GTK_WIDGET(resultdialog), 580, 360);
     g_object_unref(pixbuf), pixbuf = NULL;
 
-    GtkListStore *store = gtk_list_store_new(STUDENT_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+    GtkListStore *store = gtk_list_store_new(STUDENT_COLUMNS, G_TYPE_STRING, G_TYPE_STRING,
                                              G_TYPE_STRING,
-                                             G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_FLOAT, G_TYPE_STRING,
+                                             G_TYPE_STRING,
+                                             G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+                                             G_TYPE_FLOAT, G_TYPE_STRING,
                                              G_TYPE_STRING, G_TYPE_POINTER);
     GtkWidget *student_list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
     GtkTreeIter iter;
@@ -314,9 +330,11 @@ void run_studentInfo_dialog(StudentInfo node) {
         gtk_list_store_append(store, &iter);
         gtk_list_store_set(store, &iter, STUDENT_CLASSNO_COLUMN, node->ClassNo, STUDENTNO_COLUMN,
                            node->CNo, STUDENT_NAME_COLUMN, node->Name, STUDENT_SEX_COLUMN,
-                           sex, STUDENT_BIRTHPLACE_COLUMN, node->Birthplace, STUDENT_BIRTHDAY_COLUMN,
+                           sex, STUDENT_BIRTHPLACE_COLUMN, node->Birthplace,
+                           STUDENT_BIRTHDAY_COLUMN,
                            node->Birthday, STUDENT_NUMBER_COLUMN, node->Number,
-                           STUDENT_INSCORE_COLUMN, node->InScore, STUDENT_ISGRAD_COLUMN, isGraduated,
+                           STUDENT_INSCORE_COLUMN, node->InScore, STUDENT_ISGRAD_COLUMN,
+                           isGraduated,
                            STUDENT_GRADUATETO_COLUMN, node->GraduateTo,
                            STUDENT_ADDRESS_COLUMN, node, -1);
     }
@@ -335,7 +353,8 @@ void run_studentInfo_dialog(StudentInfo node) {
     addTreeColumnView(student_list, renderer, "毕业去向", STUDENT_GRADUATETO_COLUMN);
 
     GtkWidget *scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC,
+                                   GTK_POLICY_AUTOMATIC);
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolledwindow), student_list);
 
     GtkWidget *vbox = gtk_vbox_new(FALSE, 5);

@@ -11,6 +11,6 @@ add_definitions(${GTK2_CFLAGS_OTHER})
 set(SOURCE_FILES src/main.c src/head.h src/view/guiInterface.c src/view/guiHelper.c src/model/initInfo.c src/view/guiGrade.c
         src/view/guiClass.c src/model/inputInfo.c src/model/testInfo.c src/model/changeInfo.c src/model/deleteInfo.c src/view/guiStudent.c
         src/model/saveInfo.c src/model/dataHepler.c src/view/guiGradeInfoSearch.c src/model/searchInfo.c src/view/guiClassInfoSearch.c
-        src/view/guiStudentInfoSearch.c src/view/guiStatistic.c src/model/statisticsInfo.c)
+        src/view/guiStudentInfoSearch.c src/view/guiGradeInfoStatistic.c src/model/statisticsInfo.c src/model/sortInfo.c src/view/guiClassInfoStatistic.c src/view/guiStudentInfoStatistic.c)
 add_executable(ccourse ${SOURCE_FILES})
 target_link_libraries(ccourse ${GTK2_LIBRARIES})

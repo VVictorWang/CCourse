@@ -49,8 +49,10 @@ void gradeInfo_method(void) {
     gtk_widget_set_usize(deletebtn, 72, 24);
     gtk_widget_set_usize(cancelbtn, 72, 24);
 
-    GtkListStore *store = gtk_list_store_new(GRADE_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT,
-                                             G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_STRING,
+    GtkListStore *store = gtk_list_store_new(GRADE_COLUMNS, G_TYPE_STRING, G_TYPE_STRING,
+                                             G_TYPE_INT,
+                                             G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING,
+                                             G_TYPE_STRING, G_TYPE_STRING,
                                              G_TYPE_POINTER);
     grade_list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(store));
     g_object_unref(store);
@@ -67,7 +69,8 @@ void gradeInfo_method(void) {
 
 
     GtkWidget *scrolledwindow = gtk_scrolled_window_new(NULL, NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolledwindow), GTK_POLICY_AUTOMATIC,
+                                   GTK_POLICY_AUTOMATIC);
     gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolledwindow), grade_list);
 
     GtkWidget *vbox = gtk_vbox_new(FALSE, 5);
@@ -83,7 +86,8 @@ void gradeInfo_method(void) {
     gtk_container_add(GTK_CONTAINER(window), vbox);
 
     g_signal_connect(G_OBJECT(addbtn), "clicked", G_CALLBACK(on_gradeInfo_add_clicked), window);
-    g_signal_connect(G_OBJECT(modifybtn), "clicked", G_CALLBACK(on_gradeInfo_modify_clicked), window);
+    g_signal_connect(G_OBJECT(modifybtn), "clicked", G_CALLBACK(on_gradeInfo_modify_clicked),
+                     window);
     g_signal_connect(G_OBJECT(deletebtn), "clicked", G_CALLBACK(on_gradeInfo_delete_clicked), NULL);
     g_signal_connect(G_OBJECT(cancelbtn), "clicked", G_CALLBACK(on_cancel_clicked), window);
 
@@ -101,8 +105,10 @@ void gradeInfo_method(void) {
 *************************************************/
 void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("年级信息录入", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
-                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("年级信息录入", GTK_WINDOW(data), GTK_DIALOG_MODAL,
+                                                    GTK_STOCK_OK,
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -123,9 +129,11 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
     GtkWidget *gradeChairmanNameEntry = gtk_entry_new();
     GtkWidget *gradeChairmanNoEntry = gtk_entry_new();
 
-    GtkWidget *labels[] = {gradeNoLabel, gradeTimeLabel, gradePeopleLabel, gradeGradLabel, gradeMentorNameLabel,
+    GtkWidget *labels[] = {gradeNoLabel, gradeTimeLabel, gradePeopleLabel, gradeGradLabel,
+                           gradeMentorNameLabel,
                            gradeMentorNoLabel, gradeChairmanNameLabel, gradeChairmanNoLabel, NULL};
-    GtkWidget *entries[] = {gradeNoEntry, gradeTimeCalendar, gradePeopleEntry, gradeGradEntry, gradeMentorNameEntry,
+    GtkWidget *entries[] = {gradeNoEntry, gradeTimeCalendar, gradePeopleEntry, gradeGradEntry,
+                            gradeMentorNameEntry,
                             gradeMentorNoEntry, gradeChairmanNameEntry, gradeChairmanNoEntry, NULL};
     setTableView(labels, entries, dialog);
 
@@ -144,7 +152,7 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "年级编号不能为空！");
                 } else if (testGradeInfo(gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)))) {
                     error_message_dialog("错误", "年级编号已存在");
-                }else if (year == 0 || month == 0 || day == 0) {
+                } else if (year == 0 || month == 0 || day == 0) {
                     error_message_dialog("错误", "入学时间不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)) == '\0') {
                     error_message_dialog("错误", "入学人数不能为空！");
@@ -195,8 +203,9 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     GtkTreeIter iter;
     GtkTreeModel *model;
     GradeInfo node = NULL;
-    if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(grade_list))),
-                                        &model, &iter)) {
+    if (gtk_tree_selection_get_selected(
+            GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(grade_list))),
+            &model, &iter)) {
         gtk_tree_model_get(model, &iter, GRADE_ADDRESS_COLUMN, &node, -1);
     } else {
         warning_message_dialog("未选中任何条目", "请先选中一个条目");
@@ -204,8 +213,10 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     }
 
     GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
-    GtkWidget *dialog = gtk_dialog_new_with_buttons("年级信息修改", GTK_WINDOW(data), GTK_DIALOG_MODAL, GTK_STOCK_OK,
-                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("年级信息修改", GTK_WINDOW(data), GTK_DIALOG_MODAL,
+                                                    GTK_STOCK_OK,
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
     g_object_unref(pixbuf), pixbuf = NULL;
 
@@ -246,9 +257,11 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     gtk_entry_set_text(GTK_ENTRY(gradeChairmanNameEntry), node->ChairmanName);
     gtk_entry_set_text(GTK_ENTRY(gradeChairmanNoEntry), node->ChairmanNo);
 
-    GtkWidget *labels[] = {gradeNoLabel, gradeTimeLabel, gradePeopleLabel, gradeGradLabel, gradeMentorNameLabel,
+    GtkWidget *labels[] = {gradeNoLabel, gradeTimeLabel, gradePeopleLabel, gradeGradLabel,
+                           gradeMentorNameLabel,
                            gradeMentorNoLabel, gradeChairmanNameLabel, gradeChairmanNoLabel, NULL};
-    GtkWidget *entries[] = {gradeNoEntry, gradeTimeCalendar, gradePeopleEntry, gradeGradEntry, gradeMentorNameEntry,
+    GtkWidget *entries[] = {gradeNoEntry, gradeTimeCalendar, gradePeopleEntry, gradeGradEntry,
+                            gradeMentorNameEntry,
                             gradeMentorNoEntry, gradeChairmanNameEntry, gradeChairmanNoEntry, NULL};
     setTableView(labels, entries, dialog);
 
@@ -321,8 +334,9 @@ void on_gradeInfo_delete_clicked(GtkWidget *widget) {
     GtkTreeIter iter;
     GtkTreeModel *model;
     GradeInfo node = NULL;
-    if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(grade_list))),
-                                        &model, &iter)) {
+    if (gtk_tree_selection_get_selected(
+            GTK_TREE_SELECTION(gtk_tree_view_get_selection(GTK_TREE_VIEW(grade_list))),
+            &model, &iter)) {
         gtk_tree_model_get(model, &iter, GRADE_ADDRESS_COLUMN, &node, -1);
     } else {
         warning_message_dialog("未选中任何条目", "请先选中一个条目");
@@ -346,9 +360,12 @@ void reload_gradeInfo_list(void) {
     GradeInfo node = head->next;
     while (node != NULL) {
         gtk_list_store_append(store, &iter);
-        gtk_list_store_set(store, &iter, GRADENO_COLUMN, node->CSNo, GRADE_TIME_COLUMN, node->Year, GRADE_PEOPLE_COLUMN,
-                           node->InNo, GRADE_GRAD_COLUMN, node->GraduateNo, GRADE_MENTORNA_COLUMN, node->MentorName,
-                           GRADE_MENTORNO_COLUMN, node->MentorNo, GRADE_CHAIRNA_COLUMN, node->ChairmanName,
+        gtk_list_store_set(store, &iter, GRADENO_COLUMN, node->CSNo, GRADE_TIME_COLUMN, node->Year,
+                           GRADE_PEOPLE_COLUMN,
+                           node->InNo, GRADE_GRAD_COLUMN, node->GraduateNo, GRADE_MENTORNA_COLUMN,
+                           node->MentorName,
+                           GRADE_MENTORNO_COLUMN, node->MentorNo, GRADE_CHAIRNA_COLUMN,
+                           node->ChairmanName,
                            GRADE_CHAIRNO_COLUMN, node->ChairmanNo, GRADE_ADDRESS_COLUMN, node, -1);
         node = node->next;
     }

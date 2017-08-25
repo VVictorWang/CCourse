@@ -13,18 +13,20 @@
 #include <string.h>
 #include <gtk/gtk.h>
 
+#define SWPAINT(x, y) (op)=(x),(x)=(y),(y)=(op)  //交换两个整数
+
 //学生基本信息
 typedef struct STUDENTINFO {
     char ClassNo[8];  //所属班级编号
     char CNo[12];  //学号
-    char Name[12]; //姓名
+    char Name[16]; //姓名
     char sex;  //性别 1男2女
-    char Birthplace[10];  //籍贯
+    char Birthplace[16];  //籍贯
     char Birthday[10]; //生日
     char Number[12]; //联系电话
     float InScore; //入学分数
     char HasGraduated;  //是否已经毕业 0没毕业  1已经毕业
-    char GraduateTo[15];  //毕业去向
+    char GraduateTo[20];  //毕业去向
     struct STUDENTINFO *next;
 } *StudentInfo, STUDENTInfo;
 
@@ -32,13 +34,13 @@ typedef struct STUDENTINFO {
 typedef struct CLASSINFO {
     char GradeNo[6];  //所属年级编号
     char CNo[8];  //班级编号
-    char Major[12];  //专业名称
+    char Major[30];  //专业名称
     int InNo;  //入学人数
     float AverageAge;  //入学平均年龄
     int GraduateNo; //毕业人数
-    char MonitorName[12];  //班长姓名
+    char MonitorName[16];  //班长姓名
     char MonitorNo[14];  //班长联系电话
-    char MentorName[12]; //班主任姓名
+    char MentorName[16]; //班主任姓名
     char MentorNo[14]; //班主任联系电话
     StudentInfo Students; //班级中学生
     struct CLASSINFO *next;
@@ -51,9 +53,9 @@ typedef struct GRADEINFO {
     char Year[10];  //入学时间
     int InNo;   //入学人数
     int GraduateNo;  //毕业人数
-    char MentorName[12]; //年级辅导员姓名
+    char MentorName[16]; //年级辅导员姓名
     char MentorNo[12];  //年级辅导员电话
-    char ChairmanName[12]; //年级学生会主席姓名
+    char ChairmanName[16]; //年级学生会主席姓名
     char ChairmanNo[12];  //年级学生会主席电话
     ClassInfo Classes; //年级中的班级
     struct GRADEINFO *next;
@@ -80,8 +82,10 @@ typedef struct CLASSINFOBYTIME {
 
 //按指定期限统计学生信息的数据
 typedef struct STUDENTINFOBYTIME {
-    char GraduateTo[10]; //时间
+    char Year[10];
+    char GraduateTo[20]; //毕业去向
     int Count; //数量
+    struct STUDENTINFOBYTIME *next;
 } *StudentInfoByTime, STUDENTinfobyTime;
 
 //按年度统计学生信息的数据
@@ -135,6 +139,7 @@ const static ImagePath MYIMAGEPATH = {
 
 GradeInfo head; //整个链表头结点
 GtkWidget *main_window; //主窗体
+int op; //交换两个整数时需要用到的中间变量
 
 //函数原型声明
 int initInfo(GradeInfo *);//信息初始化函数
@@ -182,6 +187,12 @@ ClassInfoByTime countClassInfoByTime(char *, char *);//统计指定时间期限�
 StudentInfoByTime countStudentInfoByTime(char *, char *);//统计指定时间期限内毕业后到某企业工作的学生数量，按人数从大到小排序
 StudentInfoByYear countStudentInfoByYear(char *, char *);//按年度统计从某年到某年每年出生的学生人数
 int getClassNumber(GradeInfo); //统计该年级下的班级数量
+
+//排序类函数
+GradeInfoByTime sortGradeInfoByTime(GradeInfoByTime, int); //对统计的年级信息排序
+ClassInfoByTime sortClassInfoByTime(ClassInfoByTime, int);  //对统计的班级信息排序
+StudentInfoByTime sortStudentInfoByTime(StudentInfoByTime, int); //对统计的学生信息排序
+StudentInfoByYear sortStudentInfoByYear(StudentInfoByYear); //对按年度统计的年级信息排序
 
 //测试类函数
 int testGradeInfo(const char *); //通过编号测试是否已经存在此年级
@@ -238,7 +249,12 @@ void on_gradeInfo_stastical_clicked(GtkWidget *); //年级信息统计事件
 void on_classInfo_stastical_clicked(GtkWidget *); //班级信息统计事件
 void on_studentInfo_stastical_clicked(GtkWidget *); //学生信息统计事件
 void on_student_stastical_by_year_clicked(GtkWidget *); //学生信息统计事件,按年度
-
+void on_gradeInfo_stastical_sortCombo_changed(GtkWidget *, gpointer); //年级信息统计表格排序方式改变
+void on_classInfo_stastical_sortCombo_changed(GtkWidget *, gpointer); //班级信息统计表格排序方式改变
+void on_studentInfo_stastical_sortCombo_changed(GtkWidget *, gpointer); //学生信息统计表格排序方式改变
+void reload_gradeInfo_byTime_list(); //重新加载统计的年级信息
+void reload_classInfo_byTime_list(); //重新加载统计的班级信息
+void reload_studentInfo_byTime_list(); //重新加载统计的学生信息
 
 //数据维护事件函数
 void gradeInfo_method(void); //年级信息数据维护事件
@@ -273,5 +289,7 @@ int getAgeByBirthDay(char *); //通过生日得到年龄
 char *strsub(char *, int, int); //得到给定字符串的子串
 int vagueSearch(char *, char *); //模糊搜素字符串
 int getGtkWidgetListLen(GtkWidget **); //得到一个GtkWidget数组的长度
+void swapStr(char *, char *); //交换两个字符串
+char *intToStr(int); //int型转成字符串
 
 #endif //CCOURSE_HEAD_H

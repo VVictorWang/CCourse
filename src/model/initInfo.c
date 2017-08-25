@@ -26,7 +26,8 @@ int initInfo(GradeInfo *phead) {
         tail->next = (GradeInfo) malloc(sizeof(GRADEInfo));
         tail = tail->next;
         strcpy(tail->CSNo, temp);
-        fscanf(sp, "%s%d%d%s%s%s%s", tail->Year, &(tail->InNo), &(tail->GraduateNo), tail->MentorName, tail->MentorNo,
+        fscanf(sp, "%s%d%d%s%s%s%s", tail->Year, &(tail->InNo), &(tail->GraduateNo),
+               tail->MentorName, tail->MentorNo,
                tail->ChairmanName, tail->ChairmanNo);
         tail->Classes = (ClassInfo) malloc(sizeof(CLASSInfo));
         tail->Classes->next = NULL;
@@ -55,8 +56,10 @@ int initInfo(GradeInfo *phead) {
                 mytail->next = (ClassInfo) malloc(sizeof(CLASSInfo));
                 mytail = mytail->next;
                 strcpy(mytail->GradeNo, temp);
-                fscanf(sp, "%s%s%d%f%d%s%s%s%s", mytail->CNo, mytail->Major, &(mytail->InNo), &(mytail->AverageAge),
-                       &(mytail->GraduateNo), mytail->MonitorName, mytail->MonitorNo, mytail->MentorName,
+                fscanf(sp, "%s%s%d%f%d%s%s%s%s", mytail->CNo, mytail->Major, &(mytail->InNo),
+                       &(mytail->AverageAge),
+                       &(mytail->GraduateNo), mytail->MonitorName, mytail->MonitorNo,
+                       mytail->MentorName,
                        mytail->MentorNo);
                 mytail->Students = (StudentInfo) malloc(sizeof(STUDENTInfo));
                 mytail->Students->next = NULL;
@@ -94,9 +97,11 @@ int initInfo(GradeInfo *phead) {
                     studenttail->next = (StudentInfo) malloc(sizeof(STUDENTInfo));
                     studenttail = studenttail->next;
                     strcpy(studenttail->ClassNo, temp);
-                    fscanf(sp, "%s%s%c%c%s%s%s%f%c%c%s", studenttail->CNo, studenttail->Name, &space,
+                    fscanf(sp, "%s%s%c%c%s%s%s%f%c%c%s", studenttail->CNo, studenttail->Name,
+                           &space,
                            &(studenttail->sex),
-                           studenttail->Birthplace, studenttail->Birthday, studenttail->Number, &(studenttail->InScore),
+                           studenttail->Birthplace, studenttail->Birthday, studenttail->Number,
+                           &(studenttail->InScore),
                            &space,
                            &(studenttail->HasGraduated), studenttail->GraduateTo);
                     studenttail->next = NULL;
@@ -143,7 +148,8 @@ int restoreInfo(GradeInfo *phead, char *filename) {
                 tail = tail->next;
             tail->next = (GradeInfo) malloc(sizeof(GRADEInfo));
             tail = tail->next;
-            fscanf(pf, "%s%s%d%d%s%s%s%s", tail->CSNo, tail->Year, &(tail->InNo), &(tail->GraduateNo),
+            fscanf(pf, "%s%s%d%d%s%s%s%s", tail->CSNo, tail->Year, &(tail->InNo),
+                   &(tail->GraduateNo),
                    tail->MentorName, tail->MentorNo, tail->ChairmanName, tail->ChairmanNo);
             tail->Classes = (ClassInfo) malloc(sizeof(CLASSInfo));
             tail->Classes->next = NULL;
@@ -163,7 +169,8 @@ int restoreInfo(GradeInfo *phead, char *filename) {
                     tail1 = tail1->next;
                     strcpy(tail1->GradeNo, temp);
                     fscanf(pf, "%s%s%s%d%f%d%s%s%s%s", tail1->GradeNo, tail1->CNo, tail1->Major,
-                           &(tail1->InNo), &(tail1->AverageAge), &(tail1->GraduateNo), tail1->MonitorName,
+                           &(tail1->InNo), &(tail1->AverageAge), &(tail1->GraduateNo),
+                           tail1->MonitorName,
                            tail1->MonitorNo,
                            tail1->MentorName, tail1->MentorNo);
                     tail1->Students = (StudentInfo) malloc(sizeof(STUDENTInfo));
@@ -195,7 +202,8 @@ int restoreInfo(GradeInfo *phead, char *filename) {
                         tail2 = tail2->next;
                         strcpy(tail2->ClassNo, temp);
                         fscanf(pf, "%s%s%s%c%s%s%s%f%c%s", tail2->ClassNo, tail2->CNo, tail2->Name,
-                               &(tail2->sex), tail2->Birthplace, tail2->Birthday, tail2->Number, &(tail2->InScore),
+                               &(tail2->sex), tail2->Birthplace, tail2->Birthday, tail2->Number,
+                               &(tail2->InScore),
                                &(tail2->HasGraduated), tail2->GraduateTo);
                         tail2->next = NULL;
                         tail = head;
