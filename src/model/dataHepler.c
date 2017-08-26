@@ -4,6 +4,7 @@
 // blog:  www.victorwang.science
 //
 
+
 #include "../head.h"
 
 /**
@@ -80,7 +81,7 @@ int vagueSearch(char *src, char *des) {
     if (res == NULL)
         return 0;
     while (1) {
-        int n = memcmp(res, des, strlen(des) - 1); //比较
+        int n = memcmp(res, des, strlen(des)); //比较
         if (n != 0) {
             if (strlen(res) <= strlen(des))    //切割出的字符串小于要查找字符串的长度
                 return 0;
@@ -105,19 +106,6 @@ int getGtkWidgetListLen(GtkWidget **str) {
     return --i;
 }
 
-/**
- * @name swapStr
- * @function swap the two given string
- * @param str1: the first string
- * @param str2: the second string
- * @return none
- */
-void swapStr(char *str1, char *str2) {
-    char temp[40];
-    strcpy(temp, str1);
-    strcpy(str1, str2);
-    strcpy(str2, temp);
-}
 
 /**
  * @name intToStr

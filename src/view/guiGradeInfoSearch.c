@@ -149,6 +149,83 @@ void on_gradeInfo_inno_search_clicked(GtkWidget *widget) {
 }
 
 /*************************************************
+ @name: on_gradeInfo_combine_search_clicked
+ @function: called back when query-gradeInfo-combine-button clicked. Run a dialog containing a list view to display the information.
+ @param widget: the widget that activates the signal
+ @return none
+*************************************************/
+void on_gradeInfo_combine_search_clicked(GtkWidget *widget) {
+    GdkPixbuf *pixbuf = create_pixbuf(MYIMAGEPATH.iconPath);
+    GtkWidget *dialog = gtk_dialog_new_with_buttons("组合查询", GTK_WINDOW(main_window),
+                                                    GTK_DIALOG_MODAL, GTK_STOCK_OK,
+                                                    GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
+                                                    GTK_RESPONSE_CANCEL, NULL);
+    gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
+    g_object_unref(pixbuf), pixbuf = NULL;
+
+    GtkWidget *gradeNoLabel = gtk_label_new("年级编号：");
+    GtkWidget *gradeNoEntry = gtk_entry_new();
+
+    GtkWidget *startlabel = gtk_label_new("开始日期：");
+    GtkWidget *endlabel = gtk_label_new("截止日期：");
+    GtkWidget *startTimeCalendar = gtk_calendar_new();
+    GtkWidget *endTimeCalendar = gtk_calendar_new();
+
+    GtkWidget *minNoEntry = gtk_entry_new();
+    GtkWidget *maxNoEntry = gtk_entry_new();
+    GtkWidget *helperLabel = gtk_label_new("----");
+    GtkWidget *minLabel = gtk_label_new("入学最小人数");
+    GtkWidget *maxLabel = gtk_label_new("入学最大人数");
+
+
+    GtkWidget *table = gtk_table_new(5, 3, FALSE);
+    gtk_table_attach_defaults(GTK_TABLE(table), gradeNoLabel, 0, 1, 0, 1);
+    gtk_table_attach_defaults(GTK_TABLE(table), startlabel, 0, 1, 1, 2);
+    gtk_table_attach_defaults(GTK_TABLE(table), endlabel, 0, 1, 2, 3);
+    gtk_table_attach_defaults(GTK_TABLE(table), minLabel, 0, 1, 3, 4);
+    gtk_table_attach_defaults(GTK_TABLE(table), maxLabel, 2, 3, 3, 4);
+    gtk_table_attach_defaults(GTK_TABLE(table), gradeNoEntry, 2, 3, 0, 1);
+    gtk_table_attach_defaults(GTK_TABLE(table), startTimeCalendar, 2, 3, 1, 2);
+    gtk_table_attach_defaults(GTK_TABLE(table), endTimeCalendar, 2, 3, 2, 3);
+    gtk_table_attach_defaults(GTK_TABLE(table), minNoEntry, 0, 1, 4, 5);
+    gtk_table_attach_defaults(GTK_TABLE(table), helperLabel, 1, 2, 4, 5);
+    gtk_table_attach_defaults(GTK_TABLE(table), maxNoEntry, 2, 3, 4, 5);
+    gtk_table_set_row_spacings(GTK_TABLE(table), 5);
+    gtk_table_set_col_spacings(GTK_TABLE(table), 5);
+    gtk_container_set_border_width(GTK_CONTAINER(table), 3);
+    gtk_box_pack_start_defaults(GTK_BOX(GTK_DIALOG(dialog)->vbox), table);
+
+
+    gtk_window_set_position(GTK_WINDOW(dialog), GTK_WIN_POS_CENTER_ON_PARENT);
+
+    gtk_widget_show_all(dialog);
+    gint result = gtk_dialog_run(GTK_DIALOG(dialog));
+
+    char gradeNo[8];
+    strcpy(gradeNo, gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)));
+
+    char minNo[8], maxNo[8];
+    strcpy(minNo, gtk_entry_get_text(GTK_ENTRY(minNoEntry)));
+    strcpy(maxNo, gtk_entry_get_text(GTK_ENTRY(maxNoEntry)));
+
+    char startdate[10], enddate[10];
+    unsigned int year = 0, month = 0, day = 0;
+    gtk_calendar_get_date(GTK_CALENDAR(startTimeCalendar), &year, &month, &day);
+    snprintf(startdate, 9, "%d", year * 10000 + (month + 1) * 100 + day);
+    gtk_calendar_get_date(GTK_CALENDAR(endTimeCalendar), &year, &month, &day);
+    snprintf(enddate, 9, "%d", year * 10000 + (month + 1) * 100 + day);
+
+    gtk_widget_destroy(dialog);
+
+    if (result == GTK_RESPONSE_OK) {
+        GradeInfo node = searchGradeInfoByNo(head, gradeNo);
+        node = searchGradeInfoByTime(node, startdate, enddate);
+//        node = searchGradeInfoByPeople(node, minNo, maxNo);
+        run_gradeInfo_dialog(node);
+    }
+}
+
+/*************************************************
  @name: run_gradeInfo_dialog
  @function:  Run a dialog containing a list view to display the information.
  @param node: the head of the information list
@@ -212,3 +289,4 @@ void run_gradeInfo_dialog(GradeInfo node) {
 
     gtk_widget_destroy(resultdialog);
 }
+

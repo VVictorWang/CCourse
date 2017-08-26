@@ -13,7 +13,6 @@
 #include <string.h>
 #include <gtk/gtk.h>
 
-#define SWPAINT(x, y) (op)=(x),(x)=(y),(y)=(op)  //交换两个整数
 
 //学生基本信息
 typedef struct STUDENTINFO {
@@ -139,7 +138,6 @@ const static ImagePath MYIMAGEPATH = {
 
 GradeInfo head; //整个链表头结点
 GtkWidget *main_window; //主窗体
-int op; //交换两个整数时需要用到的中间变量
 
 //函数原型声明
 int initInfo(GradeInfo *);//信息初始化函数
@@ -230,6 +228,7 @@ void on_aboutme_clicked(GtkWidget *);//关于作者被点击事件
 void on_gradeInfo_no_search_clicked(GtkWidget *);//年级信息查询事件,通过年级编号
 void on_gradeInfo_time_search_clicked(GtkWidget *);//年级信息查询事件,通过入学时间（区间)
 void on_gradeInfo_inno_search_clicked(GtkWidget *);//年级信息查询事件,通过入学人数
+void on_gradeInfo_combine_search_clicked(GtkWidget *); //年级信息查询时间，组合查询
 void on_classInfo_no_search_clicked(GtkWidget *);//班级信息查询事件,通过班级编号
 void on_classInfo_major_search_clicked(GtkWidget *);//班级信息查询事件,通过班级所修专业
 void on_classInfo_peopleNo_search_clicked(GtkWidget *);//班级信息查询事件,通过班级入学人数
@@ -289,7 +288,6 @@ int getAgeByBirthDay(char *); //通过生日得到年龄
 char *strsub(char *, int, int); //得到给定字符串的子串
 int vagueSearch(char *, char *); //模糊搜素字符串
 int getGtkWidgetListLen(GtkWidget **); //得到一个GtkWidget数组的长度
-void swapStr(char *, char *); //交换两个字符串
 char *intToStr(int); //int型转成字符串
 
 #endif //CCOURSE_HEAD_H

@@ -9,38 +9,42 @@
 /**
  * @name: searchGradeInfoByNo
  * @function: search the gradeInfo by gradeNo
- * @param head: the head of the list
- * @param temp: the gradeNo to be searched
+ * @param phead: the head of the list
+ * @param gradeNo: the gradeNo to be searched
  * @return the gradeInfo node of the searching result
  */
-GradeInfo searchGradeInfoByNo(GradeInfo head, char *temp) {
-    GradeInfo tail = head;
+GradeInfo searchGradeInfoByNo(GradeInfo phead, char *gradeNo) {
+    if (gradeNo[0] == '\0') {
+        return phead;
+    }
+    GradeInfo tail = phead;
     GradeInfo p = (GradeInfo) malloc(sizeof(GRADEInfo));
     p->next = NULL;
     GradeInfo result = p;
     while (tail->next != NULL) {
         tail = tail->next;
-        if (vagueSearch(tail->CSNo, temp)) {
+        if (vagueSearch(tail->CSNo, gradeNo)) {
             p->next = tail;
             p = p->next;
-            p->next = NULL;
         }
     }
+    p->next = NULL;
+    initInfo(&head); //重新加载主链表，因为上述操作已经使主链表发生改变
     return result;
 }
 
 /**
  * @name: searchGradeInfoByTime
  * @function: search the gradeInfo by the time
- * @param head: the head of the list
+ * @param phead: the head of the list
  * @param start: the start time(none for no limits)
  * @param end: the end time(none for no limits)
  * @return the gradeInfo node of the searching result
  */
-GradeInfo searchGradeInfoByTime(GradeInfo head, char *start, char *end) {
+GradeInfo searchGradeInfoByTime(GradeInfo phead, char *start, char *end) {
     long starttime = atol(start);
     long endtime = atol(end);
-    GradeInfo node = head;
+    GradeInfo node = phead;
     GradeInfo p = (GradeInfo) malloc(sizeof(GRADEInfo));
     p->next = NULL;
     GradeInfo result = p;
@@ -49,24 +53,32 @@ GradeInfo searchGradeInfoByTime(GradeInfo head, char *start, char *end) {
         if (time >= starttime && time <= endtime) {
             p->next = node;
             p = p->next;
-            p->next = NULL;
         }
     }
+    p->next = NULL;
+    initInfo(&head);
     return result;
 }
 
 /**
  * @name: searchGradeInfoByPeople
  * @function: search the gradeInfo by the StudentPeople
- * @param head: the head of the list
+ * @param phead: the head of the list
  * @param min: the min number(none for no limits)
  * @param max: the max number(none for no limits)
  * @return the gradeInfo node of the searching result
  */
-GradeInfo searchGradeInfoByPeople(GradeInfo head, char *min, char *max) {
-    long minNo = atol(min);
-    long maxNo = atol(max);
-    GradeInfo node = head;
+GradeInfo searchGradeInfoByPeople(GradeInfo phead, char *min, char *max) {
+    long minNo, maxNo;
+    if (min[0] == '\0') {
+        minNo = 0;
+    } else
+        minNo = atol(min);
+    if (max[0] == '\0') {
+        maxNo = 999999;
+    } else
+        maxNo = atol(max);
+    GradeInfo node = phead;
     GradeInfo p = (GradeInfo) malloc(sizeof(GRADEInfo));
     p->next = NULL;
     GradeInfo result = p;
@@ -75,9 +87,10 @@ GradeInfo searchGradeInfoByPeople(GradeInfo head, char *min, char *max) {
         if (number >= minNo && number <= maxNo) {
             p->next = node;
             p = p->next;
-            p->next = NULL;
         }
     }
+    p->next = NULL;
+    initInfo(&head);
     return result;
 }
 
@@ -100,11 +113,11 @@ ClassInfo searchClassInfoByNo(char *number) {
             if (vagueSearch(classHead->CNo, number)) {
                 p->next = classHead;
                 p = p->next;
-                p->next = NULL;
             }
         }
-
     }
+    p->next = NULL;
+    initInfo(&head);
     return result;
 
 }
@@ -128,11 +141,11 @@ ClassInfo searchClassInfoByMajor(char *major) {
             if (vagueSearch(classHead->Major, major)) {
                 p->next = classHead;
                 p = p->next;
-                p->next = NULL;
             }
         }
-
     }
+    p->next = NULL;
+    initInfo(&head);
     return result;
 }
 
@@ -159,10 +172,11 @@ ClassInfo searchClassInfoByPeople(char *min, char *max) {
             if (number >= minNo && number <= maxNo) {
                 p->next = classHead;
                 p = p->next;
-                p->next = NULL;
             }
         }
     }
+    p->next = NULL;
+    initInfo(&head);
     return result;
 }
 
@@ -185,11 +199,11 @@ ClassInfo searchClassInfoByMentorName(char *mentorName) {
             if (vagueSearch(classHead->MentorName, mentorName)) {
                 p->next = classHead;
                 p = p->next;
-                p->next = NULL;
             }
         }
-
     }
+    p->next = NULL;
+    initInfo(&head);
     return result;
 }
 
@@ -214,12 +228,12 @@ StudentInfo searchStudentInfoByName(char *name) {
                 if (vagueSearch(studentHead->Name, name)) {
                     p->next = studentHead;
                     p = p->next;
-                    p->next = NULL;
                 }
             }
-
         }
     }
+    p->next = NULL;
+    initInfo(&head);
     return result;
 }
 
@@ -245,12 +259,12 @@ StudentInfo searchStudentInfoByMajor(char *major) {
                 if (vagueSearch(classHead->Major, major)) {
                     p->next = studentHead;
                     p = p->next;
-                    p->next = NULL;
                 }
             }
-
         }
     }
+    p->next = NULL;
+    initInfo(&head);
     return result;
 }
 
@@ -278,12 +292,12 @@ StudentInfo searchStudentInfoByInTime(char *start, char *end) {
                 if (time >= starttime && time <= endtime) {
                     p->next = studentHead;
                     p = p->next;
-                    p->next = NULL;
                 }
             }
-
         }
     }
+    p->next = NULL;
+    initInfo(&head);
     return result;
 }
 
@@ -312,12 +326,12 @@ StudentInfo searchStudentInfoByAge(char *min, char *max) {
                 if (age >= minAge && age <= maxAge) {
                     p->next = studentHead;
                     p = p->next;
-                    p->next = NULL;
                 }
             }
-
         }
     }
+    p->next = NULL;
+    initInfo(&head);
     return result;
 }
 
@@ -342,12 +356,12 @@ StudentInfo searchStudentInfoGraduate(char isGraduarted) {
                 if (studentHead->HasGraduated == isGraduarted) {
                     p->next = studentHead;
                     p = p->next;
-                    p->next = NULL;
                 }
             }
-
         }
     }
+    p->next = NULL;
+    initInfo(&head);
     return result;
 }
 
@@ -371,11 +385,11 @@ StudentInfo searchStudentInfoByGradTo(char *gradTo) {
                 if (vagueSearch(studentHead->GraduateTo, gradTo)) {
                     p->next = studentHead;
                     p = p->next;
-                    p->next = NULL;
                 }
             }
-
         }
     }
+    p->next = NULL;
+    initInfo(&head);
     return result;
 }

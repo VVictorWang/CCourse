@@ -24,23 +24,25 @@ GradeInfoByTime sortGradeInfoByTime(GradeInfoByTime head, int way) {
     GradeInfoByTime pStart = head;
     GradeInfoByTime result = pStart;
     while (result->next != NULL) {
-        GradeInfoByTime minNode = result->next, p = result->next->next;
-        while (NULL != p) {
-            if ((way == 0 && atoi(p->CSNo) < atoi(minNode->CSNo)) ||
-                (way == 1 && (p->InNo) < (minNode->InNo)) ||
-                (way == 2 && (p->UnGraduatedCount < minNode->UnGraduatedCount)) ||
-                (way == 3 && (p->ClassCount) < (minNode->ClassCount)) ||
-                (way == 4 && p->GraduatedCount < minNode->GraduatedCount)) {
-                minNode = p;
+        GradeInfoByTime minNode = result->next, p = result->next;
+        GradeInfoByTime pre = result;
+        while (NULL != p->next) {
+            if ((way == 0 && atoi(p->next->CSNo) < atoi(minNode->CSNo)) ||
+                (way == 1 && (p->next->InNo) < (minNode->InNo)) ||
+                (way == 2 && (p->next->UnGraduatedCount < minNode->UnGraduatedCount)) ||
+                (way == 3 && (p->next->ClassCount) < (minNode->ClassCount)) ||
+                (way == 4 && p->next->GraduatedCount < minNode->GraduatedCount)) {
+                pre = p;
+                minNode = p->next;
             }
             p = p->next;
         }
-        swapStr(minNode->Year, result->next->Year);
-        swapStr(minNode->CSNo, result->next->CSNo);
-        SWPAINT(minNode->InNo, result->next->InNo);
-        SWPAINT(minNode->ClassCount, result->next->ClassCount);
-        SWPAINT(minNode->GraduatedCount, result->next->GraduatedCount);
-        SWPAINT(minNode->UnGraduatedCount, result->next->UnGraduatedCount);
+        pre->next = result->next;
+        GradeInfoByTime temp = minNode->next;
+        minNode->next = result->next->next;
+        result->next->next = temp;
+        result->next = minNode;
+
         result = result->next;
     }
     return pStart;
@@ -60,16 +62,21 @@ ClassInfoByTime sortClassInfoByTime(ClassInfoByTime head, int way) {
     ClassInfoByTime pStart = head;
     ClassInfoByTime result = pStart;
     while (result->next != NULL) {
-        ClassInfoByTime minNode = result->next, p = result->next->next;
-        while (NULL != p) {
-            if ((way == 0 && p->UnGraduateCount < minNode->UnGraduateCount)) {
-                minNode = p;
+        ClassInfoByTime minNode = result->next, p = result->next;
+        ClassInfoByTime pre = result;
+        while (NULL != p->next) {
+            if ((way == 0 && p->next->UnGraduateCount < minNode->UnGraduateCount)) {
+                pre = p;
+                minNode = p->next;
             }
             p = p->next;
         }
-        swapStr(minNode->Year, result->next->Year);
-        swapStr(minNode->CNo, result->next->CNo);
-        SWPAINT(minNode->UnGraduateCount, result->next->UnGraduateCount);
+        pre->next = result->next;
+        ClassInfoByTime temp = minNode->next;
+        minNode->next = result->next->next;
+        result->next->next = temp;
+        result->next = minNode;
+
         result = result->next;
     }
     return pStart;
@@ -89,16 +96,21 @@ StudentInfoByTime sortStudentInfoByTime(StudentInfoByTime head, int way) {
     StudentInfoByTime pStart = head;
     StudentInfoByTime result = pStart;
     while (result->next != NULL) {
-        StudentInfoByTime minNode = result->next, p = result->next->next;
-        while (NULL != p) {
-            if ((way == 0 && p->Count < minNode->Count)) {
-                minNode = p;
+        StudentInfoByTime minNode = result->next, p = result->next;
+        StudentInfoByTime pre = result;
+        while (NULL != p->next) {
+            if ((way == 0 && p->next->Count < minNode->Count)) {
+                pre = p;
+                minNode = p->next;
             }
             p = p->next;
         }
-        swapStr(minNode->Year, result->next->Year);
-        swapStr(minNode->GraduateTo, result->next->GraduateTo);
-        SWPAINT(minNode->Count, result->next->Count);
+        pre->next = result->next;
+        StudentInfoByTime temp = minNode->next;
+        minNode->next = result->next->next;
+        result->next->next = temp;
+        result->next = minNode;
+
         result = result->next;
     }
     return pStart;
@@ -117,15 +129,21 @@ StudentInfoByYear sortStudentInfoByYear(StudentInfoByYear head) {
     StudentInfoByYear pStart = head;
     StudentInfoByYear result = pStart;
     while (result->next != NULL) {
-        StudentInfoByYear minNode = result->next, p = result->next->next;
-        while (NULL != p) {
-            if ((atoi(p->Year) < atoi(minNode->Year))) {
-                minNode = p;
+        StudentInfoByYear minNode = result->next, p = result->next;
+        StudentInfoByYear pre = result;
+        while (NULL != p->next) {
+            if ((atoi(p->next->Year) < atoi(minNode->Year))) {
+                pre = p;
+                minNode = p->next;
             }
             p = p->next;
         }
-        swapStr(minNode->Year, result->next->Year);
-        SWPAINT(minNode->Count, result->next->Count);
+        pre->next = result->next;
+        StudentInfoByYear temp = minNode->next;
+        minNode->next = result->next->next;
+        result->next->next = temp;
+        result->next = minNode;
+
         result = result->next;
     }
     return pStart;

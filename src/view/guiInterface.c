@@ -280,6 +280,16 @@ void show_queryview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>按入学人数查找</span>");
     gtk_fixed_put(GTK_FIXED(queryview), gradeInNoLabel, 340, 175);
 
+    GtkWidget *gradeCombine = gtk_image_new_from_file(MYIMAGEPATH.blueButton);
+    GtkWidget *gradeCombineBox = gtk_event_box_new();
+    gtk_event_box_set_visible_window(GTK_EVENT_BOX(gradeCombineBox), FALSE);
+    gtk_container_add(GTK_CONTAINER(gradeCombineBox), gradeCombine);
+    gtk_fixed_put(GTK_FIXED(queryview), gradeCombineBox, 601, 165);
+    GtkWidget *gradeCombineLabel = gtk_label_new("");
+    gtk_label_set_markup(GTK_LABEL(gradeCombineLabel),
+                         "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 15'>组合查询</span>");
+    gtk_fixed_put(GTK_FIXED(queryview), gradeCombineLabel, 640, 175);
+
     GtkWidget *classLabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(classLabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 19.5'>班级信息查询</span>");
@@ -397,6 +407,8 @@ void show_queryview(void) {
                      NULL);
     g_signal_connect(G_OBJECT(gradeInNoBox), "button_press_event",
                      G_CALLBACK(on_gradeInfo_inno_search_clicked), NULL);
+    g_signal_connect(G_OBJECT(gradeCombineBox), "button_press_event",
+                     G_CALLBACK(on_gradeInfo_combine_search_clicked), NULL);
     g_signal_connect(G_OBJECT(classNoBox), "button_press_event",
                      G_CALLBACK(on_classInfo_no_search_clicked), NULL);
     g_signal_connect(G_OBJECT(classsMajorBox), "button_press_event",
