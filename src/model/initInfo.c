@@ -21,12 +21,12 @@ int initInfo(GradeInfo *phead) {
     }
     *phead = (GradeInfo) malloc(sizeof(GRADEInfo));
     GradeInfo tail = *phead;
-    char temp[20];
-    while (fscanf(sp, "%s", temp) != EOF) {
+    char temp[15];
+    while (fscanf(sp, "%15s", temp) != EOF) {
         tail->next = (GradeInfo) malloc(sizeof(GRADEInfo));
         tail = tail->next;
         strcpy(tail->CSNo, temp);
-        fscanf(sp, "%s%d%d%s%s%s%s", tail->Year, &(tail->InNo), &(tail->GraduateNo),
+        fscanf(sp, "%10s%d%d%16s%12s%16s%12s", tail->Year, &(tail->InNo), &(tail->GraduateNo),
                tail->MentorName, tail->MentorNo,
                tail->ChairmanName, tail->ChairmanNo);
         tail->Classes = (ClassInfo) malloc(sizeof(CLASSInfo));
@@ -41,7 +41,7 @@ int initInfo(GradeInfo *phead) {
     tail = *phead;
     ClassInfo classtail = NULL;
     int flag = 0;
-    while (fscanf(sp, "%s", temp) != EOF) {
+    while (fscanf(sp, "%15s", temp) != EOF) {
         flag = 0;
         while (tail->next != NULL) {
             tail = tail->next;
@@ -54,7 +54,8 @@ int initInfo(GradeInfo *phead) {
                 mytail->next = (ClassInfo) malloc(sizeof(CLASSInfo));
                 mytail = mytail->next;
                 strcpy(mytail->GradeNo, temp);
-                fscanf(sp, "%s%s%d%f%d%s%s%s%s", mytail->CNo, mytail->Major, &(mytail->InNo),
+                fscanf(sp, "%8s%30s%d%f%d%16s%12s%16s%12s", mytail->CNo, mytail->Major,
+                       &(mytail->InNo),
                        &(mytail->AverageAge),
                        &(mytail->GraduateNo), mytail->MonitorName, mytail->MonitorNo,
                        mytail->MentorName,
@@ -93,7 +94,8 @@ int initInfo(GradeInfo *phead) {
                     studenttail->next = (StudentInfo) malloc(sizeof(STUDENTInfo));
                     studenttail = studenttail->next;
                     strcpy(studenttail->ClassNo, temp);
-                    fscanf(sp, "%s%s%c%c%s%s%s%f%c%c%s", studenttail->CNo, studenttail->Name,
+                    fscanf(sp, "%12s%16s%c%c%16s%10s%12s%f%c%c%20s", studenttail->CNo,
+                           studenttail->Name,
                            &space,
                            &(studenttail->sex),
                            studenttail->Birthplace, studenttail->Birthday, studenttail->Number,
@@ -136,7 +138,7 @@ int restoreInfo(GradeInfo *phead, char *filename) {
     GradeInfo tail = head;
     tail->next = NULL;
     int num;
-    char temp[50];
+    char temp[20];
     while (fscanf(pf, "%d", &num) != EOF) {
         if (num == 1) {
             tail = head;
@@ -144,7 +146,7 @@ int restoreInfo(GradeInfo *phead, char *filename) {
                 tail = tail->next;
             tail->next = (GradeInfo) malloc(sizeof(GRADEInfo));
             tail = tail->next;
-            fscanf(pf, "%s%s%d%d%s%s%s%s", tail->CSNo, tail->Year, &(tail->InNo),
+            fscanf(pf, "%6s%10s%d%d%16s%12s%16s%12s", tail->CSNo, tail->Year, &(tail->InNo),
                    &(tail->GraduateNo),
                    tail->MentorName, tail->MentorNo, tail->ChairmanName, tail->ChairmanNo);
             tail->Classes = (ClassInfo) malloc(sizeof(CLASSInfo));
@@ -153,7 +155,7 @@ int restoreInfo(GradeInfo *phead, char *filename) {
         } else if (num == 2) {
             flag = 0;
             tail = head;
-            fscanf(pf, "%s", temp);
+            fscanf(pf, "%20s", temp);
             while (tail->next != NULL) {
                 tail = tail->next;
                 if (!strcmp(temp, tail->CSNo)) {
@@ -164,7 +166,8 @@ int restoreInfo(GradeInfo *phead, char *filename) {
                     tail1->next = (ClassInfo) malloc(sizeof(CLASSInfo));
                     tail1 = tail1->next;
                     strcpy(tail1->GradeNo, temp);
-                    fscanf(pf, "%s%s%s%d%f%d%s%s%s%s", tail1->GradeNo, tail1->CNo, tail1->Major,
+                    fscanf(pf, "%6s%8s%30s%d%f%d%16s%12s%16s%12s", tail1->GradeNo, tail1->CNo,
+                           tail1->Major,
                            &(tail1->InNo), &(tail1->AverageAge), &(tail1->GraduateNo),
                            tail1->MonitorName,
                            tail1->MonitorNo,
@@ -177,13 +180,14 @@ int restoreInfo(GradeInfo *phead, char *filename) {
             }
             if (!flag) {
                 *phead = (GradeInfo) malloc(sizeof(GRADEInfo));
+                fclose(pf);
                 return -2; //备份文件有误！
             }
         } else if (num == 3) {
             flag = 0;
             tail = head;
             ClassInfo tail1 = NULL;
-            fscanf(pf, "%s", temp);
+            fscanf(pf, "%20s", temp);
             while (tail->next != NULL) {
                 tail = tail->next;
                 tail1 = tail->Classes;
@@ -197,7 +201,8 @@ int restoreInfo(GradeInfo *phead, char *filename) {
                         tail2->next = (StudentInfo) malloc(sizeof(STUDENTInfo));
                         tail2 = tail2->next;
                         strcpy(tail2->ClassNo, temp);
-                        fscanf(pf, "%s%s%s%c%s%s%s%f%c%s", tail2->ClassNo, tail2->CNo, tail2->Name,
+                        fscanf(pf, "%8s%12s%16s%c%16s%10s%12s%f%c%20s", tail2->ClassNo, tail2->CNo,
+                               tail2->Name,
                                &(tail2->sex), tail2->Birthplace, tail2->Birthday, tail2->Number,
                                &(tail2->InScore),
                                &(tail2->HasGraduated), tail2->GraduateTo);

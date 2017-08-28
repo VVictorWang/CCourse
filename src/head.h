@@ -38,9 +38,9 @@ typedef struct CLASSINFO {
     float AverageAge;  //入学平均年龄
     int GraduateNo; //毕业人数
     char MonitorName[16];  //班长姓名
-    char MonitorNo[14];  //班长联系电话
+    char MonitorNo[12];  //班长联系电话
     char MentorName[16]; //班主任姓名
-    char MentorNo[14]; //班主任联系电话
+    char MentorNo[12]; //班主任联系电话
     StudentInfo Students; //班级中学生
     struct CLASSINFO *next;
 

@@ -63,8 +63,8 @@ void gradeInfo_method(void) {
     addTreeColumnView(grade_list, renderer, "入学人数", GRADE_PEOPLE_COLUMN);
     addTreeColumnView(grade_list, renderer, "毕业人数", GRADE_GRAD_COLUMN);
     addTreeColumnView(grade_list, renderer, "年级辅导员姓名", GRADE_MENTORNA_COLUMN);
-    addTreeColumnView(grade_list, renderer, "年级学生会主席姓名", GRADE_CHAIRNA_COLUMN);
     addTreeColumnView(grade_list, renderer, "年级辅导员电话", GRADE_MENTORNO_COLUMN);
+    addTreeColumnView(grade_list, renderer, "年级学生会主席姓名", GRADE_CHAIRNA_COLUMN);
     addTreeColumnView(grade_list, renderer, "年级学生会主席电话", GRADE_CHAIRNO_COLUMN);
 
 
