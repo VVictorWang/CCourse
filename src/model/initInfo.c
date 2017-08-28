@@ -211,8 +211,7 @@ int restoreInfo(GradeInfo *phead, char *filename) {
             }
             if (!flag) {
                 *phead = (GradeInfo) malloc(sizeof(GRADEInfo));
-                free(head);
-                free(tail);
+                fclose(pf);
                 return -2; //备份文件有误
             }
         }

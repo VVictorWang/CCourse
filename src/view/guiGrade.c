@@ -168,7 +168,7 @@ void on_gradeInfo_add_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "年级学生会主席电话不能为空！");
                 } else {
                     char time[9];
-                    snprintf(time, 9, "%d", year * 10000 + (month + 1) * 100 + day);
+                    snprintf(time, 9, "%ud", year * 10000 + (month + 1) * 100 + day);
                     const char *str[] = {gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)),
                                          time,
                                          gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)),

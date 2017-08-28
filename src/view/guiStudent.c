@@ -225,7 +225,7 @@ void on_studentInfo_add_clicked(GtkWidget *widget, gpointer data) {
                     else
                         isGraduated = '0';
                     char time[9];
-                    snprintf(time, 9, "%d", year * 10000 + (month + 1) * 100 + day);
+                    snprintf(time, 9, "%ud", year * 10000 + (month + 1) * 100 + day);
                     const char *str[] = {
                             gtk_combo_box_get_active_text(GTK_COMBO_BOX(studentClassNoCombo)),
                             gtk_entry_get_text(GTK_ENTRY(studentNoEntry)),

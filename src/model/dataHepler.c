@@ -32,6 +32,7 @@ int getAgeByBirthDay(char *birthday) {
     char *year = strsub(birthday, 0, 4);
     int cuYear = atoi(year);
     int toYear = cuYear - 1900;
+    free(year);
     struct tm *p;
     time_t timep;
     time(&timep);
