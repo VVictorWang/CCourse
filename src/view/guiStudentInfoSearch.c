@@ -136,9 +136,9 @@ void on_studentInfo_Intime_search_clicked(GtkWidget *widget) {
     char startdate[10], enddate[10];
     unsigned int year = 0, month = 0, day = 0;
     gtk_calendar_get_date(GTK_CALENDAR(startTimeCalendar), &year, &month, &day);
-    snprintf(startdate, 9, "%d", year * 10000 + (month + 1) * 100 + day);
+    snprintf(startdate, 9, "%ud", year * 10000 + (month + 1) * 100 + day);
     gtk_calendar_get_date(GTK_CALENDAR(endTimeCalendar), &year, &month, &day);
-    snprintf(enddate, 9, "%d", year * 10000 + (month + 1) * 100 + day);
+    snprintf(enddate, 9, "%ud", year * 10000 + (month + 1) * 100 + day);
     gtk_widget_destroy(dialog);
     if (result == GTK_RESPONSE_OK) {
         run_studentInfo_dialog(searchStudentInfoByInTime(startdate, enddate));

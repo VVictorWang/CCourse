@@ -13,9 +13,9 @@
 * @return none
 */
 void saveInfo(GradeInfo head) {
-    FILE *fgrade = fopen("/home/victor/CLionProjects/course/data/GradeInfo.txt", "w+");
-    FILE *fclass = fopen("/home/victor/CLionProjects/course/data/ClassInfo.txt", "w+");
-    FILE *fstudent = fopen("/home/victor/CLionProjects/course/data/StudentInfo.txt", "w+");
+    FILE *fgrade = fopen(MYDATAPATH.gradeFile, "w+");
+    FILE *fclass = fopen(MYDATAPATH.classFile, "w+");
+    FILE *fstudent = fopen(MYDATAPATH.studentFile, "w+");
     GradeInfo tail = head;
     while (tail->next != NULL) {
         tail = tail->next;

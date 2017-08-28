@@ -136,6 +136,20 @@ const static ImagePath MYIMAGEPATH = {
         "../img/statistic_selected.png"
 };
 
+//所有信息文件的路径
+typedef struct DATAPATH {
+    char gradeFile[40];
+    char classFile[40];
+    char studentFile[40];
+} DataPath;
+
+//所有信息文件的路径，这里使用了相对路径(..代表当前目录的上一级目录),使用静态全局变量存储，节省内存开销与方便更改文件名称
+const static DataPath MYDATAPATH = {
+        "../data/GradeInfo.txt",
+        "../data/ClassInfo.txt",
+        "../data/StudentInfo.txt"
+};
+
 GradeInfo head; //整个链表头结点
 GtkWidget *main_window; //主窗体
 

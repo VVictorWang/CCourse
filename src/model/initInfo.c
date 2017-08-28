@@ -13,8 +13,8 @@
  */
 int initInfo(GradeInfo *phead) {
     char space;  //读取文件信息时用于匹配空格
-    FILE *sp = fopen("/home/victor/CLionProjects/course/data/GradeInfo.txt", "r");
-    if (!sp) {
+    FILE *sp = fopen(MYDATAPATH.gradeFile, "r");
+    if (sp == NULL) {
         *phead = (GradeInfo) malloc(sizeof(GRADEInfo));
         (*phead)->next = NULL;
         return -1;
@@ -34,12 +34,10 @@ int initInfo(GradeInfo *phead) {
     }
     tail->next = NULL;
     fclose(sp);
-
-    sp = fopen("/home/victor/CLionProjects/course/data/ClassInfo.txt", "r");
-    if (!sp) {
-        fclose(sp);
+    sp = fopen(MYDATAPATH.classFile, "r");
+    if (sp == NULL)
         return -2;
-    }
+
     tail = *phead;
     ClassInfo classtail = NULL;
     int flag = 0;
@@ -74,11 +72,9 @@ int initInfo(GradeInfo *phead) {
         }
     }
     fclose(sp);
-    sp = fopen("/home/victor/CLionProjects/course/data/StudentInfo.txt", "r");
-    if (!sp) {
-        fclose(sp);
+    sp = fopen(MYDATAPATH.studentFile, "r");
+    if (sp == NULL)
         return -4; //学生信息文件打开失败
-    }
 
     tail = *phead;
     while (fscanf(sp, "%s", temp) != EOF) {
@@ -215,6 +211,8 @@ int restoreInfo(GradeInfo *phead, char *filename) {
             }
             if (!flag) {
                 *phead = (GradeInfo) malloc(sizeof(GRADEInfo));
+                free(head);
+                free(tail);
                 return -2; //备份文件有误
             }
         }
