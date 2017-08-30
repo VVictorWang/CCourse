@@ -27,7 +27,7 @@ GradeInfoByTime sortGradeInfoByTime(GradeInfoByTime head, int way) {
         GradeInfoByTime minNode = result->next, p = result->next;
         GradeInfoByTime pre = result;
         while (NULL != p->next) {
-            if ((way == 0 && atoi(p->next->CSNo) < atoi(minNode->CSNo)) ||
+            if ((way == 0 && myAtoi(p->next->CSNo) < myAtoi(minNode->CSNo)) ||
                 (way == 1 && (p->next->InNo) < (minNode->InNo)) ||
                 (way == 2 && (p->next->UnGraduatedCount < minNode->UnGraduatedCount)) ||
                 (way == 3 && (p->next->ClassCount) < (minNode->ClassCount)) ||
@@ -132,7 +132,7 @@ StudentInfoByYear sortStudentInfoByYear(StudentInfoByYear head) {
         StudentInfoByYear minNode = result->next, p = result->next;
         StudentInfoByYear pre = result;
         while (NULL != p->next) {
-            if ((atoi(p->next->Year) < atoi(minNode->Year))) {
+            if ((myAtoi(p->next->Year) < myAtoi(minNode->Year))) {
                 pre = p;
                 minNode = p->next;
             }

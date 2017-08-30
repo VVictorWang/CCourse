@@ -6,7 +6,6 @@
 
 
 #include "../head.h"
-
 /**
 * @name getClassNumber
 * @function get the classCount of the grade
@@ -130,4 +129,36 @@ char *intToStr(int m) {
     }
     result[j] = '\0';
     return result;
+}
+
+/**
+ * @name myAtoi
+ * @function convert a string to integer
+ * @param str: the given string
+ * @return the integer
+ */
+int myAtoi(const char *str) {
+    int result = 0, i = 0, flag = 0;
+    while (str[i] == ' ') //处理前面空格
+        i++;
+    if (str[i] == '-') { //判断是否为负数
+        i++;
+        flag = 1;
+    } else if (str[i] == '+')
+        i++;
+    while (str[i] != '\0') {
+        if ((str[i] >= '0' && str[i] <= '9')) {
+            if (result >= (INT_MAX / 10 - (str[i] - '0') + 7)) { //判断是否超出int型最大
+                if (flag && result > (INT_MAX / 10 - (str[i] - '0') + 7)) {
+                    return INT_MIN;
+                }
+                return flag ? -INT_MAX : INT_MAX;
+            }
+            result *= 10;
+            result += str[i++] - '0';
+        } else {
+            return flag ? -result : result;
+        }
+    }
+    return flag ? -result : result;
 }

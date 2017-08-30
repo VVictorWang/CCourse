@@ -303,5 +303,6 @@ char *strsub(char *, int, int); //得到给定字符串的子串
 int vagueSearch(char *, char *); //模糊搜素字符串
 int getGtkWidgetListLen(GtkWidget **); //得到一个GtkWidget数组的长度
 char *intToStr(int); //int型转成字符串
+int myAtoi(const char *); //自定义的字符串转为int型
 
 #endif //CCOURSE_HEAD_H

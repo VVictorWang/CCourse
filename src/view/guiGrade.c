@@ -243,9 +243,9 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
     snprintf(graduateNo, 8, "%d", node->GraduateNo);
 
 
-    unsigned int year = (unsigned int) atoi(strsub(node->Year, 0, 4));
-    unsigned int month = (unsigned int) atoi(strsub(node->Year, 4, 6));
-    unsigned int day = (unsigned int) atoi(strsub(node->Year, 6, 8));
+    unsigned int year = (unsigned int) myAtoi(strsub(node->Year, 0, 4));
+    unsigned int month = (unsigned int) myAtoi(strsub(node->Year, 4, 6));
+    unsigned int day = (unsigned int) myAtoi(strsub(node->Year, 6, 8));
     gtk_calendar_select_month(GTK_CALENDAR(gradeTimeCalendar), month - 1, year);
     gtk_calendar_select_day(GTK_CALENDAR(gradeTimeCalendar), day);
 

@@ -129,19 +129,19 @@ StudentInfoByYear countStudentInfoByYear(char *start, char *end) {
     p->next = NULL;
     StudentInfoByYear result = p;
     GradeInfo gradeNode = head;
-    int startTime = atoi(start);
-    int endTime = atoi(end);
+    int startTime = myAtoi(start);
+    int endTime = myAtoi(end);
     int flag = 0;
     while ((gradeNode = gradeNode->next) != NULL) {
         ClassInfo classNode = gradeNode->Classes;
         while ((classNode = classNode->next) != NULL) {
             StudentInfo studentNode = classNode->Students;
             while ((studentNode = studentNode->next) != NULL) {
-                int year = atoi(strsub(studentNode->Birthday, 0, 4));
+                int year = myAtoi(strsub(studentNode->Birthday, 0, 4));
                 if (year >= startTime && year <= endTime) {
                     StudentInfoByYear temp = result;
                     while ((temp = temp->next) != NULL) {
-                        if (year == atoi(temp->Year)) {
+                        if (year == myAtoi(temp->Year)) {
                             temp->Count++;
                             flag = 1;
                             break;

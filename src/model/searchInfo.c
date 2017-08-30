@@ -310,8 +310,8 @@ StudentInfo searchStudentInfoByInTime(char *start, char *end) {
  * @return the studentInfo node of the searching result
  */
 StudentInfo searchStudentInfoByAge(char *min, char *max) {
-    int minAge = atoi(min);
-    int maxAge = atoi(max);
+    int minAge = myAtoi(min);
+    int maxAge = myAtoi(max);
     GradeInfo tail = head;
     StudentInfo p = (StudentInfo) malloc(sizeof(STUDENTInfo));
     p->next = NULL;

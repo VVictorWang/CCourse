@@ -15,8 +15,8 @@
 void gradeInfoIn(GradeInfo *head, const char **str) {
     strcpy((*head)->CSNo, str[0]);
     strcpy((*head)->Year, str[1]);
-    (*head)->InNo = atoi(str[2]);
-    (*head)->GraduateNo = atoi(str[3]);
+    (*head)->InNo = myAtoi(str[2]);
+    (*head)->GraduateNo = myAtoi(str[3]);
     strcpy((*head)->MentorName, str[4]);
     strcpy((*head)->MentorNo, str[5]);
     strcpy((*head)->ChairmanName, str[6]);
@@ -34,9 +34,9 @@ void classInfoIn(ClassInfo *head, const char **str) {
     strcpy((*head)->GradeNo, str[0]);
     strcpy((*head)->CNo, str[1]);
     strcpy((*head)->Major, str[2]);
-    (*head)->InNo = atoi(str[3]);
+    (*head)->InNo = myAtoi(str[3]);
     (*head)->AverageAge = (float) atof(str[4]);
-    (*head)->GraduateNo = atoi(str[5]);
+    (*head)->GraduateNo = myAtoi(str[5]);
     strcpy((*head)->MonitorName, str[6]);
     strcpy((*head)->MonitorNo, str[7]);
     strcpy((*head)->MentorName, str[8]);

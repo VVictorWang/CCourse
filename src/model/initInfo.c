@@ -21,7 +21,7 @@ int initInfo(GradeInfo *phead) {
     }
     *phead = (GradeInfo) malloc(sizeof(GRADEInfo));
     GradeInfo tail = *phead;
-    char temp[15];
+    char temp[16];
     while (fscanf(sp, "%15s", temp) != EOF) {
         tail->next = (GradeInfo) malloc(sizeof(GRADEInfo));
         tail = tail->next;
@@ -138,7 +138,7 @@ int restoreInfo(GradeInfo *phead, char *filename) {
     GradeInfo tail = head;
     tail->next = NULL;
     int num;
-    char temp[20];
+    char temp[21];
     while (fscanf(pf, "%d", &num) != EOF) {
         if (num == 1) {
             tail = head;

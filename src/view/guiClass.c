@@ -23,6 +23,7 @@ enum {
     CASE_COLUMNS
 };
 
+
 /*************************************************
  @name: classInfo_method
  @function: configure a window to display information(listview) about case.
