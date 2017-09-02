@@ -6,6 +6,7 @@
 
 
 #include "../head.h"
+
 /**
 * @name getClassNumber
 * @function get the classCount of the grade
@@ -33,9 +34,8 @@ int getAgeByBirthDay(char *birthday) {
     int toYear = cuYear - 1900;
     free(year);
     struct tm *p;
-    time_t timep;
-    time(&timep);
-    p = gmtime(&timep);
+    time_t timep = time(NULL);
+    p = localtime(&timep);
     return (p->tm_year - toYear);
 }
 
@@ -106,6 +106,20 @@ int getGtkWidgetListLen(GtkWidget **str) {
     return --i;
 }
 
+/**
+ * @name getDateOfTheCalendar
+ * @function get the selected date string of the calendar
+ * @param calendar: the given calendar
+ * @return the date string
+ */
+char *getDateOfTheCalendar(GtkWidget *calendar){
+    char *result = (char *) malloc(sizeof(char) * 10);
+    unsigned int year = 0, month = 0, day = 0;
+    gtk_calendar_get_date(GTK_CALENDAR(calendar), &year, &month, &day);
+    snprintf(result, 9, "%ud", year * 10000 + (month + 1) * 100 + day);
+    return result;
+}
+
 
 /**
  * @name intToStr
@@ -115,10 +129,23 @@ int getGtkWidgetListLen(GtkWidget **str) {
  */
 char *intToStr(int m) {
     char temp[20], *result;
-    int i = 0;
+    //由于int型表示的范围负数比正数多1，故在这里处理
+    if (m == INT_MIN) {
+        char *s = intToStr(INT_MIN + 1);
+        s[strlen(s) - 1] += 1;
+        return s;
+    }
+    int i = 0, flag = 0;
+    if (m < 0 && m > INT_MIN) {
+        flag = 1;
+        m = -m;
+    }
     while (m > 0) {
-        temp[i++] = m % 10 + '0';
+        temp[i++] = (char) (m % 10 + '0');
         m /= 10;
+    }
+    if (flag) {
+        temp[i++] = '-';
     }
     temp[i] = '\0';
     i--;

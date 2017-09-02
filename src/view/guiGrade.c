@@ -36,7 +36,7 @@ void gradeInfo_method(void) {
     gtk_window_set_title(GTK_WINDOW(window), "年级信息管理");
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(main_window));
-    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+    gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
     gtk_widget_set_usize(window, 640, 480);
     gtk_window_set_modal(GTK_WINDOW(window), TRUE);
 
@@ -278,8 +278,6 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
                 gtk_calendar_get_date(GTK_CALENDAR(gradeTimeCalendar), &year, &month, &day);
                 if (*gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)) == '\0') {
                     error_message_dialog("错误", "年级编号不能为空！");
-                } else if (testGradeInfo(gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)))) {
-                    error_message_dialog("错误", "年级编号已存在");
                 } else if (year == 0 || month == 0 || day == 0) {
                     error_message_dialog("错误", "入学时间不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)) == '\0') {
@@ -296,7 +294,7 @@ void on_gradeInfo_modify_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "年级学生会主席电话不能为空！");
                 } else {
                     char time[9];
-                    snprintf(time, 9, "%d", year * 10000 + (month + 1) * 100 + day);
+                    snprintf(time, 9, "%ud", year * 10000 + (month + 1) * 100 + day);
                     const char *str[] = {gtk_entry_get_text(GTK_ENTRY(gradeNoEntry)),
                                          time,
                                          gtk_entry_get_text(GTK_ENTRY(gradePeopleEntry)),

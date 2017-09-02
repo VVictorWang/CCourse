@@ -29,7 +29,7 @@ void show_window(GtkWidget **pwindow) {
     *pwindow = window;
     gtk_window_set_title(GTK_WINDOW(window), "学生信息管理系统");
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
-    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+    gtk_window_set_resizable(GTK_WINDOW(window), FALSE); //因为图标固定，所以主窗体设置为不可放大
     gtk_widget_set_usize(GTK_WIDGET(window), 960, 688);
 
     fixed = gtk_fixed_new();
@@ -59,44 +59,29 @@ void show_window(GtkWidget **pwindow) {
  @return None
 *************************************************/
 void show_menubar(GtkWidget *window) {
-    GtkWidget *menubar_vbox;
-
-    GtkWidget *menubar;
-
-    GtkWidget *filemenu;
-    GtkWidget *aboutmenu;
-
-    GtkWidget *fileMi;
-    GtkWidget *saveMi;
-    GtkWidget *backupMi;
-    GtkWidget *restoreMi;
-    GtkWidget *quitMi;
-    GtkWidget *aboutMi;
-    GtkWidget *meMi;
-    GtkWidget *systemMi;
-
-    menubar_vbox = gtk_vbox_new(FALSE, 0);
+    GtkWidget *menubar_vbox = gtk_vbox_new(FALSE, 0);
     gtk_container_add(GTK_CONTAINER(fixed), menubar_vbox);
     gtk_widget_set_usize(menubar_vbox, 960, 20);
 
-    menubar = gtk_menu_bar_new();
-    filemenu = gtk_menu_new();
-    aboutmenu = gtk_menu_new();
+    GtkWidget *menubar = gtk_menu_bar_new();
+    GtkWidget *filemenu = gtk_menu_new();
+    GtkWidget *aboutmenu = gtk_menu_new();
 
-    fileMi = gtk_menu_item_new_with_label("文件");
-    backupMi = gtk_menu_item_new_with_label("数据另存为");
-    saveMi = gtk_menu_item_new_with_label("数据保存");
-    restoreMi = gtk_menu_item_new_with_label("数据还原");
-    quitMi = gtk_menu_item_new_with_label("退出");
-    aboutMi = gtk_menu_item_new_with_label("关于");
-    meMi = gtk_menu_item_new_with_label("关于作者");
-    systemMi = gtk_menu_item_new_with_label("关于本系统");
+    GtkWidget *fileMi = gtk_menu_item_new_with_label("文件");
+    GtkWidget *saveMi = gtk_menu_item_new_with_label("数据保存");
+    GtkWidget *backupMi = gtk_menu_item_new_with_label("数据备份");
+    GtkWidget *restoreMi = gtk_menu_item_new_with_label("数据还原");
+    GtkWidget *quitMi = gtk_menu_item_new_with_label("退出");
+    GtkWidget *aboutMi = gtk_menu_item_new_with_label("关于");
+    GtkWidget *meMi = gtk_menu_item_new_with_label("关于作者");
+    GtkWidget *systemMi = gtk_menu_item_new_with_label("关于本系统");
+
 
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(fileMi), filemenu);
     gtk_menu_item_set_submenu(GTK_MENU_ITEM(aboutMi), aboutmenu);
 
-    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), backupMi);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), saveMi);
+    gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), backupMi);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), restoreMi);
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), gtk_separator_menu_item_new());
     gtk_menu_shell_append(GTK_MENU_SHELL(filemenu), quitMi);
@@ -173,6 +158,7 @@ void show_sidebar(void) {
  @return None
 *************************************************/
 void show_notebook(void) {
+    //使用notebook来管理不同页面
     notebook = gtk_notebook_new();
     gtk_notebook_set_show_tabs(GTK_NOTEBOOK(notebook), FALSE);
     gtk_notebook_set_show_border(GTK_NOTEBOOK(notebook), FALSE);
@@ -186,37 +172,38 @@ void show_notebook(void) {
  @return None
 *************************************************/
 void show_dataview(void) {
+    //notebook的第一页是数据维护页
     dataview = gtk_fixed_new();
 
     gradeInfo = gtk_image_new_from_file(MYIMAGEPATH.gradeInfoSelec);
-    GtkWidget *provincelabel = gtk_label_new("");
-    gtk_label_set_markup(GTK_LABEL(provincelabel),
+    GtkWidget *gradeInfolabel = gtk_label_new("");
+    gtk_label_set_markup(GTK_LABEL(gradeInfolabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>年级信息</span>");
-    gtk_fixed_put(GTK_FIXED(dataview), provincelabel, 540, 220);
-    GtkWidget *provincebox = gtk_event_box_new();
-    gtk_event_box_set_visible_window(GTK_EVENT_BOX(provincebox), FALSE);
-    gtk_container_add(GTK_CONTAINER(provincebox), gradeInfo);
-    gtk_fixed_put(GTK_FIXED(dataview), provincebox, 520, 100);
+    gtk_fixed_put(GTK_FIXED(dataview), gradeInfolabel, 540, 220);
+    GtkWidget *gradeInfobox = gtk_event_box_new();
+    gtk_event_box_set_visible_window(GTK_EVENT_BOX(gradeInfobox), FALSE);
+    gtk_container_add(GTK_CONTAINER(gradeInfobox), gradeInfo);
+    gtk_fixed_put(GTK_FIXED(dataview), gradeInfobox, 520, 100);
 
     classInfo = gtk_image_new_from_file(MYIMAGEPATH.classInfoNormal);
-    GtkWidget *caselabel = gtk_label_new("");
-    gtk_label_set_markup(GTK_LABEL(caselabel),
+    GtkWidget *classInfoLabel = gtk_label_new("");
+    gtk_label_set_markup(GTK_LABEL(classInfoLabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>班级信息</span>");
-    gtk_fixed_put(GTK_FIXED(dataview), caselabel, 370, 370);
-    GtkWidget *casebox = gtk_event_box_new();
-    gtk_event_box_set_visible_window(GTK_EVENT_BOX(casebox), FALSE);
-    gtk_container_add(GTK_CONTAINER(casebox), classInfo);
-    gtk_fixed_put(GTK_FIXED(dataview), casebox, 350, 250);
+    gtk_fixed_put(GTK_FIXED(dataview), classInfoLabel, 370, 370);
+    GtkWidget *classInfoBox = gtk_event_box_new();
+    gtk_event_box_set_visible_window(GTK_EVENT_BOX(classInfoBox), FALSE);
+    gtk_container_add(GTK_CONTAINER(classInfoBox), classInfo);
+    gtk_fixed_put(GTK_FIXED(dataview), classInfoBox, 350, 250);
 
     studentInfo = gtk_image_new_from_file(MYIMAGEPATH.studentInfoNormal);
-    GtkWidget *medialabel = gtk_label_new("");
-    gtk_label_set_markup(GTK_LABEL(medialabel),
+    GtkWidget *studentInfoLabel = gtk_label_new("");
+    gtk_label_set_markup(GTK_LABEL(studentInfoLabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 15'>学生信息</span>");
-    gtk_fixed_put(GTK_FIXED(dataview), medialabel, 730, 370);
-    GtkWidget *mediabox = gtk_event_box_new();
-    gtk_event_box_set_visible_window(GTK_EVENT_BOX(mediabox), FALSE);
-    gtk_container_add(GTK_CONTAINER(mediabox), studentInfo);
-    gtk_fixed_put(GTK_FIXED(dataview), mediabox, 711, 250);
+    gtk_fixed_put(GTK_FIXED(dataview), studentInfoLabel, 730, 370);
+    GtkWidget *studentInfoBox = gtk_event_box_new();
+    gtk_event_box_set_visible_window(GTK_EVENT_BOX(studentInfoBox), FALSE);
+    gtk_container_add(GTK_CONTAINER(studentInfoBox), studentInfo);
+    gtk_fixed_put(GTK_FIXED(dataview), studentInfoBox, 711, 250);
 
     GtkWidget *confirm = gtk_image_new_from_file(MYIMAGEPATH.greenButton);
     GtkWidget *confirmbox = gtk_event_box_new();
@@ -228,9 +215,9 @@ void show_dataview(void) {
                          "<span foreground='#FFFFF7' font_desc='Microsoft YaHei 19.5'>确认</span>");
     gtk_fixed_put(GTK_FIXED(dataview), confirmlabel, 569, 470);
 
-    g_signal_connect(provincebox, "button_press_event", G_CALLBACK(on_grade_clicked), NULL);
-    g_signal_connect(casebox, "button_press_event", G_CALLBACK(on_class_clicked), NULL);
-    g_signal_connect(mediabox, "button_press_event", G_CALLBACK(on_student_clicked), NULL);
+    g_signal_connect(gradeInfobox, "button_press_event", G_CALLBACK(on_grade_clicked), NULL);
+    g_signal_connect(classInfoBox, "button_press_event", G_CALLBACK(on_class_clicked), NULL);
+    g_signal_connect(studentInfoBox, "button_press_event", G_CALLBACK(on_student_clicked), NULL);
     g_signal_connect(confirmbox, "button_press_event", G_CALLBACK(on_confirm_clicked), NULL);
 
     gtk_notebook_append_page(GTK_NOTEBOOK(notebook), dataview, NULL);
@@ -243,8 +230,8 @@ void show_dataview(void) {
  @return None
 *************************************************/
 void show_queryview(void) {
+    //notebook的第二页是数据查询页
     queryview = gtk_fixed_new();
-
     GtkWidget *gradeLabel = gtk_label_new("");
     gtk_label_set_markup(GTK_LABEL(gradeLabel),
                          "<span foreground='#60646d' font_desc='Microsoft YaHei 19.5'>年级信息查询</span>");
@@ -448,6 +435,7 @@ void show_queryview(void) {
  @return None
 *************************************************/
 void show_stasticalview(void) {
+    //notebook的第三页是数据统计页
     stasticalview = gtk_fixed_new();
 
     GtkWidget *gradeTimeLabel = gtk_label_new("");
@@ -532,12 +520,7 @@ void on_data_clicked(GtkWidget *widget) {
         gtk_image_set_from_file(GTK_IMAGE(data), MYIMAGEPATH.dataSelec);
         gtk_image_set_from_file(GTK_IMAGE(query), MYIMAGEPATH.searchNormal);
         gtk_image_set_from_file(GTK_IMAGE(stastical), MYIMAGEPATH.statisticNormal);
-        if (state == 2) {
-            gtk_notebook_prev_page(GTK_NOTEBOOK(notebook));
-        } else if (state == 3) {
-            gtk_notebook_prev_page(GTK_NOTEBOOK(notebook));
-            gtk_notebook_prev_page(GTK_NOTEBOOK(notebook));
-        }
+        gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 0); //翻回到第一页(数据维护页)
         state = 1;
     }
 }
@@ -553,11 +536,7 @@ void on_query_clicked(GtkWidget *widget) {
         gtk_image_set_from_file(GTK_IMAGE(data), MYIMAGEPATH.dataNormal);
         gtk_image_set_from_file(GTK_IMAGE(query), MYIMAGEPATH.searchSelec);
         gtk_image_set_from_file(GTK_IMAGE(stastical), MYIMAGEPATH.statisticNormal);
-        if (state == 1) {
-            gtk_notebook_next_page(GTK_NOTEBOOK(notebook));
-        } else if (state == 3) {
-            gtk_notebook_prev_page(GTK_NOTEBOOK(notebook));
-        }
+        gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 1);//翻回到第二页(数据查询页)
         state = 2;
     }
 }
@@ -573,12 +552,7 @@ void on_stastical_clicked(GtkWidget *widget) {
         gtk_image_set_from_file(GTK_IMAGE(data), MYIMAGEPATH.dataNormal);
         gtk_image_set_from_file(GTK_IMAGE(query), MYIMAGEPATH.searchNormal);
         gtk_image_set_from_file(GTK_IMAGE(stastical), MYIMAGEPATH.statisticSelec);
-        if (state == 1) {
-            gtk_notebook_next_page(GTK_NOTEBOOK(notebook));
-            gtk_notebook_next_page(GTK_NOTEBOOK(notebook));
-        } else if (state == 2) {
-            gtk_notebook_next_page(GTK_NOTEBOOK(notebook));
-        }
+        gtk_notebook_set_current_page(GTK_NOTEBOOK(notebook), 2);//翻回到第三页(数据统计页)
         state = 3;
     }
 }
@@ -664,19 +638,22 @@ void on_backup_clicked(GtkWidget *widget, gpointer data) {
                                          GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
                                          NULL);
 
-    char timestr[29];
+    char timestr[30];
     time_t result = time(NULL);
     strcpy(timestr, asctime(localtime(&result)));
     timestr[10] = '\0';
-    strncat(timestr, ".txt", 4);
+    strncat(timestr, " Backup.txt", 11);
 
     gtk_file_chooser_set_do_overwrite_confirmation(GTK_FILE_CHOOSER (dialog), TRUE);
     gtk_file_chooser_set_current_name(GTK_FILE_CHOOSER (dialog), timestr);
     if (gtk_dialog_run(GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
         char *filename;
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER (dialog));
-        backupInfo(head, filename);
-        information_message_dialog("备份完成", "备份已完成。");
+        if (backupInfo(head, filename) == TRUE) {
+            information_message_dialog("备份完成", "备份已完成。");
+        } else {
+            error_message_dialog("备份失败", "可能是数据文件发生错误");
+        }
         g_free(filename);
     }
 
@@ -691,8 +668,11 @@ void on_backup_clicked(GtkWidget *widget, gpointer data) {
  @return None
 *************************************************/
 void on_save_clicked(GtkWidget *widget, gpointer data) {
-    saveInfo(head);
-    information_message_dialog("备份完成", "备份已完成。");
+    if (saveInfo(head) == TRUE) {
+        information_message_dialog("备份完成", "备份已完成。");
+    } else {
+        error_message_dialog("备份失败", "可能是数据文件发生错误");
+    }
 }
 
 /*************************************************

@@ -16,9 +16,8 @@
  */
 void deleteGradeInfo(GradeInfo head, char *str) {
     GradeInfo tail = head;
-    GradeInfo tailold = head;
     while (tail->next != NULL) {
-        tailold = tail;
+        GradeInfo tailold = tail;
         tail = tail->next;
         if (!strcmp(tail->CSNo, str)) {
             tailold->next = tail->next;
@@ -41,9 +40,8 @@ void deleteClassInfo(GradeInfo head, char *str) {
     while (tail->next != NULL) {
         tail = tail->next;
         ClassInfo tail1 = tail->Classes;
-        ClassInfo tail1old = tail1;
         while (tail1->next != NULL) {
-            tail1old = tail1;
+            ClassInfo tail1old = tail1;
             tail1 = tail1->next;
             if (!strcmp(tail1->CNo, str)) {
                 tail1old->next = tail1->next;
@@ -69,9 +67,8 @@ void deleteStudentInfo(GradeInfo head, char *str) {
         while (tail1->next != NULL) {
             tail1 = tail1->next;
             StudentInfo tail2 = tail1->Students;
-            StudentInfo tail2old = tail2;
             while (tail2->next != NULL) {
-                tail2old = tail2;
+                StudentInfo tail2old = tail2;
                 tail2 = tail2->next;
                 if (!strcmp(tail2->CNo, str)) {
                     tail2old->next = tail2->next;

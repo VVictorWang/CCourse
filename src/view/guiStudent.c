@@ -39,7 +39,7 @@ void studentInfo_method(void) {
     gtk_window_set_title(GTK_WINDOW(window), "学生信息管理");
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(main_window));
-    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+    gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
     gtk_widget_set_usize(window, 640, 480);
     gtk_window_set_modal(GTK_WINDOW(window), TRUE);
 
@@ -407,9 +407,7 @@ void on_studentInfo_modify_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "请先录入对应的年级信息！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentNoEntry)) == '\0') {
                     error_message_dialog("错误", "学号不能为空！");
-                } else if (testStudentInfo(gtk_entry_get_text(GTK_ENTRY(studentNoEntry)))) {
-                    error_message_dialog("错误", "学号已存在");
-                } else if (*gtk_entry_get_text(GTK_ENTRY(studentNameEntry)) == '\0') {
+                }  else if (*gtk_entry_get_text(GTK_ENTRY(studentNameEntry)) == '\0') {
                     error_message_dialog("错误", "学生姓名不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(studentBirthplaceEntry)) == '\0') {
                     error_message_dialog("错误", "学生籍贯不能为空！");

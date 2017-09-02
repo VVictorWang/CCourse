@@ -155,8 +155,8 @@ GtkWidget *main_window; //主窗体
 
 //函数原型声明
 int initInfo(GradeInfo *);//信息初始化函数
-void saveInfo(GradeInfo);//信息保存函数
-void backupInfo(GradeInfo, char *); //信息备份函数
+int saveInfo(GradeInfo);//信息保存函数
+int backupInfo(GradeInfo, char *); //信息备份函数
 int restoreInfo(GradeInfo *, char *);//信息恢复函数
 
 //信息录入函数
@@ -304,5 +304,6 @@ int vagueSearch(char *, char *); //模糊搜素字符串
 int getGtkWidgetListLen(GtkWidget **); //得到一个GtkWidget数组的长度
 char *intToStr(int); //int型转成字符串
 int myAtoi(const char *); //自定义的字符串转为int型
+char *getDateOfTheCalendar(GtkWidget *calendar);
 
 #endif //CCOURSE_HEAD_H

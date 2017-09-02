@@ -47,12 +47,8 @@ void on_classInfo_stastical_clicked(GtkWidget *widget) {
 
     gint resultcode = gtk_dialog_run(GTK_DIALOG(dialog));
 
-    char startdate[10], enddate[10];
-    unsigned int year = 0, month = 0, day = 0;
-    gtk_calendar_get_date(GTK_CALENDAR(startTimeCalendar), &year, &month, &day);
-    snprintf(startdate, 9, "%ud", year * 10000 + (month + 1) * 100 + day);
-    gtk_calendar_get_date(GTK_CALENDAR(endTimeCalendar), &year, &month, &day);
-    snprintf(enddate, 9, "%ud", year * 10000 + (month + 1) * 100 + day);
+    char *startdate = getDateOfTheCalendar(startTimeCalendar);
+    char *enddate = getDateOfTheCalendar(endTimeCalendar);
     gtk_widget_destroy(dialog);
     if (resultcode == GTK_RESPONSE_OK) {
 

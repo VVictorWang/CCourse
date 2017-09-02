@@ -37,7 +37,7 @@ void classInfo_method() {
     gtk_window_set_title(GTK_WINDOW(window), "班级信息管理");
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
     gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(main_window));
-    gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
+    gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
     gtk_widget_set_usize(window, 640, 480);
     gtk_window_set_modal(GTK_WINDOW(window), TRUE);
 
@@ -344,8 +344,6 @@ void on_classInfo_modify_clicked(GtkWidget *widget, gpointer data) {
                     error_message_dialog("错误", "请先录入对应的年级信息");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(classNoEntry)) == '\0') {
                     error_message_dialog("错误", "班级编号不能为空！");
-                } else if (testClassInfo(gtk_entry_get_text(GTK_ENTRY(classNoEntry)))) {
-                    error_message_dialog("错误", "班级编号已存在");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(classMajorEntry)) == '\0') {
                     error_message_dialog("错误", "班级所修的专业不能为空！");
                 } else if (*gtk_entry_get_text(GTK_ENTRY(classInNoEntry)) == '\0') {

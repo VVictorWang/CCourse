@@ -97,25 +97,31 @@ void addTreeColumnView(GtkWidget *list, GtkCellRenderer *renderer, char *columnD
                                                                             "text",
                                                                             columnNo, NULL);
     gtk_tree_view_column_set_sizing(GTK_TREE_VIEW_COLUMN(addColumn),
-                                    GTK_TREE_VIEW_COLUMN_GROW_ONLY);
+                                    GTK_TREE_VIEW_COLUMN_AUTOSIZE);
     gtk_tree_view_column_set_resizable(GTK_TREE_VIEW_COLUMN(addColumn), TRUE);
     gtk_tree_view_column_set_expand(GTK_TREE_VIEW_COLUMN(addColumn), TRUE);
     gtk_tree_view_append_column(GTK_TREE_VIEW(list), addColumn);
 }
 
-void setTableView(GtkWidget **labels, GtkWidget **entries, GtkWidget *dialog) {
-    int length = getGtkWidgetListLen(labels);
-    GtkWidget *table = gtk_table_new(length, 2, FALSE);
 
+/*************************************************
+ @name: setTableView
+ @function: set the widgets of a new table.
+ @param labels: the labels in the first column of the table
+ @param entries: the widgets in the second column of the table
+ @param dialog: the parent dialog to show the table
+ @return none
+*************************************************/
+void setTableView(GtkWidget **labels, GtkWidget **entries, GtkWidget *dialog) {
+    unsigned int length = (unsigned int) getGtkWidgetListLen(labels);
+    GtkWidget *table = gtk_table_new(length, 2, FALSE);
     unsigned int i = 0;
     for (i = 0; i < length; i++) {
         gtk_table_attach_defaults(GTK_TABLE(table), labels[i], 0, 1, i, i + 1);
         gtk_table_attach_defaults(GTK_TABLE(table), entries[i], 1, 2, i, i + 1);
     }
-
     gtk_table_set_row_spacings(GTK_TABLE(table), 5);
     gtk_table_set_col_spacings(GTK_TABLE(table), 5);
     gtk_container_set_border_width(GTK_CONTAINER(table), 5);
-
     gtk_box_pack_start_defaults(GTK_BOX(GTK_DIALOG(dialog)->vbox), table);
 }
