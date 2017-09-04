@@ -17,10 +17,10 @@ int testGradeInfo(const char *str) {
     while (tail->next != NULL) {
         tail = tail->next;
         if (!strcmp(str, tail->CSNo)) {
-            return 1;
+            return TRUE;
         }
     }
-    return 0;
+    return FALSE;
 }
 
 /**
@@ -36,11 +36,11 @@ int testClassInfo(const char *str) {
         ClassInfo classNode = tail->Classes;
         while ((classNode = classNode->next) != NULL) {
             if (!strcmp(str, classNode->CNo)) {
-                return 1;
+                return TRUE;
             }
         }
     }
-    return 0;
+    return FALSE;
 }
 
 /**
@@ -58,10 +58,10 @@ int testStudentInfo(const char *str) {
             StudentInfo studentNode = classNode->Students;
             while ((studentNode = studentNode->next) != NULL) {
                 if (!strcmp(str, studentNode->CNo)) {
-                    return 1;
+                    return TRUE;
                 }
             }
         }
     }
-    return 0;
+    return FALSE;
 }

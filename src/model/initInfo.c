@@ -78,7 +78,7 @@ int initInfo(GradeInfo *phead) {
         return -4; //学生信息文件打开失败
 
     tail = *phead;
-    while (fscanf(sp, "%s", temp) != EOF) {
+    while (fscanf(sp, "%15s", temp) != EOF) {
         flag = 0;
         while (tail->next != NULL) {
             tail = tail->next;

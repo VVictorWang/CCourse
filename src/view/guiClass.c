@@ -36,9 +36,11 @@ void classInfo_method() {
     g_object_unref(pixbuf), pixbuf = NULL;
     gtk_window_set_title(GTK_WINDOW(window), "班级信息管理");
     gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER_ON_PARENT);
+    //设置弹出的表格在主窗口之上
     gtk_window_set_transient_for(GTK_WINDOW(window), GTK_WINDOW(main_window));
     gtk_window_set_resizable(GTK_WINDOW(window), TRUE);
     gtk_widget_set_usize(window, 640, 480);
+    //设置弹出的表格不受其他窗体影响，不与其他窗体相互作用
     gtk_window_set_modal(GTK_WINDOW(window), TRUE);
 
     GtkWidget *addbtn = gtk_button_new_with_label("录入");

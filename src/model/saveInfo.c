@@ -28,6 +28,9 @@ int saveInfo(GradeInfo head) {
         if (fprintf(fgrade, "%s %s %d %d %s %s %s %s\n", tail->CSNo, tail->Year, tail->InNo,
                     tail->GraduateNo,
                     tail->MentorName, tail->MentorNo, tail->ChairmanName, tail->ChairmanNo) == -1) {
+            fclose(fgrade);
+            fclose(fclass);
+            fclose(fstudent);
             return FALSE;
         }
         ClassInfo tail1 = tail->Classes;
@@ -38,6 +41,9 @@ int saveInfo(GradeInfo head) {
                         tail1->InNo, tail1->AverageAge, tail1->GraduateNo, tail1->MonitorName,
                         tail1->MonitorNo,
                         tail1->MentorName, tail1->MentorNo) == -1) {
+                fclose(fgrade);
+                fclose(fclass);
+                fclose(fstudent);
                 return FALSE;
             }
             StudentInfo tail2 = tail1->Students;
@@ -48,6 +54,9 @@ int saveInfo(GradeInfo head) {
                             tail2->sex, tail2->Birthplace, tail2->Birthday, tail2->Number,
                             tail2->InScore,
                             tail2->HasGraduated, tail2->GraduateTo) == -1) {
+                    fclose(fgrade);
+                    fclose(fclass);
+                    fclose(fstudent);
                     return FALSE;
                 }
             }
@@ -80,6 +89,7 @@ int backupInfo(GradeInfo head, char *filename) {
         if (fprintf(p, "%d %s %s %d %d %s %s %s %s\n", 1, tail->CSNo, tail->Year, tail->InNo,
                     tail->GraduateNo,
                     tail->MentorName, tail->MentorNo, tail->ChairmanName, tail->ChairmanNo) == -1) {
+            fclose(p);
             return FALSE;
         }
         ClassInfo tail1 = tail->Classes;
@@ -91,6 +101,7 @@ int backupInfo(GradeInfo head, char *filename) {
                         tail1->InNo, tail1->AverageAge, tail1->GraduateNo, tail1->MonitorName,
                         tail1->MonitorNo,
                         tail1->MentorName, tail1->MentorNo) == -1) {
+                fclose(p);
                 return FALSE;
             }
             StudentInfo tail2 = tail1->Students;
@@ -102,6 +113,7 @@ int backupInfo(GradeInfo head, char *filename) {
                             tail2->sex, tail2->Birthplace, tail2->Birthday, tail2->Number,
                             tail2->InScore,
                             tail2->HasGraduated, tail2->GraduateTo) == -1) {
+                    fclose(p);
                     return FALSE;
                 }
             }
