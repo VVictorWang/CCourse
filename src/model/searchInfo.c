@@ -24,12 +24,11 @@ GradeInfo searchGradeInfoByNo(GradeInfo phead, char *gradeNo) {
     while (tail->next != NULL) {
         tail = tail->next;
         if (vagueSearch(tail->CSNo, gradeNo)) {
-            p->next = tail;
+            p->next = copyGradeInfo(tail);
             p = p->next;
         }
     }
     p->next = NULL;
-    initInfo(&head); //重新加载主链表，因为上述操作已经使主链表发生改变
     return result;
 }
 
@@ -44,6 +43,12 @@ GradeInfo searchGradeInfoByNo(GradeInfo phead, char *gradeNo) {
 GradeInfo searchGradeInfoByTime(GradeInfo phead, char *start, char *end) {
     long starttime = atol(start);
     long endtime = atol(end);
+    if (start[0] == '\0') {
+        starttime = 0;
+    }
+    if (end[0] == '\0') {
+        endtime = 99999999;
+    }
     GradeInfo node = phead;
     GradeInfo p = (GradeInfo) malloc(sizeof(GRADEInfo));
     p->next = NULL;
@@ -51,12 +56,11 @@ GradeInfo searchGradeInfoByTime(GradeInfo phead, char *start, char *end) {
     while ((node = node->next) != NULL) {
         long time = atol(node->Year);
         if (time >= starttime && time <= endtime) {
-            p->next = node;
+            p->next = copyGradeInfo(node);
             p = p->next;
         }
     }
     p->next = NULL;
-    initInfo(&head);
     return result;
 }
 
@@ -85,12 +89,11 @@ GradeInfo searchGradeInfoByPeople(GradeInfo phead, char *min, char *max) {
     while ((node = node->next) != NULL) {
         int number = node->InNo;
         if (number >= minNo && number <= maxNo) {
-            p->next = node;
+            p->next = copyGradeInfo(node);
             p = p->next;
         }
     }
     p->next = NULL;
-    initInfo(&head);
     return result;
 }
 
@@ -111,13 +114,12 @@ ClassInfo searchClassInfoByNo(char *number) {
         ClassInfo classHead = tail->Classes;
         while ((classHead = classHead->next) != NULL) {
             if (vagueSearch(classHead->CNo, number)) {
-                p->next = classHead;
+                p->next = copyClassInfo(classHead);
                 p = p->next;
             }
         }
     }
     p->next = NULL;
-    initInfo(&head);
     return result;
 
 }
@@ -139,13 +141,12 @@ ClassInfo searchClassInfoByMajor(char *major) {
         ClassInfo classHead = tail->Classes;
         while ((classHead = classHead->next) != NULL) {
             if (vagueSearch(classHead->Major, major)) {
-                p->next = classHead;
+                p->next = copyClassInfo(classHead);
                 p = p->next;
             }
         }
     }
     p->next = NULL;
-    initInfo(&head);
     return result;
 }
 
@@ -160,6 +161,12 @@ ClassInfo searchClassInfoByMajor(char *major) {
 ClassInfo searchClassInfoByPeople(char *min, char *max) {
     long minNo = atol(min);
     long maxNo = atol(max);
+    if (min[0] == '\0') {
+        minNo = 0;
+    }
+    if (max[0] == '\0') {
+        maxNo = 999999;
+    }
     GradeInfo tail = head;
     ClassInfo p = (ClassInfo) malloc(sizeof(CLASSInfo));
     p->next = NULL;
@@ -170,13 +177,12 @@ ClassInfo searchClassInfoByPeople(char *min, char *max) {
         while ((classHead = classHead->next) != NULL) {
             int number = classHead->InNo;
             if (number >= minNo && number <= maxNo) {
-                p->next = classHead;
+                p->next = copyClassInfo(classHead);
                 p = p->next;
             }
         }
     }
     p->next = NULL;
-    initInfo(&head);
     return result;
 }
 
@@ -197,13 +203,12 @@ ClassInfo searchClassInfoByMentorName(char *mentorName) {
         ClassInfo classHead = tail->Classes;
         while ((classHead = classHead->next) != NULL) {
             if (vagueSearch(classHead->MentorName, mentorName)) {
-                p->next = classHead;
+                p->next = copyClassInfo(classHead);
                 p = p->next;
             }
         }
     }
     p->next = NULL;
-    initInfo(&head);
     return result;
 }
 
@@ -226,14 +231,13 @@ StudentInfo searchStudentInfoByName(char *name) {
             StudentInfo studentHead = classHead->Students;
             while ((studentHead = studentHead->next) != NULL) {
                 if (vagueSearch(studentHead->Name, name)) {
-                    p->next = studentHead;
+                    p->next = copyStudentInfo(studentHead);
                     p = p->next;
                 }
             }
         }
     }
     p->next = NULL;
-    initInfo(&head);
     return result;
 }
 
@@ -257,14 +261,13 @@ StudentInfo searchStudentInfoByMajor(char *major) {
             StudentInfo studentHead = classHead->Students;
             while ((studentHead = studentHead->next) != NULL) {
                 if (vagueSearch(classHead->Major, major)) {
-                    p->next = studentHead;
+                    p->next = copyStudentInfo(studentHead);
                     p = p->next;
                 }
             }
         }
     }
     p->next = NULL;
-    initInfo(&head);
     return result;
 }
 
@@ -278,6 +281,12 @@ StudentInfo searchStudentInfoByMajor(char *major) {
 StudentInfo searchStudentInfoByInTime(char *start, char *end) {
     long starttime = atol(start);
     long endtime = atol(end);
+    if (start[0] == '\0') {
+        starttime = 0;
+    }
+    if (end[0] == '\0') {
+        endtime = 99999999;
+    }
     GradeInfo tail = head;
     StudentInfo p = (StudentInfo) malloc(sizeof(STUDENTInfo));
     p->next = NULL;
@@ -290,14 +299,13 @@ StudentInfo searchStudentInfoByInTime(char *start, char *end) {
             while ((studentHead = studentHead->next) != NULL) {
                 long time = atol(tail->Year);
                 if (time >= starttime && time <= endtime) {
-                    p->next = studentHead;
+                    p->next = copyStudentInfo(studentHead);
                     p = p->next;
                 }
             }
         }
     }
     p->next = NULL;
-    initInfo(&head);
     return result;
 }
 
@@ -312,6 +320,12 @@ StudentInfo searchStudentInfoByInTime(char *start, char *end) {
 StudentInfo searchStudentInfoByAge(char *min, char *max) {
     int minAge = myAtoi(min);
     int maxAge = myAtoi(max);
+    if (min[0] == '\0') {
+        minAge = 0;
+    }
+    if (max[0] == '\0') {
+        maxAge = 100;
+    }
     GradeInfo tail = head;
     StudentInfo p = (StudentInfo) malloc(sizeof(STUDENTInfo));
     p->next = NULL;
@@ -324,14 +338,13 @@ StudentInfo searchStudentInfoByAge(char *min, char *max) {
             while ((studentHead = studentHead->next) != NULL) {
                 int age = getAgeByBirthDay(studentHead->Birthday);
                 if (age >= minAge && age <= maxAge) {
-                    p->next = studentHead;
+                    p->next = copyStudentInfo(studentHead);
                     p = p->next;
                 }
             }
         }
     }
     p->next = NULL;
-    initInfo(&head);
     return result;
 }
 
@@ -354,14 +367,13 @@ StudentInfo searchStudentInfoGraduate(char isGraduarted) {
             StudentInfo studentHead = classHead->Students;
             while ((studentHead = studentHead->next) != NULL) {
                 if (studentHead->HasGraduated == isGraduarted) {
-                    p->next = studentHead;
+                    p->next = copyStudentInfo(studentHead);
                     p = p->next;
                 }
             }
         }
     }
     p->next = NULL;
-    initInfo(&head);
     return result;
 }
 
@@ -383,13 +395,12 @@ StudentInfo searchStudentInfoByGradTo(char *gradTo) {
             StudentInfo studentHead = classHead->Students;
             while ((studentHead = studentHead->next) != NULL) {
                 if (vagueSearch(studentHead->GraduateTo, gradTo)) {
-                    p->next = studentHead;
+                    p->next = copyStudentInfo(studentHead);
                     p = p->next;
                 }
             }
         }
     }
     p->next = NULL;
-    initInfo(&head);
     return result;
 }

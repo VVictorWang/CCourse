@@ -15,17 +15,20 @@
  * @details: the students' information and the classes' information of the grade will be lost
  */
 void deleteGradeInfo(GradeInfo head, char *str) {
-    GradeInfo tail = head;
-    while (tail->next != NULL) {
-        GradeInfo tailold = tail;
-        tail = tail->next;
-        if (!strcmp(tail->CSNo, str)) {
-            tailold->next = tail->next;
-            tail->next = NULL;
+    GradeInfo gradeTail = head;
+    while (gradeTail->next != NULL) {
+        GradeInfo gradeTailOld = gradeTail;
+        gradeTail = gradeTail->next;
+        if (!strcmp(gradeTail->CSNo, str)) {
+            gradeTailOld->next = gradeTail->next;
+            gradeTail->next = NULL;
+            freeAllClasses(gradeTail->Classes);
+            free(gradeTail);
             break;
         }
     }
 }
+
 
 /**
  * @name deleteClassInfo
@@ -36,16 +39,18 @@ void deleteGradeInfo(GradeInfo head, char *str) {
  * @details: the students' information of the class will be lost
  */
 void deleteClassInfo(GradeInfo head, char *str) {
-    GradeInfo tail = head;
-    while (tail->next != NULL) {
-        tail = tail->next;
-        ClassInfo tail1 = tail->Classes;
-        while (tail1->next != NULL) {
-            ClassInfo tail1old = tail1;
-            tail1 = tail1->next;
-            if (!strcmp(tail1->CNo, str)) {
-                tail1old->next = tail1->next;
-                tail1->next = NULL;
+    GradeInfo gradeTail = head;
+    while (gradeTail->next != NULL) {
+        gradeTail = gradeTail->next;
+        ClassInfo classTail = gradeTail->Classes;
+        while (classTail->next != NULL) {
+            ClassInfo classTailOld = classTail;
+            classTail = classTail->next;
+            if (!strcmp(classTail->CNo, str)) {
+                classTailOld->next = classTail->next;
+                classTail->next = NULL;
+                freeAllStudents(classTail->Students);
+                free(classTail);
                 return;
             }
         }
@@ -60,22 +65,52 @@ void deleteClassInfo(GradeInfo head, char *str) {
  * @return none
  */
 void deleteStudentInfo(GradeInfo head, char *str) {
-    GradeInfo tail = head;
-    while (tail->next != NULL) {
-        tail = tail->next;
-        ClassInfo tail1 = tail->Classes;
-        while (tail1->next != NULL) {
-            tail1 = tail1->next;
-            StudentInfo tail2 = tail1->Students;
-            while (tail2->next != NULL) {
-                StudentInfo tail2old = tail2;
-                tail2 = tail2->next;
-                if (!strcmp(tail2->CNo, str)) {
-                    tail2old->next = tail2->next;
-                    tail2->next = NULL;
+    GradeInfo gradeTail = head;
+    while (gradeTail->next != NULL) {
+        gradeTail = gradeTail->next;
+        ClassInfo classTail = gradeTail->Classes;
+        while (classTail->next != NULL) {
+            classTail = classTail->next;
+            StudentInfo studentTail = classTail->Students;
+            while (studentTail->next != NULL) {
+                StudentInfo studentTailOld = studentTail;
+                studentTail = studentTail->next;
+                if (!strcmp(studentTail->CNo, str)) {
+                    studentTailOld->next = studentTail->next;
+                    studentTail->next = NULL;
+                    free(studentTail);
                     return;
                 }
             }
         }
+    }
+}
+
+/**
+ * @name freeAllClasses
+ * @function free all of the classInfo nodes
+ * @param node: the head of the classInfo lists
+ * @return none
+ */
+void freeAllClasses(ClassInfo node){
+    ClassInfo classNode = node;
+    while ((classNode = classNode->next) != NULL) {
+        ClassInfo temp = classNode;
+        freeAllStudents(classNode->Students);
+        free(temp);
+    }
+}
+
+/**
+ * @name freeAllStudents
+ * @function free all of the studentInfo nodes
+ * @param node: the head of the studentInfo lists
+ * @return none
+ */
+void freeAllStudents(StudentInfo node){
+    StudentInfo studentNode = node;
+    while ((studentNode = studentNode->next) != NULL) {
+        StudentInfo temp = studentNode;
+        free(temp);
     }
 }

@@ -40,6 +40,67 @@ int getAgeByBirthDay(char *birthday) {
 }
 
 /**
+ * @name copyGradeInfo
+ * @function copy the given gradeInfo date field to a new gradeInfo
+ * @param src: the source gradeInfo
+ * @return the copied gradeInfo
+ */
+GradeInfo copyGradeInfo(GradeInfo src) {
+    GradeInfo result = (GradeInfo) malloc(sizeof(GRADEInfo));
+    strcpy(result->CSNo, src->CSNo);
+    strcpy(result->Year, src->Year);
+    result->InNo = src->InNo;
+    result->GraduateNo = src->GraduateNo;
+    strcpy(result->MentorName, src->MentorName);
+    strcpy(result->MentorNo, src->MentorNo);
+    strcpy(result->ChairmanName, src->ChairmanName);
+    strcpy(result->ChairmanNo, src->ChairmanNo);
+    return result;
+}
+
+/**
+ * @name copyClassInfo
+ * @function copy the given classInfo date field to a new gradeInfo
+ * @param src: the source classInfo
+ * @return the copied classInfo
+ */
+ClassInfo copyClassInfo(ClassInfo src) {
+    ClassInfo result = (ClassInfo) malloc(sizeof(CLASSInfo));
+    strcpy(result->GradeNo, src->GradeNo);
+    strcpy(result->CNo, src->CNo);
+    strcpy(result->Major, src->Major);
+    result->InNo = src->InNo;
+    result->AverageAge = src->AverageAge;
+    result->GraduateNo = src->GraduateNo;
+    strcpy(result->MonitorName, src->MonitorName);
+    strcpy(result->MonitorNo, src->MonitorNo);
+    strcpy(result->MentorName, src->MentorName);
+    strcpy(result->MentorNo, src->MentorNo);
+    return result;
+}
+
+/**
+ * @name copyStudentInfo
+ * @function copy the given studentInfo date field to a new gradeInfo
+ * @param src: the source studentInfo
+ * @return the copied studentInfo
+ */
+StudentInfo copyStudentInfo(StudentInfo src) {
+    StudentInfo result = (StudentInfo) malloc(sizeof(STUDENTInfo));
+    strcpy(result->ClassNo, src->ClassNo);
+    strcpy(result->CNo, src->CNo);
+    strcpy(result->Name, src->Name);
+    result->sex = src->sex;
+    strcpy(result->Birthday, src->Birthday);
+    strcpy(result->Birthplace, src->Birthplace);
+    strcpy(result->Number, src->Number);
+    result->InScore = src->InScore;
+    result->HasGraduated = src->HasGraduated;
+    strcpy(result->GraduateTo, src->GraduateTo);
+    return result;
+}
+
+/**
  * @name strsub
  * @function get the src string's substring by a start index and a end index
  * @param src: the src string

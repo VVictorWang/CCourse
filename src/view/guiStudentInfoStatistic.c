@@ -33,7 +33,6 @@ void on_studentInfo_stastical_clicked(GtkWidget *widget) {
                                                     GTK_RESPONSE_OK, GTK_STOCK_CANCEL,
                                                     GTK_RESPONSE_CANCEL, NULL);
     gtk_window_set_icon(GTK_WINDOW(dialog), pixbuf);
-    g_object_unref(pixbuf), pixbuf = NULL;
 
     GtkWidget *startlabel = gtk_label_new("开始年份：");
     GtkWidget *endlabel = gtk_label_new("截止年份：");

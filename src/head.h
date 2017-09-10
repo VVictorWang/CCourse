@@ -176,6 +176,8 @@ void changeStudentInfo(GradeInfo, char *, const char **);//学生信息修改函
 void deleteGradeInfo(GradeInfo, char *);//年级信息删除函数
 void deleteClassInfo(GradeInfo, char *);//班级信息删除函数
 void deleteStudentInfo(GradeInfo, char *);//学生信息删除函数
+void freeAllClasses(ClassInfo); //释放已给定ClassInfo为头结点的所有的ClassInfo节点
+void freeAllStudents(StudentInfo); //释放已给定studentInfo为头结点的所有的StudentInfo节点
 
 //信息查询函数
 GradeInfo searchGradeInfoByNo(GradeInfo, char *);//年级信息查询函数,通过年级编号
@@ -299,6 +301,9 @@ void setTableView(GtkWidget **, GtkWidget **, GtkWidget *); //设置table中的�
 
 //数据辅助类函数
 int getAgeByBirthDay(char *); //通过生日得到年龄
+GradeInfo copyGradeInfo(GradeInfo); //复制GradeInfo的数据域
+ClassInfo copyClassInfo(ClassInfo); //复制ClassInfo的数据域
+StudentInfo copyStudentInfo(StudentInfo); //复制StudentInfo的数据域
 char *strsub(char *, int, int); //得到给定字符串的子串
 int vagueSearch(char *, char *); //模糊搜素字符串
 int getGtkWidgetListLen(GtkWidget **); //得到一个GtkWidget数组的长度

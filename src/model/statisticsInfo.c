@@ -17,11 +17,20 @@ GradeInfoByTime countGradeInfoByTime(char *start, char *end) {
     GradeInfoByTime p = (GradeInfoByTime) malloc(sizeof(GRADEInfobyTime));
     p->next = NULL;
     GradeInfoByTime result = p;
-    long startTime = atol(start);
-    long endTime = atol(end);
+    int startTime, endTime;
+    if (start[0] == '\0') {
+        startTime = 0;
+    } else {
+        startTime = myAtoi(start);
+    }
+    if (end[0] == '\0') {
+        endTime = 99999999;
+    } else {
+        endTime = myAtoi(end);
+    }
     GradeInfo gradeNode = head;
     while ((gradeNode = gradeNode->next) != NULL) {
-        long year = atol(gradeNode->Year);
+        int year = myAtoi(gradeNode->Year);
         if (year >= startTime && year <= endTime) {
             p->next = (GradeInfoByTime) malloc(sizeof(GRADEInfobyTime));
             p = p->next;
@@ -49,13 +58,22 @@ ClassInfoByTime countClassInfoByTime(char *start, char *end) {
     ClassInfoByTime p = (ClassInfoByTime) malloc(sizeof(CLASSInfobyTime));
     p->next = NULL;
     ClassInfoByTime result = p;
-    long startTime = atol(start);
-    long endTime = atol(end);
+    int startTime, endTime;
+    if (start[0] == '\0') {
+        startTime = 0;
+    } else {
+        startTime = myAtoi(start);
+    }
+    if (end[0] == '\0') {
+        endTime = 99999999;
+    } else {
+        endTime = myAtoi(end);
+    }
     GradeInfo gradeNode = head;
     while ((gradeNode = gradeNode->next) != NULL) {
         ClassInfo classNode = gradeNode->Classes;
         while ((classNode = classNode->next) != NULL) {
-            long year = atol(gradeNode->Year);
+            int year = myAtoi(gradeNode->Year);
             if (year >= startTime && year <= endTime) {
                 p->next = (ClassInfoByTime) malloc(sizeof(CLASSInfobyTime));
                 p = p->next;
@@ -82,8 +100,17 @@ StudentInfoByTime countStudentInfoByTime(char *start, char *end) {
     StudentInfoByTime p = (StudentInfoByTime) malloc(sizeof(STUDENTinfobyTime));
     p->next = NULL;
     StudentInfoByTime result = p;
-    int startTime = atoi(start);
-    int endTime = atoi(end);
+    int startTime, endTime;
+    if (start[0] == '\0') {
+        startTime = 0;
+    } else {
+        startTime = myAtoi(start);
+    }
+    if (end[0] == '\0') {
+        endTime = 99999999;
+    } else {
+        endTime = myAtoi(end);
+    }
     int flag = 0;
     GradeInfo gradeNode = head;
     while ((gradeNode = gradeNode->next) != NULL) {
@@ -129,8 +156,17 @@ StudentInfoByYear countStudentInfoByYear(char *start, char *end) {
     p->next = NULL;
     StudentInfoByYear result = p;
     GradeInfo gradeNode = head;
-    int startTime = myAtoi(start);
-    int endTime = myAtoi(end);
+    int startTime, endTime;
+    if (start[0] == '\0') {
+        startTime = 0;
+    } else {
+        startTime = myAtoi(start);
+    }
+    if (end[0] == '\0') {
+        endTime = 9999;
+    } else {
+        endTime = myAtoi(end);
+    }
     int flag = 0;
     while ((gradeNode = gradeNode->next) != NULL) {
         ClassInfo classNode = gradeNode->Classes;
