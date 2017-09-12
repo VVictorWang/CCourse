@@ -135,46 +135,46 @@ int restoreInfo(GradeInfo *phead, char *filename) {
         return -1; //文件打开失败
     }
     GradeInfo head = (GradeInfo) malloc(sizeof(GRADEInfo));
-    GradeInfo tail = head;
-    tail->next = NULL;
+    GradeInfo gradeTail = head;
+    gradeTail->next = NULL;
     int num;
     char temp[21];
     while (fscanf(pf, "%d", &num) != EOF) {
         if (num == 1) {
-            tail = head;
-            while (tail->next != NULL)
-                tail = tail->next;
-            tail->next = (GradeInfo) malloc(sizeof(GRADEInfo));
-            tail = tail->next;
-            fscanf(pf, "%6s%10s%d%d%16s%12s%16s%12s", tail->CSNo, tail->Year, &(tail->InNo),
-                   &(tail->GraduateNo),
-                   tail->MentorName, tail->MentorNo, tail->ChairmanName, tail->ChairmanNo);
-            tail->Classes = (ClassInfo) malloc(sizeof(CLASSInfo));
-            tail->Classes->next = NULL;
-            tail->next = NULL;
+            gradeTail = head;
+            while (gradeTail->next != NULL)
+                gradeTail = gradeTail->next;
+            gradeTail->next = (GradeInfo) malloc(sizeof(GRADEInfo));
+            gradeTail = gradeTail->next;
+            fscanf(pf, "%6s%10s%d%d%16s%12s%16s%12s", gradeTail->CSNo, gradeTail->Year, &(gradeTail->InNo),
+                   &(gradeTail->GraduateNo),
+                   gradeTail->MentorName, gradeTail->MentorNo, gradeTail->ChairmanName, gradeTail->ChairmanNo);
+            gradeTail->Classes = (ClassInfo) malloc(sizeof(CLASSInfo));
+            gradeTail->Classes->next = NULL;
+            gradeTail->next = NULL;
         } else if (num == 2) {
             flag = 0;
-            tail = head;
+            gradeTail = head;
             fscanf(pf, "%20s", temp);
-            while (tail->next != NULL) {
-                tail = tail->next;
-                if (!strcmp(temp, tail->CSNo)) {
+            while (gradeTail->next != NULL) {
+                gradeTail = gradeTail->next;
+                if (!strcmp(temp, gradeTail->CSNo)) {
                     flag = 1;
-                    ClassInfo tail1 = tail->Classes;
-                    while (tail1->next != NULL)
-                        tail1 = tail1->next;
-                    tail1->next = (ClassInfo) malloc(sizeof(CLASSInfo));
-                    tail1 = tail1->next;
-                    strcpy(tail1->GradeNo, temp);
-                    fscanf(pf, "%6s%8s%30s%d%f%d%16s%12s%16s%12s", tail1->GradeNo, tail1->CNo,
-                           tail1->Major,
-                           &(tail1->InNo), &(tail1->AverageAge), &(tail1->GraduateNo),
-                           tail1->MonitorName,
-                           tail1->MonitorNo,
-                           tail1->MentorName, tail1->MentorNo);
-                    tail1->Students = (StudentInfo) malloc(sizeof(STUDENTInfo));
-                    tail1->Students->next = NULL;
-                    tail1->next = NULL;
+                    ClassInfo classTail = gradeTail->Classes;
+                    while (classTail->next != NULL)
+                        classTail = classTail->next;
+                    classTail->next = (ClassInfo) malloc(sizeof(CLASSInfo));
+                    classTail = classTail->next;
+                    strcpy(classTail->GradeNo, temp);
+                    fscanf(pf, "%8s%30s%d%f%d%16s%12s%16s%12s", classTail->CNo,
+                           classTail->Major,
+                           &(classTail->InNo), &(classTail->AverageAge), &(classTail->GraduateNo),
+                           classTail->MonitorName,
+                           classTail->MonitorNo,
+                           classTail->MentorName, classTail->MentorNo);
+                    classTail->Students = (StudentInfo) malloc(sizeof(STUDENTInfo));
+                    classTail->Students->next = NULL;
+                    classTail->next = NULL;
                     break;
                 }
             }
@@ -185,29 +185,30 @@ int restoreInfo(GradeInfo *phead, char *filename) {
             }
         } else if (num == 3) {
             flag = 0;
-            tail = head;
-            ClassInfo tail1 = NULL;
+            gradeTail = head;
+            ClassInfo classTail = NULL;
             fscanf(pf, "%20s", temp);
-            while (tail->next != NULL) {
-                tail = tail->next;
-                tail1 = tail->Classes;
-                while (tail1->next != NULL) {
-                    tail1 = tail1->next;
-                    if (!strcmp(tail1->CNo, temp)) {
+            while (gradeTail->next != NULL) {
+                gradeTail = gradeTail->next;
+                classTail = gradeTail->Classes;
+                while (classTail->next != NULL) {
+                    classTail = classTail->next;
+                    if (!strcmp(classTail->CNo, temp)) {
                         flag = 1;
-                        StudentInfo tail2 = tail1->Students;
-                        while (tail2->next != NULL)
-                            tail2 = tail2->next;
-                        tail2->next = (StudentInfo) malloc(sizeof(STUDENTInfo));
-                        tail2 = tail2->next;
-                        strcpy(tail2->ClassNo, temp);
-                        fscanf(pf, "%8s%12s%16s%c%16s%10s%12s%f%c%20s", tail2->ClassNo, tail2->CNo,
-                               tail2->Name,
-                               &(tail2->sex), tail2->Birthplace, tail2->Birthday, tail2->Number,
-                               &(tail2->InScore),
-                               &(tail2->HasGraduated), tail2->GraduateTo);
-                        tail2->next = NULL;
-                        tail = head;
+                        StudentInfo studentTail = classTail->Students;
+                        while (studentTail->next != NULL)
+                            studentTail = studentTail->next;
+                        studentTail->next = (StudentInfo) malloc(sizeof(STUDENTInfo));
+                        studentTail = studentTail->next;
+                        strcpy(studentTail->ClassNo, temp);
+                        char space;
+                        fscanf(pf, "%12s%16s%c%c%16s%10s%12s%f%c%c%20s", studentTail->CNo,
+                               studentTail->Name,&space,
+                               &(studentTail->sex), studentTail->Birthplace, studentTail->Birthday, studentTail->Number,
+                               &(studentTail->InScore),&space,
+                               &(studentTail->HasGraduated), studentTail->GraduateTo);
+                        studentTail->next = NULL;
+                        gradeTail = head;
                         break;
                     }
                 }

@@ -93,10 +93,11 @@ void deleteStudentInfo(GradeInfo head, char *str) {
  * @return none
  */
 void freeAllClasses(ClassInfo node){
-    ClassInfo classNode = node;
-    while ((classNode = classNode->next) != NULL) {
+    ClassInfo classNode = node->next;
+    while (classNode  != NULL) {
         ClassInfo temp = classNode;
         freeAllStudents(classNode->Students);
+        classNode = temp->next;
         free(temp);
     }
 }
@@ -108,9 +109,10 @@ void freeAllClasses(ClassInfo node){
  * @return none
  */
 void freeAllStudents(StudentInfo node){
-    StudentInfo studentNode = node;
-    while ((studentNode = studentNode->next) != NULL) {
+    StudentInfo studentNode = node->next;
+    while (studentNode  != NULL) {
         StudentInfo temp = studentNode;
+        studentNode = temp->next;
         free(temp);
     }
 }
